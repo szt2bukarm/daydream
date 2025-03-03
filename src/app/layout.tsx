@@ -4,6 +4,8 @@ import "./globals.css";
 import TransitionLink from "./components/TransitionLink";
 import Render from './components/Render'
 import FadeLayer from "./components/FadeLayer";
+import Nav from "./components/Nav/Nav";
+import SmoothScroll from "./components/SmoothScroll";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,13 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        <div style={{color:"white",position: "absolute",top:"1%",left:"50%",transform:"translate(-50%,-50%)",zIndex:10}}>
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+        {/* <div style={{color:"white",position: "absolute",top:"1%",left:"50%",transform:"translate(-50%,-50%)",zIndex:10}}>
             <TransitionLink href="/oldal">oldal</TransitionLink>
             <TransitionLink href="/">fing</TransitionLink>
-        </div>
-        <FadeLayer />
-        <Render />
+        </div> */}
+        <Nav />
+        {/* <FadeLayer /> */}
+        {/* <Render /> */}
       </body>
     </html>
   );
