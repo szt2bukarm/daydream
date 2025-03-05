@@ -1,0 +1,36 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    flex-direction: column;
+    background-color: #080808;
+    padding-top: 150px;
+    overflow: hidden;
+    height: 2000px;
+}
+
+.textHide {
+    overflow: hidden;
+    height: 59px;
+}
+
+.textWrapper{
+    width: 911px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 85px;
+}
+
+
+.text{
+    display: inline-block;
+    color: #D9D9D9;
+    font-family: "Acumin Pro Wide";
+    font-size: 49px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    margin-right: 10px;
+}

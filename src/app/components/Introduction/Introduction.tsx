@@ -61,10 +61,12 @@ export default function Introduction() {
     },[])
 
     useGSAP(() => {
+        const height = window.innerHeight
+        console.log(height)
         ScrollTrigger.create({
             trigger: `.${styles.imageWrapper}`,
             start: '80% 80%',
-            end: 'bottom+=2000 80%',
+            end: `bottom+=${height} 80%`,
             markers: false,
             pin: `.${styles.imageWrapper}`,
         })

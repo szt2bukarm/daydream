@@ -6,16 +6,16 @@ import Render from "./components/Render";
 import ScrollVelocity from "./components/ScrollText/ScrollText";
 import Hero from "./components/Hero/Hero";
 import Introduction from "./components/Introduction/Introduction";
+import FloatingCards from "./components/FloatingCards/FloatingCards";
+import Features from "./components/Features/Features";
 
 export default function Home() {
   return (
     <div>
       <Hero />
       <Introduction />
-      <div style={{background:"#161616",minHeight:"100%",width:"100vw",position:"relative"}}>
-      <GradientWave />
-      <ScrollVelocity texts={["SHARE CONNECT"]}className="scrollText" velocity={350}/>
-      </div>
+      <FloatingCards />
+      <Features />
     </div>
   )
 }
