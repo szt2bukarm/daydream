@@ -1,0 +1,120 @@
+.wrapper{
+    position: relative;
+    width: 184px;
+    height: 184px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 11px;
+    backdrop-filter: blur(0px);
+    border-radius: 1px;
+}
+
+.wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1px; 
+    padding: 1px; 
+    background:linear-gradient(45deg,rgb(196, 196, 196), transparent, rgb(201, 201, 201)); 
+    mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    mask-composite: exclude; 
+    z-index: -1;
+}
+
+
+.users{
+    display: flex;
+    z-index: 2;
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: -8px;
+    border-radius: 918.809px;
+    border: 1px solid #fff;
+    box-shadow: 0px 0.919px 0.919px -0.459px var(--elevation-shadow, rgba(0, 0, 0, 0.04)), 0px 2.756px 2.756px -1.378px var(--elevation-shadow, rgba(0, 0, 0, 0.04));
+    overflow: hidden;
+}
+
+.userImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.userSVG{
+    width: 70%;
+    height: 70%;
+    transform: translate(0.5px,1.75px);
+}
+
+.userInitials{
+    color: #fff;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 11.026px;
+    font-style: normal;
+    font-weight: var(--font-weight-default-medium, 600);
+    line-height: 14.701px; /* 133.333% */
+}
+
+.white .userInitials{
+    color: #000;
+}
+
+.orange{
+    background: var(--color-warning-500, #FCBF04)
+}
+
+.purple{
+    background: linear-gradient(180deg, var(--surface-primary_med_em, #897AFF) 0%, var(--surface-primary_high_em, #7B5CFA) 100%);
+}
+
+.blue{
+    background: var(--surface-info_med_em, #59B0F3);
+}
+
+.pink{
+    background: linear-gradient(180deg, var(--surface-secondary_med_em, #FF6DE9) 0%, var(--surface-secondary_high_em, #FF2EE7) 100%);
+}
+
+.white{
+    background: #FFF;
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.title{
+    color: #E8E8E8;
+    font-family: "Acumin Pro Wide";
+    font-size: 26.828px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26.082px; /* 97.222% */
+    z-index: 2;
+}
+
+.gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(185 deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%);
+    z-index: 2;
+}

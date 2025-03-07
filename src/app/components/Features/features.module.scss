@@ -1,13 +1,17 @@
 .wrapper{
+    position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    // justify-content: center;
-    flex-direction: column;
-    background-color: #080808;
-    padding-top: 150px;
+    background-color: #161616;
     overflow: hidden;
-    height: 2000px;
+    height: 100vh;
+}
+
+.absolute{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 .textHide {
