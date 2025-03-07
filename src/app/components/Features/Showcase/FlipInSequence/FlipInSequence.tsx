@@ -36,7 +36,7 @@ export default function FlipInSequence() {
 
     return (
         <div className={styles.wrapper}>
-            <Image alt='png sequence' width={1052} height={524}  layout="intrinsic" src={`/Features/FlipInSequence/flipin${image}.webp`}/>
+            <Image alt='png sequence' width={1052} height={524}  layout="intrinsic" src={`Features/FlipInSequence/flipin${image}.webp`}/>
         </div>
     )
 }
