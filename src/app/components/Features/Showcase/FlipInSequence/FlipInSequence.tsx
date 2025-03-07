@@ -2,6 +2,7 @@ import styles from './flipinsequence.module.scss'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function FlipInSequence() {
     const [image, setImage] = useState(0);
@@ -35,7 +36,7 @@ export default function FlipInSequence() {
 
     return (
         <div className={styles.wrapper}>
-            <img src={`Features/FlipInSequence/flipin${image}.webp`}/>
+            <Image alt='png sequence' width={1052} height={524}  layout="intrinsic" src={`/Features/FlipInSequence/flipin${image}.webp`}/>
         </div>
     )
 }
