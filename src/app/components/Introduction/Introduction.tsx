@@ -1,10 +1,10 @@
 import styles from './introduction.module.scss'
-import TeaserButton from './TeaserButton/TeaserButton'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import SplitType from 'split-type'
 import { CustomEase,ScrollTrigger } from 'gsap/all'
 import { useEffect, useRef } from 'react'
+import GlowButton from '../Shared/TeaserButton/GlowButton'
 gsap.registerPlugin(CustomEase);
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,7 +100,7 @@ export default function Introduction() {
 
             <div className={styles.imageWrapper}>
                 <div className={styles.teaserButtonWrapper}>
-                    <TeaserButton />
+                    <GlowButton>Watch Teaser</GlowButton>
                 </div>
                 <div className={styles.imageTextWrapper}>
                     <p className={styles.imageText}>FROM THE WALKMAN TO THE IPOD, MUSIC PLAYERS HAVE ALWAYS SHAPED HOW WE LISTEN.</p>

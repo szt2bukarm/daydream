@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import TransitionLink from "./components/TransitionLink";
+import TransitionLink from "./components/TransitionLink3D";
 import Render from './components/Render'
 import FadeLayer from "./components/FadeLayer";
 import Nav from "./components/Nav/Nav";
 import SmoothScroll from "./components/SmoothScroll";
+import { ViewTransitions } from "next-view-transitions";
+import { usePathname } from "next/navigation";
+import Loader from "./components/Loader/Loader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +20,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
+    <ViewTransitions>
     <html lang="en">
+    <head>
+        <link
+          rel="preload"
+          href="acumin-pro-wide-medium.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="acumin-pro-wide-bold.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="acumin-pro-wide.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        </head>
+
       <body>
+        <Loader />
         <SmoothScroll>
           {children}
         </SmoothScroll>
@@ -32,5 +63,6 @@ export default function RootLayout({
         {/* <Render /> */}
       </body>
     </html>
+    </ViewTransitions>
   );
 }

@@ -1,9 +1,9 @@
 .wrapper{
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
 }
 
 .relative{
@@ -38,7 +38,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-52%, -75%);
+    transform: translate(-50%, -75%);
     width: 772px;
     height: 290px;
     opacity: 1;
@@ -65,7 +65,7 @@
     transform: translateY(-78%);
     display: flex;
     gap: 8px;
-    animation: scroll 15s linear infinite;
+    animation: scroll 30s linear infinite;
 
     @keyframes scroll {
         0% {
@@ -121,6 +121,7 @@
     position: absolute;
     top: 10%;
     left: 50%;
+    padding-block: 10px;
     transform: translateX(-50%);
     text-align: center;
     font-family: "Acumin Pro Wide";
@@ -129,10 +130,10 @@
     font-weight: 500;
     line-height: 85%;
     color: #FFF;
-    // background: linear-gradient(174deg, #FFF -34.04%, #999 79.07%);
-    // background-clip: text;
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
+    background: linear-gradient(174deg, #FFF -34.04%, #999 79.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subtext{

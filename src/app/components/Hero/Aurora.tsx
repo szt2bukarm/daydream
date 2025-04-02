@@ -26,7 +26,7 @@ void main() {
   
   float v = uv.y + d * 0.1;
   v = 1.0 - abs(v * 3.0 - 1.0);
-  v = pow(v, 2.5 + sin((iTime * 0.2 + d * 0.25) * TAU) * 0.5);
+  v = pow(v, 3.0 + sin((iTime * 0.2 + d * 0.25) * TAU) * 0.5);
   
   vec3 color = vec3(0.0);
   
@@ -56,7 +56,7 @@ void main() {
   r.x = fract(sin((seed.x * 2.9898) + (seed.y * 78.2330)) * 43758.5453);
   r.y = fract(sin((seed.x * 13.7842) + (seed.y * 47.5134)) * 43758.5453);
 
-  float alpha = smoothstep(0.0, 0.8, length(color));
+  float alpha = smoothstep(0.3, 1.0, length(color));
   gl_FragColor = vec4(color, alpha);
 }
 `
@@ -93,7 +93,7 @@ function PortalEffect() {
   return (
     <mesh 
       scale={[viewport.width, viewport.height, 1]}
-      position={[0, -viewport.height * 0.275, 0]} // Move down by 25% of viewport height
+      position={[0, -viewport.height * 0.3, 0]} // Move down by 25% of viewport height
     >
       <planeGeometry args={[1, 1]} />
       <shaderMaterial
@@ -110,7 +110,7 @@ function PortalEffect() {
 
 export default function Aurora() {
   return (
-    <div style={{width: "100vw", height: "100vh"}}>
+    <div style={{width: "200vw", height: "100vh",transform: "translateX(-50vw)",overflowX: "hidden"}}>
       <Canvas 
         camera={{ position: [0, 0, 1] }}
       >

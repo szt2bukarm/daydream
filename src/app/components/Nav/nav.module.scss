@@ -6,6 +6,30 @@
     width: 300px;
     height: 66px;
     z-index: 10;
+    view-transition-name: navbar;
+    backdrop-filter: blur(15.75px);
+    background: #2020201a;
+    border-radius: 50px;
+    overflow: hidden;
+    // animation: opacity 0.5s ease-in-out forwards;
+    // animation-play-state: paused;
+    transition: 200ms;
+}
+
+.hide{
+    opacity: 0;
+}
+
+::view-transition-old(.navWrapper) {
+    display: none;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+::view-transition-new(.navWrapper) {
+    display: none;
+    border-radius: 50px;
+    overflow: hidden;
 }
 
 .nav {
@@ -18,9 +42,6 @@
     gap: 26px;
     padding: 15px 25px;
     border-radius: 50px;
-    background: rgba(32, 32, 32, 0.10);
-    backdrop-filter: blur(15.75px);
-    z-index: 1;
 }
 
 .nav::before {
@@ -46,6 +67,12 @@
     font-weight: 600;
     line-height: 100%; /* 16px */
     letter-spacing: -0.16px;
+    text-decoration: none;
+    transition: 250ms;
+
+    &:hover {
+        opacity: 0.65;
+    }
 }
 
 .logo {

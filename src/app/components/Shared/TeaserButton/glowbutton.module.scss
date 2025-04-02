@@ -12,6 +12,9 @@
         box-shadow: 0px 0px 10px 0px #ffffff7c;
       }
 
+      @media (max-width: 724px) {
+        width: 226px;
+      }
   }
 
 
@@ -50,11 +53,18 @@
     font-style: normal;
     font-weight: 500;
     line-height: 129%; /* 32.25px */
-    letter-spacing: -0.25px;    text-align: center;
-    padding: 25px 56px 20px 56px;
+    letter-spacing: -0.25px;
+    text-align: center;
+    padding-block: 25px;
+    // padding: 25px 56px 20px 56px;
     border-radius: 50px;
     z-index: 1;
     transition: 150ms;
+
+    @media (max-width: 1324px) {
+        font-size: 20px;
+        padding-block: 20px;
+    }
   }
   
   @keyframes star-movement-bottom {

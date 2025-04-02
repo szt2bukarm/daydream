@@ -1,0 +1,70 @@
+.wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.relative{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.header{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: "Acumin Pro Wide";
+    font-size: 39px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 85%;
+    color: #FFF;
+    padding-block: 10px;
+    background: linear-gradient(174deg, #FFF -34.04%, #999 79.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtext{
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 787px;
+    height: 198px;
+    color: #FFF;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 25px */
+    letter-spacing: 0.75px;
+}
+
+.cables{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.cable{
+    width: 61px
+}
+
+.cable:nth-child(1){
+    margin-top: 40px;
+}
+.cable:nth-child(2){
+    margin-top: 20px;
+}

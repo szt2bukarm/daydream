@@ -1,6 +1,6 @@
-import styles from './teaserbutton.module.scss';
+import styles from './glowbutton.module.scss';
 
-export default function TeaserButton() {
+export default function GlowButton({children}:{children:React.ReactNode}) {
     return (
     <div className={styles.wrapper}>
         <div
@@ -17,7 +17,7 @@ export default function TeaserButton() {
             animationDuration: "10s",
             }}
         ></div>
-        <div className={styles.innerContent}>Watch Teaser</div>
+        <div className={styles.innerContent}>{children}</div>
     </div>
     )
 }

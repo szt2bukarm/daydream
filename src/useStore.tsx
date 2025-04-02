@@ -6,6 +6,12 @@ interface Store {
 
     fadelayer: any;
     setFadeLayer: (fadelayer: any) => void
+
+    scrollPos: number;
+    setScrollPos: (scrollPos: number) => void,
+
+    loaded: boolean;
+    setLoaded: (loaded: boolean) => void
 }
 
 export const useStore = create<Store>((set) => ({
@@ -13,5 +19,11 @@ export const useStore = create<Store>((set) => ({
     setPageTransition: (pageTransition) => set({ pageTransition }),
 
     fadelayer: null,
-    setFadeLayer: (fadelayer) => set({ fadelayer })
+    setFadeLayer: (fadelayer) => set({ fadelayer }),
+
+    scrollPos: 0,
+    setScrollPos: (value) => set({ scrollPos: value }),
+
+    loaded: false,
+    setLoaded: (loaded) => set({ loaded })
 }))

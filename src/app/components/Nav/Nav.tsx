@@ -1,3 +1,4 @@
+import TransitionLink from '../TransitionLink'
 import styles from './nav.module.scss'
 
 export default function Nav() {
@@ -5,9 +6,9 @@ export default function Nav() {
         <div className={styles.navWrapper}>
             <div className={styles.nav}>
                 <img src="logo.svg" className={styles.logo} />
-                <div className={styles.navItem}>Main</div>
-                <div className={styles.navItem}>About</div>
-                <div className={styles.navItem}>Teaser</div>
+                <TransitionLink href="/" className={styles.navItem}>Main</TransitionLink>
+                <TransitionLink href="/gallery" className={styles.navItem}>Gallery</TransitionLink>
+                <TransitionLink href="/about" className={styles.navItem}>About</TransitionLink>
             </div>
         </div>
     )

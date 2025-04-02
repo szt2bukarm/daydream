@@ -1,38 +1,62 @@
 "use client"
-import { useStore } from "@/useStore";
 import Link from "next/link";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from "next-view-transitions";
 
-export default function TransitionLink({href,children}: {href:string,children:React.ReactNode}) {
-    const {setPageTransition,fadelayer} = useStore()
-    const router = useRouter();
+export default function TransitionLink({ href, children, className }) {
+    const Router = useTransitionRouter();
 
-    const handleClick = (e:any) => {
-        e.preventDefault();
-        setPageTransition(true)
-        gsap.to(fadelayer, {
-            opacity: 1,
-            duration: 0.3,
-            delay: 0.4,
-            onComplete: () => {
-                router.push(href)
+    const animation = () => {
+        document.documentElement.animate([
+            { 
+                transform: "translate(0, 0) rotate(0deg) scale(1)",
+                // opacity: 1,
+            },
+            { 
+                transform: "translate(250px, 400px) rotate(-2deg) scale(0.8)",
+                // opacity: 0.5,
             }
-        })
-        gsap.to(fadelayer, {
-            opacity: 0,
-            duration: 0.5,
-            delay: 1.2,
-        })
-        // setTimeout(() => {
-        //     setPageTransition(false)
-        // }, 2750);
-    }
-
+        ], {
+            duration: 800,
+            easing: "cubic-bezier(0.76, 0, 0.24, 1)",
+            fill: "forwards",
+            pseudoElement: "::view-transition-old(root)",
+        });
+    
+        document.documentElement.animate([
+            {
+                transform: `translate(${window.innerWidth * -1.5}px, ${window.innerHeight}px) rotate(2deg) scale(1.2)`,
+            }
+        ], {
+            duration: 0,
+            fill: "forwards",
+            pseudoElement: "::view-transition-new(root)",
+        });
+    
+        document.documentElement.animate([
+            {
+                transform: `translate(${window.innerWidth * -1.5}px, ${window.innerHeight}px) rotate(2deg) scale(1.2)`,
+            },
+            {
+                transform: "translate(0, 0) rotate(0deg) scale(1)",
+                opacity: 1,
+            }
+        ], {
+            duration: 800,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            fill: "forwards",
+            pseudoElement: "::view-transition-new(root)",
+            delay: 300, 
+        });
+    };
+    
     return (
-        <Link href={href} onClick={(e) => {handleClick(e)}}>
+        <Link href={href} onClick={(e) => {
+            e.preventDefault();
+            Router.push(href, {
+                onTransitionReady: animation
+            });
+        }} className={className}>
             {children}
         </Link>
-    )
+    );
 }

@@ -1,0 +1,116 @@
+.wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 845px;
+    // width: calc(calc(100% - 50px); - 40px);
+    background-color: #000;
+    margin-inline: auto;
+    margin-bottom: 20px;
+    // border-radius: 0 0 30px 30px;
+    overflow: hidden;
+}
+
+.background{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 40px);
+    height: calc(100% - 50px);
+    background-color: #eaeaea;
+    border-radius: 30px;
+    z-index: 0;
+}
+
+.logo{
+    margin-top: 70px;
+    height: 42px;
+    margin-bottom: auto;
+    z-index: 2;
+}
+
+.text{
+    color: #161616;
+    text-align: center;
+    font-family: "Acumin Pro Wide";
+    font-size: 39px;
+    font-style: normal;
+    font-weight: 600;
+    width: 366px;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+.button{
+    display: flex;
+    width: 284px;
+    height: 72px;
+    padding: 25px 56px 20px 56px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 41px;
+    border: 1px solid #4F4F4F;
+    color: #4F4F4F;
+    text-align: center;
+    font-family: "Acumin Pro Wide";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -0.25px;
+    background-color: transparent;
+    margin-bottom: 70px;
+    z-index: 2;
+}
+
+.wheel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: rotate 120s linear infinite;
+    width: 6000px;
+    height: 6000px;
+    transform: translateY(3000px);
+    transform-origin: center center;
+    // scale: 0.15;
+  }
+  
+  /* Individual images positioning */
+  .image {
+    position: absolute;
+    width: 676px;  /* Your image width */
+    height: 333px; /* Your image height */
+  }
+
+  .image1 { transform: rotate(0deg) translateY(-3000px); }
+  .image2 { transform: rotate(15deg) translateY(-3000px); }
+  .image3 { transform: rotate(30deg) translateY(-3000px); }
+  .image4 { transform: rotate(45deg) translateY(-3000px); }
+  .image5 { transform: rotate(60deg) translateY(-3000px); }
+  .image6 { transform: rotate(75deg) translateY(-3000px); }
+  .image7 { transform: rotate(90deg) translateY(-3000px); }
+  .image8 { transform: rotate(105deg) translateY(-3000px); }
+  .image9 { transform: rotate(120deg) translateY(-3000px); }
+  .image10 { transform: rotate(135deg) translateY(-3000px); }
+  .image11 { transform: rotate(150deg) translateY(-3000px); }
+  .image12 { transform: rotate(165deg) translateY(-3000px); }
+  .image13 { transform: rotate(180deg) translateY(-3000px); }
+  .image14 { transform: rotate(195deg) translateY(-3000px); }
+  .image15 { transform: rotate(210deg) translateY(-3000px); }
+  .image16 { transform: rotate(225deg) translateY(-3000px); }
+  .image17 { transform: rotate(240deg) translateY(-3000px); }
+  .image18 { transform: rotate(255deg) translateY(-3000px); }
+  .image19 { transform: rotate(270deg) translateY(-3000px); }
+  .image20 { transform: rotate(285deg) translateY(-3000px); }
+  .image21 { transform: rotate(300deg) translateY(-3000px); }
+  .image22 { transform: rotate(315deg) translateY(-3000px); }
+  .image23 { transform: rotate(330deg) translateY(-3000px); }
+  .image24 { transform: rotate(345deg) translateY(-3000px); }    
+
+  /* Rotation animation */
+  @keyframes rotate {
+    from {  transform: translateY(3000px) rotate(0deg); }
+    to {  transform: translateY(3000px) rotate(360deg); }
+  }

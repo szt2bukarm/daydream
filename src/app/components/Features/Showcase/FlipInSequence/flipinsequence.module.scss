@@ -7,11 +7,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .wrapper img{
-    transform: translate(20px, -20px);
+    transform: translate(33px, -20px);
     width: 904px;
     pointer-events: none;
     user-select: none;

@@ -33,7 +33,7 @@ void main() {
   // Adjust vertical calculations for higher position
   float v = (uv.y - verticalShift * 2.0) + d * 0.1;
   v = 1.0 - abs(v * 2.5 - 1.0);
-  v = pow(v, 2.0 + sin((iTime * 0.2 + d * 0.25) * TAU) * 0.5);
+  v = pow(v, 4.0 + sin((iTime * 0.2 + d * 0.25) * TAU) * 0.5);
   
   vec3 color = vec3(0.0);
   

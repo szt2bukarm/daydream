@@ -5,6 +5,8 @@ import gsap from 'gsap'
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { useStore } from '@/useStore'
+import fullcardStyle from './Cards/fullcards.module.scss'
+import { useGSAP } from '@gsap/react'
 
 function Model({ url }: { url: string }) {
   const { scene } = useGLTF(url)
@@ -25,23 +27,74 @@ function Model({ url }: { url: string }) {
     }
   })
 
+  const tl = useRef<gsap.core.Timeline>();
   useEffect(() => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.PI / 2
-      // meshRef.current.scale.set(15, 15, 15)
+    if (!meshRef.current) return
 
-      gsap.to(meshRef.current.scale, {
-        x: 0.8, y: 0.8, z: 0.8,
-        duration: 0.7, ease: 'power4.out',
-      })
-      gsap.to(meshRef.current.rotation, {
-        y: '+=6.28', // Full rotation (360 degrees)
-        delay: 0.15, duration: 3, ease: 'power4.out',
-      })
-      gsap.to(meshRef.current.scale, {
-        x: 20, y: 20, z: 20,
-        duration: 0.7, delay: 1.6, ease: 'power4.in',
-      })
+    meshRef.current.rotation.y = Math.PI / 2
+    meshRef.current.position.set(0, 0, 0)
+    meshRef.current.scale.set(20, 20, 20)
+    const canvas = document.querySelector(`.canvas1`)
+    // Create timeline
+    tl.current = gsap.timeline({
+      scrollTrigger: {
+        trigger: `.${fullcardStyle.cards}`,
+        start: 'top+=1500 top',
+        end: 'top+=5000 top', // Total scroll distance
+        scrub: 1,
+        // pin: true,
+        markers: true,
+        onEnter: () => {
+          canvas.style.opacity = '1'
+        },
+        onLeaveBack: () => {
+          canvas.style.opacity = '0'
+        },
+        onLeave: () => {
+          canvas.style.opacity = '0'
+        },
+        onEnterBack: () => {
+          canvas.style.opacity = '1'
+        }
+      }
+    })
+
+    // gsap.to('.canvas2', {
+    //   scrollTrigger: {
+    //     trigger: `.${fullcardStyle.cards}`,
+    //     start: 'top+=1500 top',
+    //     end: 'top+=1600 top', // Total scroll distance
+    //     scrub: 1,
+    //     // pin: true,
+    //     markers: true,
+    //   },
+    //   visibility: 'visible'
+    // })
+
+    // First animation: scale down (0-25% of scroll)
+    tl.current.to(meshRef.current.scale, {
+      x: 0.8,
+      y: 0.8,
+      z: 0.8,
+      duration: 1
+    }, 0) // Start immediately
+
+    // Second animation: rotate (25%-75% of scroll)
+    tl.current.to(meshRef.current.rotation, {
+      y: '+=12',
+      duration: 4
+    }, 0.5) // Start at 25% of timeline
+
+    // Third animation: scale up (75%-100% of scroll)
+    // tl.current.to(meshRef.current.scale, {
+    //   x: 15,
+    //   y: 15,
+    //   z: 15,
+    //   duration: 1
+    // }, 3) // Start after 2 seconds of timeline
+
+    return () => {
+      tl.current?.kill()
     }
   }, [])
 
@@ -51,6 +104,8 @@ function Model({ url }: { url: string }) {
 function Model2({ url }: { url: string }) {
   const { scene } = useGLTF(url)
   const meshRef = useRef()
+  const tl = useRef<gsap.core.Timeline>();
+
 
   scene.traverse((child) => {
     if (child.isMesh) {
@@ -65,20 +120,40 @@ function Model2({ url }: { url: string }) {
   useEffect(() => {
     if (meshRef.current) {
       meshRef.current.rotation.y = Math.PI / 2
-      // meshRef.current.scale.set(15, 15, 15)
-
-      gsap.to(meshRef.current.scale, {
-        x: 0.8, y: 0.8, z: 0.8,
-        duration: 0.7, ease: 'power4.out',
+      meshRef.current.position.set(0, 0, 0)
+      meshRef.current.scale.set(0.8, 0.8, 0.8)
+  
+      // Create timeline
+      tl.current = gsap.timeline({
+        scrollTrigger: {
+          trigger: `.${fullcardStyle.cards}`,
+          start: 'top+=1700 top',
+          end: 'top+=4000 top', // Total scroll distance
+          scrub: 1,
+          // pin: true,
+          markers: true,
+        }
       })
-      gsap.to(meshRef.current.rotation, {
-        y: '+=6.28', // Full rotation (360 degrees)
-        delay: 0.15, duration: 3, ease: 'power4.out',
-      })
-      gsap.to(meshRef.current.scale, {
-        x: 20, y: 20, z: 20,
-        duration: 0.7, delay: 1.6, ease: 'power4.in',
-      })
+  
+      // First animation: scale down (0-25% of scroll)
+  
+      // Second animation: rotate (25%-75% of scroll)
+      tl.current.to(meshRef.current.rotation, {
+        y: '+=6.28',
+        duration: 4
+      }, 0.5) // Start at 25% of timeline
+  
+      // Third animation: scale up (75%-100% of scroll)
+      // tl.current.to(meshRef.current.scale, {
+      //   x: 15,
+      //   y: 15,
+      //   z: 15,
+      //   duration: 1
+      // }, 3) // Start after 2 seconds of timeline
+  
+      return () => {
+        tl.current?.kill()
+      }
     }
   }, [])
 
@@ -121,40 +196,22 @@ function Scene2() {
 }
 
 export default function Render() {
-  const { pageTransition,setPageTransition } = useStore()
-  const canvasRef1 = useRef<HTMLDivElement>(null)
-  const canvasRef2 = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (canvasRef1.current) {
-        gsap.to(canvasRef1.current, { opacity: 1, duration: 0.1 })
-        gsap.to(canvasRef1.current, { opacity: 0, duration: 0.1, delay: 2.35, onComplete: () => { setPageTransition(false) } })
-      }
-      if (canvasRef2.current) {
-        gsap.to(canvasRef2.current, { opacity: 1, duration: 0.1,delay: 0.5})
-        gsap.to(canvasRef2.current, { opacity: 0, duration: 0.3, delay: 1.5 }) // Different opacity
-      }
-    }, 0) // Small delay to ensure DOM is updated
-  }, [pageTransition])
-
-  if (!pageTransition) return null
 
   return (
-    <>
+    <div className='render' style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', overflow: 'hidden',pointerEvents: 'none'}}>
       {/* First Layer - Model */}
-      <div ref={canvasRef1} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100%', zIndex: 10, opacity: 1, pointerEvents: 'none' }}>
-        <Canvas orthographic camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ position: 'fixed', width: '100%', height: '100%', zIndex: 1, background: 'transparent' }}>
+      <div className='canvas1' style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 2, opacity: 1, pointerEvents: 'none'}}>
+        <Canvas orthographic camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ position: 'fixed', width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none' }}>
           <Scene1 />
         </Canvas>
       </div>
 
       {/* Second Layer - Model2 */}
-      <div ref={canvasRef2} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100%', zIndex: 9, opacity: 0, pointerEvents: 'none' }}>
+      {/* <div className='canvas2' style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1, opacity: 1, pointerEvents: 'none' }}>
         <Canvas orthographic camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ position: 'fixed', width: '100%', height: '100%', zIndex: 1, background: 'transparent' }}>
           <Scene2 />
         </Canvas>
-      </div>
-    </>
+      </div> */}
+    </div>
   )
 }
