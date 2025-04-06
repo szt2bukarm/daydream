@@ -4,12 +4,18 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import { useLenis } from '@studio-freight/react-lenis'
+import { useEffect, useState } from 'react'
 gsap.registerPlugin(ScrollTrigger);
 export default function Gallery() {
+    const [mounted, setMounted] = useState(false);
 
+    useEffect(() => {
+        setMounted(true);
+    },[])
     
 
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         let totalWidth = 0;
         for (let i = 0; i < 9; i++) {
             const image = document.querySelector(`.${styles.images} > img:nth-child(${i + 1})`);
@@ -44,7 +50,9 @@ export default function Gallery() {
                 }
             }
         })
-    })
+    },[mounted])
+
+    if (!mounted) return <></>;
 
     return (
         <div className={styles.wrapper}>

@@ -53,11 +53,19 @@ export default function ShowcasePorts() {
                     delay: 0.3,
                 })
                 gsap.to(cableRefs.current, {
-                    y: 0,
+                    y: 200,
                     duration: 1,
                     delay: 0.3,
                     stagger: 0.2,
                     ease: 'power4.out'
+                })
+                
+                gsap.to(cableRefs.current, {
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: 'power4.in',
+                    delay: 1.5
                 })
             },
             onLeaveBack: () => {

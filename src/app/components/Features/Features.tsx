@@ -17,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Features() {
     const wrapperRef = useRef(null);
 
+
     useGSAP(() => {
         gsap.to(`.${styles.wrapper}`, {
             scrollTrigger: {

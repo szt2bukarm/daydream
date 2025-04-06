@@ -41,6 +41,14 @@
     width: 366px;
     margin-bottom: 20px;
     z-index: 2;
+
+    @media (max-width: 1324px) {
+        font-size: 31px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 25px;
+    }
 }
 
 .button{
@@ -62,6 +70,12 @@
     background-color: transparent;
     margin-bottom: 70px;
     z-index: 2;
+
+    @media (max-width: 1324px) {
+        font-size: 20px;
+        padding: 20px 50px 20px 50px;
+        width: 220px;
+    }
 }
 
 .wheel {
@@ -69,12 +83,24 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    animation: rotate 120s linear infinite;
+    animation: rotate-desktop 120s linear infinite;
     width: 6000px;
     height: 6000px;
     transform: translateY(3000px);
     transform-origin: center center;
     // scale: 0.15;
+
+    @media (max-width: 1324px) {
+        width: 4000px;
+        height: 4000px;
+        animation: rotate-middle 120s linear infinite;
+    }
+
+    @media (max-width: 724px) {
+        width: 3000px;
+        height: 3000px;
+        animation: rotate-mobile 120s linear infinite;
+    }
   }
   
   /* Individual images positioning */
@@ -82,35 +108,57 @@
     position: absolute;
     width: 676px;  /* Your image width */
     height: 333px; /* Your image height */
+
+    @media (max-width: 1324px) {
+        width: 470px;  /* Your image width */
+        height: 230px; /* Your image height */
+    }
+
+    @media (max-width: 724px) {
+        width: 350px;  /* Your image width */
+        height: 170px; /* Your image height */
+    }
   }
 
-  .image1 { transform: rotate(0deg) translateY(-3000px); }
-  .image2 { transform: rotate(15deg) translateY(-3000px); }
-  .image3 { transform: rotate(30deg) translateY(-3000px); }
-  .image4 { transform: rotate(45deg) translateY(-3000px); }
-  .image5 { transform: rotate(60deg) translateY(-3000px); }
-  .image6 { transform: rotate(75deg) translateY(-3000px); }
-  .image7 { transform: rotate(90deg) translateY(-3000px); }
-  .image8 { transform: rotate(105deg) translateY(-3000px); }
-  .image9 { transform: rotate(120deg) translateY(-3000px); }
-  .image10 { transform: rotate(135deg) translateY(-3000px); }
-  .image11 { transform: rotate(150deg) translateY(-3000px); }
-  .image12 { transform: rotate(165deg) translateY(-3000px); }
-  .image13 { transform: rotate(180deg) translateY(-3000px); }
-  .image14 { transform: rotate(195deg) translateY(-3000px); }
-  .image15 { transform: rotate(210deg) translateY(-3000px); }
-  .image16 { transform: rotate(225deg) translateY(-3000px); }
-  .image17 { transform: rotate(240deg) translateY(-3000px); }
-  .image18 { transform: rotate(255deg) translateY(-3000px); }
-  .image19 { transform: rotate(270deg) translateY(-3000px); }
-  .image20 { transform: rotate(285deg) translateY(-3000px); }
-  .image21 { transform: rotate(300deg) translateY(-3000px); }
-  .image22 { transform: rotate(315deg) translateY(-3000px); }
-  .image23 { transform: rotate(330deg) translateY(-3000px); }
-  .image24 { transform: rotate(345deg) translateY(-3000px); }    
+  @for $i from 1 through 24 {
+    .image#{$i} {
+      transform: rotate(#{($i - 1) * 15}deg) translateY(-3000px);
+
+      @media (max-width: 1324px) {
+        transform: rotate(#{($i - 1) * 15}deg) translateY(-2000px);
+      }
+
+      @media (max-width: 724px) {
+        transform: rotate(#{($i - 1) * 15}deg) translateY(-1500px);
+      }
+    }
+  }
 
   /* Rotation animation */
-  @keyframes rotate {
-    from {  transform: translateY(3000px) rotate(0deg); }
-    to {  transform: translateY(3000px) rotate(360deg); }
+  @keyframes rotate-desktop {
+    from {
+      transform: translateY(3000px) rotate(0deg);
+    }
+    to {
+      transform: translateY(3000px) rotate(360deg);
+    }
   }
+  
+  @keyframes rotate-middle {
+    from {
+      transform: translateY(2000px) rotate(0deg);
+    }
+    to {
+      transform: translateY(2000px) rotate(360deg);
+    }
+  }
+
+  @keyframes rotate-mobile {
+    from {
+      transform: translateY(1500px) rotate(0deg);
+    }
+    to {
+      transform: translateY(1500px) rotate(360deg);
+    }
+  }
+  

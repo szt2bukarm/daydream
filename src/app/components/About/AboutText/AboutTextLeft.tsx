@@ -3,8 +3,9 @@ import posterStyles from '../AboutPosters/aboutposters.module.scss'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import AboutPoster from "../AboutPosters/AboutPoster";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutTextLeft({ orientation }: { orientation: string }) {
@@ -12,6 +13,11 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const splitInstanceRef = useRef<SplitType | null>(null);
     let resizeTimeout: NodeJS.Timeout | null = null;
+    const [mounted,setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    },[]);
 
     const splitAndStyleText = () => {
         const textElements = textRef.current;
@@ -48,34 +54,35 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
         return split;
     };
 
-    useGSAP(() => {
-        gsap.set([`.${posterStyles.imageRight}`, `.${posterStyles.backgroundRight}`], {
-            x: '-150vw',
-            rotate: 0
-        });
+    // useGSAP(() => {
+    //     if (typeof window === 'undefined') return;
+    //     gsap.set([`.${posterStyles.imageRight}`, `.${posterStyles.backgroundRight}`], {
+    //         x: '-150vw',
+    //         rotate: 0
+    //     });
 
-        ScrollTrigger.create({
-            trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
-            start: 'top 30%',
-            end: 'top 30%',
-            onEnter: () => {
-                gsap.to([`.${posterStyles.backgroundRight}`, `.${posterStyles.imageRight}`], {
-                    x: 0,
-                    stagger: 0.15,
-                    duration: 1.5,
-                    ease: 'power4.out'
-                });
-                gsap.to(`.${posterStyles.backgroundRight}`, {
-                    rotate: -28,
-                    delay: 0.2
-                });
-                gsap.to(`.${posterStyles.imageRight}`, {
-                    rotate: -18,
-                    delay: 0.25
-                });
-            }
-        })
-    },[])
+    //     ScrollTrigger.create({
+    //         trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
+    //         start: 'top 30%',
+    //         end: 'top 30%',
+    //         onEnter: () => {
+    //             gsap.to([`.${posterStyles.backgroundRight}`, `.${posterStyles.imageRight}`], {
+    //                 x: 0,
+    //                 stagger: 0.15,
+    //                 duration: 1.5,
+    //                 ease: 'power4.out'
+    //             });
+    //             gsap.to(`.${posterStyles.backgroundRight}`, {
+    //                 rotate: -28,
+    //                 delay: 0.2
+    //             });
+    //             gsap.to(`.${posterStyles.imageRight}`, {
+    //                 rotate: -18,
+    //                 delay: 0.25
+    //             });
+    //         }
+    //     })
+    // },[mounted])
 
     const setupScrollTrigger = (splitTextInstance: SplitType) => {
         // Set initial positions
@@ -102,6 +109,7 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
 
 
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         const splitTextInstance = splitAndStyleText();
         if (!splitTextInstance) return;
 
@@ -124,11 +132,12 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
                 });
             }
         });
-    }, []);
+    }, [mounted]);
 
 
     useGSAP(() => {
         // Initial setup
+        if (typeof window === 'undefined') return;
         const splitTextInstance = splitAndStyleText();
         if (!splitTextInstance) return;
 
@@ -184,7 +193,7 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [mounted]);
 
 
     return (
@@ -199,10 +208,7 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
                 </p>
             </div>
 
-            <div className={`${posterStyles.imageWrapper} ${orientation === "right" ? posterStyles.imageWrapperLeft : posterStyles.imageWrapperRight}`}>
-                <img src="About/poster1.png" className={`${posterStyles.image} ${orientation === "right" ? posterStyles.imageLeft : posterStyles.imageRight}`} />
-                <div className={`${posterStyles.background} ${orientation === "right" ? posterStyles.backgroundLeft : posterStyles.backgroundRight}`}></div>
-            </div>
+            <AboutPoster image="1" orientation="right" />
         </div>
     );
 }

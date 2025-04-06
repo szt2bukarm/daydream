@@ -2,7 +2,7 @@ import styles from './floatingcards.module.scss'
 import GradientWave from "../GradientWave/GradientWave";
 import ScrollVelocity from "../ScrollText/ScrollText";
 import Card from './Card/Card';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -37,8 +37,14 @@ const cards = [
 
 export default function FloatingCards() {
     const cardsRef = useRef([]);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         let triggers = []; // Store all ScrollTriggers
     
         const createAnimations = () => {
@@ -122,9 +128,10 @@ export default function FloatingCards() {
             window.removeEventListener("resize", onResize);
             triggers.forEach(trigger => trigger.kill()); // Cleanup on unmount
         };
-    }, []);
+    }, [mounted]);
     
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         let triggers = []; // Store ScrollTrigger instances
     
         const createAnimations = () => {
@@ -177,7 +184,9 @@ export default function FloatingCards() {
             window.removeEventListener("resize", onResize);
             triggers.forEach(trigger => trigger.kill()); // Cleanup on unmount
         };
-    }, []);        
+    }, [mounted]); 
+    
+    
     return (
         <div className={styles.wrapper}>
             <div className={styles.fixed}>

@@ -3,8 +3,9 @@ import posterStyles from "../AboutPosters/aboutposters.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import AboutPoster from "../AboutPosters/AboutPoster";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutTextRight({ orientation }: { orientation: string }) {
@@ -12,6 +13,11 @@ export default function AboutTextRight({ orientation }: { orientation: string })
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const splitInstanceRef = useRef<SplitType | null>(null);
     let resizeTimeout: NodeJS.Timeout | null = null;
+    const [mounted,setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    },[])
 
     const splitAndStyleText = () => {
         const textElements = textRef.current;
@@ -71,37 +77,39 @@ export default function AboutTextRight({ orientation }: { orientation: string })
         return trigger;
     };
 
-    useGSAP(() => {
-        gsap.set([`.${posterStyles.imageLeft}`, `.${posterStyles.backgroundLeft}`], {
-            x: '150vw',
-            rotate: 0
-        });
+    // useGSAP(() => {
+    //     if (typeof window === 'undefined') return;
+    //     gsap.set([`.${posterStyles.imageLeft}`, `.${posterStyles.backgroundLeft}`], {
+    //         x: '150vw',
+    //         rotate: 0
+    //     });
 
-        ScrollTrigger.create({
-            trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
-            start: 'top 30%',
-            end: 'top 30%',
-            onEnter: () => {
-                gsap.to([`.${posterStyles.backgroundLeft}`, `.${posterStyles.imageLeft}`], {
-                    x: 0,
-                    stagger: 0.15,
-                    duration: 1.5,
-                    ease: 'power4.out'
-                });
+    //     ScrollTrigger.create({
+    //         trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
+    //         start: 'top 30%',
+    //         end: 'top 30%',
+    //         onEnter: () => {
+    //             gsap.to([`.${posterStyles.backgroundLeft}`, `.${posterStyles.imageLeft}`], {
+    //                 x: 0,
+    //                 stagger: 0.15,
+    //                 duration: 1.5,
+    //                 ease: 'power4.out'
+    //             });
                 
-                gsap.to(`.${posterStyles.backgroundLeft}`, {
-                    rotate: 11,
-                    delay: 0.1
-                });
+    //             gsap.to(`.${posterStyles.backgroundLeft}`, {
+    //                 rotate: 11,
+    //                 delay: 0.1
+    //             });
                 
-                gsap.to(`.${posterStyles.imageLeft}`, {
-                    rotate: 21,
-                    delay: 0.15
-                });                
-            }})
-    },[])
+    //             gsap.to(`.${posterStyles.imageLeft}`, {
+    //                 rotate: 21,
+    //                 delay: 0.15
+    //             });                
+    //         }})
+    // },[mounted])
 
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         // Initial setup
         const splitTextInstance = splitAndStyleText();
         if (!splitTextInstance) return;
@@ -158,7 +166,7 @@ export default function AboutTextRight({ orientation }: { orientation: string })
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [mounted]);
 
     return (
         <div className={`${styles.wrapper} ${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`}>
@@ -171,10 +179,11 @@ export default function AboutTextRight({ orientation }: { orientation: string })
                 </p>
             </div>
 
-            <div className={`${posterStyles.imageWrapper} ${orientation === "right" ? posterStyles.imageWrapperLeft : posterStyles.imageWrapperRight}`}>
+            <AboutPoster orientation="left" image="2" />
+            {/* <div className={`${posterStyles.imageWrapper} ${orientation === "right" ? posterStyles.imageWrapperLeft : posterStyles.imageWrapperRight}`}>
                 <img src="About/poster2.png" className={`${posterStyles.image} ${orientation === "right" ? posterStyles.imageLeft : posterStyles.imageRight}`} />
                 <div className={`${posterStyles.background} ${orientation === "right" ? posterStyles.backgroundLeft : posterStyles.backgroundRight}`}></div>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -32,10 +32,10 @@ export default function FlipInSequence() {
                     duration: 1.1,
                     delay: 0.1,
                     onStart: () => {
-                        let currentFrame = 0;
+                        let currentFrame = 1;
                         const interval = setInterval(() => {
                             currentFrame++;
-                            if (currentFrame >= totalFrames) {
+                            if (currentFrame == totalFrames) {
                                 clearInterval(interval); 
                             } else {
                                 setImage(currentFrame);
@@ -69,7 +69,7 @@ export default function FlipInSequence() {
 
     return (
         <div className={styles.wrapper}>
-            <img alt='png sequence' src={`Features/FlipInSequence/flipin${image}.webp`}/>
+            <img alt='png sequence' src={`/FlipInsequence/flipin${image}.webp`}/>
         </div>
     )
 }

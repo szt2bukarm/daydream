@@ -1,12 +1,14 @@
 "use client"
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { useStore } from '@/useStore'
 import fullcardStyle from './Cards/fullcards.module.scss'
 import { useGSAP } from '@gsap/react'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+// gsap.registerPlugin(ScrollTrigger);
 
 function Model({ url }: { url: string }) {
   const { scene } = useGLTF(url)
@@ -44,18 +46,18 @@ function Model({ url }: { url: string }) {
         scrub: 1,
         // pin: true,
         markers: true,
-        onEnter: () => {
-          canvas.style.opacity = '1'
-        },
-        onLeaveBack: () => {
-          canvas.style.opacity = '0'
-        },
-        onLeave: () => {
-          canvas.style.opacity = '0'
-        },
-        onEnterBack: () => {
-          canvas.style.opacity = '1'
-        }
+        // onEnter: () => {
+        //   canvas.style.display = "block"
+        // },
+        // onLeaveBack: () => {
+        //   canvas.style.display = "none"
+        // },
+        // onLeave: () => {
+        //   canvas.style.display = "none"
+        // },
+        // onEnterBack: () => {
+        //   canvas.style.display = "block"
+        // }
       }
     })
 
@@ -196,11 +198,43 @@ function Scene2() {
 }
 
 export default function Render() {
+  const [hidden,setHidden] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHidden(true)
+    }, 500);
+  },[])
+
+  useGSAP(() => {
+    const canvas = document.querySelector(`.canvas1`)
+    ScrollTrigger.create({
+      trigger: `.${fullcardStyle.cards}`,
+      start: 'top top',
+      end: 'top+=6000 top', // Total scroll distance
+      scrub: 1,
+      // pin: true,
+      markers: true,
+      onEnter: () => {
+
+        setHidden(false);
+      },
+      onLeaveBack: () => {
+        setHidden(true)
+      },
+      onLeave: () => {
+        setHidden(true)
+      },
+      onEnterBack: () => {
+        setHidden(false);
+      }
+  })
+  })
 
   return (
     <div className='render' style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', overflow: 'hidden',pointerEvents: 'none'}}>
       {/* First Layer - Model */}
-      <div className='canvas1' style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 2, opacity: 1, pointerEvents: 'none'}}>
+      <div className='canvas1' style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 2, opacity: 1, pointerEvents: 'none',display: hidden ? "none" : "block"}}>
         <Canvas orthographic camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ position: 'fixed', width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none' }}>
           <Scene1 />
         </Canvas>

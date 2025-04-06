@@ -53,18 +53,30 @@
 .cables{
     display: flex;
     position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%) rotate(90deg);
+    top: 55%;
+    left: 50%;
+    transform: translate(-727px, -50%) rotate(90deg);
 }
 
 .cable{
-    width: 61px
+    width: 55px
 }
 
 .cable:nth-child(1){
-    margin-top: 40px;
+    margin-top: -95px;
 }
 .cable:nth-child(2){
-    margin-top: 20px;
+    margin-top: -21px;
 }
+
+.cable:nth-child(3){
+    margin-top: 0px;
+}
+
+
+// .cable:nth-child(1){
+//     margin-top: -50px;
+// }
+// .cable:nth-child(2){
+//     margin-top: -20px;
+// }

@@ -44,7 +44,7 @@ export default function FullCards() {
                 trigger: `.${styles.wrapper}`,
                 start: 'top+=2100 0%',
                 end: 'top+=2300 0%',
-                markers: true,
+                markers: false,
                 scrub: true,
                 // markers: true,
             }

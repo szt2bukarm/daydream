@@ -5,7 +5,7 @@ import FloatingCards from "./components/FloatingCards/FloatingCards";
 import Features from "./components/Features/Features";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import gsap from "gsap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from './main.module.scss'
 import { useStore } from "@/useStore";
 import FullCards from "./components/Cards/FullCards";
@@ -18,14 +18,18 @@ import Loader from "./components/Loader/Loader";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const [mounted,setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     return () => {
       ScrollTrigger.getAll().forEach((instance) => {
         instance.kill();
       });
     }
   },[])
+
+  if (!mounted) return <></>;   
 
   return (
     <>

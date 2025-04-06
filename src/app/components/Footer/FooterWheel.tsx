@@ -32,7 +32,7 @@ export default function FooterWheel() {
                 <img src="Colors/7.png" className={`${styles.image} ${styles.image23 }`} />
                 <img src="Colors/8.png" className={`${styles.image} ${styles.image24 }`} />
            </div>
-           <p className={styles.text}>Join Waitlist for Daydream Model 1</p>
+           <p className={styles.text}>Join Waitlist for<br></br>Daydream Model 1</p>
             <button className={styles.button}>Join Waitlist</button>
 
         </div>

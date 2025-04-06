@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TransitionLink from '../TransitionLink'
 import styles from './footernav.module.scss'
 import gsap from 'gsap';
@@ -15,8 +15,14 @@ export default function FooterNav() {
     const letterRefs = useRef([]);
     const [credits,setCredits] = useState(false);
     const pathRef = useRef(null);
+    const [mounted,setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    },[]);
 
     useGSAP(() => {
+        if (typeof window === 'undefined') return;
         gsap.set(pathRef.current,{
             animationPlayState: "paused"
         })
@@ -97,15 +103,39 @@ export default function FooterNav() {
                 }
             }
         })
-    }, []);
+    }, [mounted]);
 
     const handleCredits = () => {
-        gsap.to(`.${styles.footer}`, {
-            y: credits ? 0 : -170,
+        setCredits(!credits);
+    }
+
+    useGSAP(() => {
+        if (!mounted) return;
+        gsap.to(`.${styles.creditsTextWrapper}`, {
+            y: credits ? 0 : 170,
             duration: 0.3,
             ease: "power4.out"
         })
-    }
+        gsap.to([`.${styles.footer}`], {
+            y: credits ? -170 : 0,
+            duration: 0.3,
+            ease: "power4.out"
+        })
+
+        gsap.to([`.${styles.navWrapper}`,`.${styles.backgroundLogo}`],{
+            y: credits ? 170 : 0,
+            duration: 0.3,
+            ease: "power4.out"
+        })
+    },[credits])
+
+    useEffect(() => {
+        const onScroll = () => {
+            setCredits(false);
+        }
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    })
 
     return (
         <div className={styles.wrapper}>
