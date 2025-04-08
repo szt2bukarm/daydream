@@ -50,7 +50,7 @@ export default function Hero() {
         })
 
         gsap.to(`.${styles.overlay}`, {
-            borderRadius: 50,
+            borderRadius: 100,
             boxShadow: "inset 0 0 0 30px #080808,0 0 0 100px #080808",
             scrollTrigger: {
                 trigger: `.${styles.wrapper}`,

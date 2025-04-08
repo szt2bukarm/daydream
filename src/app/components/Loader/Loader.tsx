@@ -140,7 +140,6 @@ export default function Loader() {
     useEffect(() => {
         useGLTF.preload("/model.glb");
     })
-
     const preloadAssets = (assets) => {
         return new Promise((resolve, reject) => {
             const totalAssets = assets.length;
@@ -155,7 +154,6 @@ export default function Loader() {
             assets.forEach((asset) => {
                 const img = new Image();
                 img.onload = () => {
-                    // Cache the image in the window object to prevent it from being reloaded
                     window[asset] = img;
                     loadedAssets++;
                     const progress = (loadedAssets / totalAssets) * 100;
@@ -170,15 +168,14 @@ export default function Loader() {
     };
 
     useEffect(() => {
-        // Preload assets when the component mounts
         preloadAssets(assets)
             .then(() => {
-                setLoaded(true); // Set assetsLoaded to true after all assets are loaded
+                setLoaded(true);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }, []); // Run once on mount
+    }, []); 
 
     useEffect(() => {
         if (loaded) {
@@ -191,28 +188,8 @@ export default function Loader() {
                     setHideLoader(true)
                 }
             })
-            // gsap.to()
-            // gsap.to(`.${styles.logos}`, {
-            //     opacity: 0,
-            //     duration: 0.3
-            // })
-            // gsap.to(`.${styles.fog}`, {
-            //     opacity: 0,
-            //     duration: 0.3,
-            //     delay: 0.6
-            // })
-            // gsap.to(`.${styles.background}`, {
-            //     y: '100%',
-            //     duration: 0.4,
-            //     delay: 0.5,
-            //     ease: 'power4.out'
-            // });
-            // // gsap.to(`.${styles.logo}`, {
-            // //     opacity: 0,
-            // //     delay: 0.5
-            // // })
         }
-    }, [loaded]); // Trigger animation when assets are loaded
+    }, [loaded]);
 
     if (hideLoader) return null;
 
