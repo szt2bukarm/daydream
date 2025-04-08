@@ -14,6 +14,7 @@ import Colors from "./components/Colors/Colors";
 import Specs from "./components/Specs/Specs";
 import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader/Loader";
+import Render2 from "./components/Render2";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,7 @@ export default function Home() {
 
   return (
     <>
+    {/* <Render2 /> */}
     <div className={styles.wrapper}>
       <Hero />
       <Introduction />

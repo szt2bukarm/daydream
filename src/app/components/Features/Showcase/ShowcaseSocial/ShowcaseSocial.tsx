@@ -16,6 +16,7 @@ const orbits = [
 export default function ShowcaseSocial() {
     const textRef = useRef(null);
     const lenis = useLenis();
+    const uiRef = useRef(null);
 
     useGSAP(() => {
         if (!lenis) return;
@@ -52,6 +53,10 @@ export default function ShowcaseSocial() {
                     opacity: 1,
                     onComplete: () => lenis.start()
                 });
+                gsap.to(uiRef.current, {
+                    opacity: 1,
+                    duration: 0.15
+                })
                 gsap.to(splitText.lines, {
                     y: 0,
                     rotate: 0,
@@ -61,7 +66,7 @@ export default function ShowcaseSocial() {
                 });
             },
             onLeaveBack: () => {
-                gsap.to([`.${styles.header}`, `.${styles.circles}`], {
+                gsap.to([`.${styles.header}`, `.${styles.circles}`,uiRef.current], {
                     opacity: 0,
                     onComplete: () => {
                         gsap.set(`.${styles.wrapper}`, {
@@ -131,7 +136,16 @@ export default function ShowcaseSocial() {
                         With Daydream, sharing isn’t just about music—it’s about connection. Instantly share your favorite tracks, playlists, or listening stats with friends. See what your circle is playing in real time and discover new music together.
                     </p>
                 </div>
-
+                <div ref={uiRef} style={{opacity: 0}}>
+                    <img src="Features/social.png" className={styles.image} />
+                    <div className={styles.ui}>
+                        <div className={styles.toprow}>
+                            <p className={styles.time}>11:27</p>
+                            <p className={styles.menuItemSelected}>Friends · Now Playing</p>
+                        </div>
+                    <p className={styles.smallText}>Friend's live activity</p>
+                </div>
+                </div>
                 <div className={styles.circles}>
                     {Array.from({ length: 8 }).map((_, index) => (
                         <Circle key={index} width={index * 300} height={index * 300} index={index} />

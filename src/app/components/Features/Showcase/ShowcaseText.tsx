@@ -32,6 +32,7 @@ export default function ShowcaseText() {
             start: 'top 0%',
             end: 'top+=200 0%',
             onEnter: () => {
+                if (!splitText.lines) return;
                 const currentY = gsap.getProperty(splitText.lines[0], 'y');
                 if (currentY !== 0) {
                     lenis.stop();
@@ -48,7 +49,7 @@ export default function ShowcaseText() {
             onLeave: () => {
                 lenis.stop()
                 window.scrollBy(0, 5)
-
+                if (!splitText.lines) return;
                 gsap.to(splitText.lines.reverse(), {
                     y: -100,
                     rotate: 3,
@@ -59,6 +60,7 @@ export default function ShowcaseText() {
             },
             onEnterBack: () => {
                 lenis.stop();
+                if (!splitText.lines) return;
                 gsap.to(splitText.lines.reverse(), {
                     y: 0,
                     rotate: 0,

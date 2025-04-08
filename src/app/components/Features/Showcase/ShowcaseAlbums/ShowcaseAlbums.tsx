@@ -80,8 +80,8 @@ export default function ShowcaseAlbums() {
                 gsap.to(uiItem.current, {
                     opacity: 1,
                     y: 0,
-                    delay: 1.3,
-                    stagger: 0.1,
+                    delay: 1.35,
+                    stagger: 0.05,
                     onComplete: () => lenis.start()
                 })
             },
@@ -94,7 +94,7 @@ export default function ShowcaseAlbums() {
                 })
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 0,
-                    duration: 0.3,
+                    duration: 0.15,
                     onStart: () => {
                         lenis.stop()
                         window.scrollBy(0, 5)
@@ -105,11 +105,11 @@ export default function ShowcaseAlbums() {
                         })
                     }
                 })
-                gsap.to(uiItem.current, {
-                    opacity: 0,
-                    y: -50,
-                    stagger: 0.1
-                })
+                // gsap.to(uiItem.current, {
+                //     opacity: 0,
+                //     y: -50,
+                //     stagger: 0.1
+                // })
             },
             onEnterBack: () => {
                 gsap.set(`.${styles.wrapper}`, {
@@ -124,16 +124,17 @@ export default function ShowcaseAlbums() {
                 })
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 1,
-                    duration: 0.3,
-                    delay: 0.3,
-                })
-                gsap.to(uiItem.current, {
-                    opacity: 1,
-                    y: 0,
-                    delay: 1,
-                    stagger: 0.1,
+                    duration: 0.15,
                     onComplete: () => lenis.start()
+                    // delay: 0.3,
                 })
+                // gsap.to(uiItem.current, {
+                //     opacity: 1,
+                //     y: 0,
+                //     delay: 0.3,
+                //     stagger: 0.05,
+                //     onComplete: () => lenis.start()
+                // })
             },
             onLeaveBack: () => {
                 gsap.to(splitText.lines, {

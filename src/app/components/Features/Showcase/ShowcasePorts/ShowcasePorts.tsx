@@ -5,12 +5,14 @@ import SplitType from 'split-type';
 import { useRef } from 'react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useLenis } from '@studio-freight/react-lenis';
+import Render2 from '@/app/components/Render2';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ShowcasePorts() {
     const textRef = useRef(null);
     const cableRefs = useRef([]);
     const lenis = useLenis();
+    const renderRef = useRef(null);
 
     useGSAP(() => {
         if (!lenis) return;
@@ -48,6 +50,14 @@ export default function ShowcasePorts() {
                     ease: 'power4.out',
                     onComplete: () => lenis.start()
                 });
+                gsap.to(renderRef.current, {
+                    opacity: 1,
+                    duration: 0.15
+                })
+                gsap.set(cableRefs.current, {
+                    y: 1000,
+                    opacity: 1
+                })
                 gsap.to(`.${styles.header}`, {
                     opacity: 1,
                     delay: 0.3,
@@ -76,15 +86,16 @@ export default function ShowcasePorts() {
                     stagger: 0.1,
                     ease: 'power4.in',
                     onStart: () => {
+                        window.scrollBy(0, -5)
                         lenis.stop()
                     }
                 });
                 gsap.to(`.${styles.header}`, {
                     opacity: 0,
                 })
-                gsap.to(cableRefs.current, {
-                    y: 1000,
-                    duration: 1
+                gsap.to([cableRefs.current,renderRef.current], {
+                    opacity: 0,
+                    duration: 0.15,
                 })
             }
         })
@@ -95,7 +106,9 @@ export default function ShowcasePorts() {
             <div className={styles.relative}>
                 <div className={styles.header}>Crisp sound out of<br></br>every port</div>
                 <div className={styles.subtext} ref={textRef}>Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.</div>
-            
+                <div ref={renderRef} style={{opacity: 0}}>
+                    <Render2 />
+                </div>
                 <div className={styles.cables}>
                     {Array.from({ length: 3 }).map((_, index) => (
                         <img key={index} src={`Features/Cables/cable${index + 1}.png`} className={styles.cable} ref={el => cableRefs.current[index] = el} />

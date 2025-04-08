@@ -45,6 +45,36 @@ export default function Faces() {
                 gsap.set(`.${styles.facesWrapper}`, {
                     display: "block"
                 })
+                gsap.set(`.${styles.expandedDetails}`, {
+                    opacity: 0
+                })
+                gsap.set(`.${styles.expandedImage}`, {
+                    scale: 1.85
+                })
+                gsap.set(`.${styles.expanded}`, {
+                    scale: 0,
+                    width: 145
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    scale: 1,
+                    delay: 0.5,
+                    duration: 0.4,
+                    ease: "back.out(1.1)"
+                })
+                gsap.to(`.${styles.expandedImage}`, {
+                    scale: 1,
+                    delay: 0.9,
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    width: 430,
+                    duration: 0.20,
+                    delay: 0.9
+                })
+                gsap.to(`.${styles.expandedDetails}`, {
+                    opacity: 1,
+                    duration: 0.20,
+                    delay: 1.2
+                })
                 gsap.to(`.${styles.facesWrapper}`, {
                     opacity: 1,
                     delay: 0.4,
@@ -54,26 +84,101 @@ export default function Faces() {
                 gsap.set(`.${styles.facesWrapper}`, {
                     display: "block"
                 })
+                gsap.set(`.${styles.expandedDetails}`, {
+                    opacity: 0
+                })
+                gsap.set(`.${styles.expandedImage}`, {
+                    scale: 1.85
+                })
+                gsap.set(`.${styles.expanded}`, {
+                    scale: 0,
+                    width: 145
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    scale: 1,
+                    delay: 0.5,
+                    duration: 0.4,
+                    ease: "back.out(1.1)"
+                })
+                gsap.to(`.${styles.expandedImage}`, {
+                    scale: 1,
+                    delay: 0.9,
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    width: 430,
+                    duration: 0.20,
+                    delay: 0.9
+                })
+                gsap.to(`.${styles.expandedDetails}`, {
+                    opacity: 1,
+                    duration: 0.20,
+                    delay: 1.2
+                })
                 gsap.to(`.${styles.facesWrapper}`, {
                     opacity: 1,
+                    // delay: 0.4,
                 })
             },
             onLeave: () => {
+                gsap.to(`.${styles.expanded}`, {
+                    scale: 0,
+                    delay: 0.4,
+                    duration: 0.2,
+                    ease: "back.out(1.1)"
+                })
+                gsap.to(`.${styles.expandedImage}`, {
+                    scale: 2,
+                    delay: 0.2,
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    width: 145,
+                    duration: 0.2,
+                    delay: 0.1
+                })
+                gsap.to(`.${styles.expandedDetails}`, {
+                    opacity: 0,
+                    duration: 0.05,
+                    // delay: 1.2
+                })
                 gsap.to(`.${styles.facesWrapper}`, {
                     opacity: 0,
+                    duration: 0.2,
+                    delay: 0.6,
                     onComplete: () => {
                         gsap.set(`.${styles.facesWrapper}`, {
-                            display: "none"
+                            display: 'none',
                         })
                     }
                 })
             },
             onLeaveBack: () => {
+                gsap.to(`.${styles.expanded}`, {
+                    scale: 0,
+                    delay: 0.4,
+                    duration: 0.2,
+                    ease: "back.out(1.1)"
+                })
+                gsap.to(`.${styles.expandedImage}`, {
+                    scale: 2,
+                    delay: 0.2,
+                })
+                gsap.to(`.${styles.expanded}`, {
+                    width: 145,
+                    duration: 0.2,
+                    delay: 0.1
+                })
+                gsap.to(`.${styles.expandedDetails}`, {
+                    opacity: 0,
+                    duration: 0.05,
+                    // delay: 1.2
+                })
                 gsap.to(`.${styles.facesWrapper}`, {
                     opacity: 0,
+                    duration: 0.2,
+                    delay: 0.6,
                     onComplete: () => {
                         gsap.set(`.${styles.facesWrapper}`, {
-                            display: "none"
+                            display: 'none',
                         })
                     }
                 })

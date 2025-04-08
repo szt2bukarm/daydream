@@ -24,7 +24,7 @@ export default function Features() {
                 trigger: `.${styles.wrapper}`,
                 start: 'top 0%',
                 end: 'top+=500 0%',
-                markers: true,
+                // markers: true,
                 pin: true
             }
         })
