@@ -1,6 +1,6 @@
 .wrapper{
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     position: relative;
     background-color: #181818;
     background: linear-gradient(155deg, #000000 30%,#C25946);
@@ -93,8 +93,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #080808;
-    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 5;
+    box-shadow:
+    inset 0 0 0 0px #080808,
+    0 0 0 100px #080808;
+    border-radius: 0px;
 }

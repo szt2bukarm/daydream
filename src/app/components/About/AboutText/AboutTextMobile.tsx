@@ -42,7 +42,7 @@ export default function AboutTextMobile({ texts }: { texts: string[] }) {
                 trigger: wrapper.current,
                 start: 'top 70%',
                 end: 'top 70%',
-                markers: true,
+                // markers: true,
                 onEnter: () => {
                     gsap.to(splitTextInstance.lines, {
                         y: 0,

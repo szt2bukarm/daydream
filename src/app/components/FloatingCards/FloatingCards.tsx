@@ -153,7 +153,7 @@ export default function FloatingCards() {
                     start: "top top",
                     end: "bottom-=1000 top",
                     scrub: true,
-                    markers: true
+                    // markers: true
                 }
             });
     

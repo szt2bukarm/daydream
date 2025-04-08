@@ -48,6 +48,18 @@ export default function Hero() {
             backgroundPosition: "0% 100%",    
             // delay: 1.5,
         })
+
+        gsap.to(`.${styles.overlay}`, {
+            borderRadius: 50,
+            boxShadow: "inset 0 0 0 30px #080808,0 0 0 100px #080808",
+            scrollTrigger: {
+                trigger: `.${styles.wrapper}`,
+                start: 'top 0%',
+                end: 'bottom 0%',
+                // markers: true,
+                scrub: true
+            }
+        })
     })
 
     return (
@@ -76,6 +88,7 @@ export default function Hero() {
             <div className={styles.aurora}>
             <Aurora />
             </div>
+            <div className={styles.overlay}></div>
         </div>
     );
 }

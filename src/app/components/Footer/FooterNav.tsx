@@ -41,7 +41,7 @@ export default function FooterNav() {
                 trigger: `.${wheelStyles.wrapper}`,
                 start: '10% top',
                 end: '10% top',
-                markers: true
+                // markers: true
             }
         })
 
@@ -80,7 +80,7 @@ export default function FooterNav() {
                 start: '0% top',
                 end: '100% top',
                 scrub: true,
-                markers: true
+                // markers: true
             }
         })
 
@@ -90,7 +90,7 @@ export default function FooterNav() {
                 start: 'top-=150 top',
                 end: 'top-=150 top',
                 scrub: true,
-                markers: true,
+                // markers: true,
                 onEnter: () => {
                     const nav = document.querySelector(`.${navStyles.navWrapper}`)
                     nav.style.opacity = '0'

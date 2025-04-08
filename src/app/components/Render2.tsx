@@ -134,7 +134,7 @@ const Scene = () => {
   if (!shaderMaterial) return null;
 
   return (
-    <mesh scale={[size.width / 270, size.height / 300, 1]}>
+    <mesh scale={[size.width / 270, size.height / 290, 1]}>
       <planeGeometry args={[2, 2]} />
       <primitive object={shaderMaterial} attach="material" />
     </mesh>

@@ -45,7 +45,7 @@ function Model({ url }: { url: string }) {
         end: 'top+=5000 top', // Total scroll distance
         scrub: 1,
         // pin: true,
-        markers: true,
+        // markers: true,
         // onEnter: () => {
         //   canvas.style.display = "block"
         // },
@@ -133,7 +133,7 @@ function Model2({ url }: { url: string }) {
           end: 'top+=4000 top', // Total scroll distance
           scrub: 1,
           // pin: true,
-          markers: true,
+          // markers: true,
         }
       })
   
@@ -214,7 +214,7 @@ export default function Render() {
       end: 'top+=6000 top', // Total scroll distance
       scrub: 1,
       // pin: true,
-      markers: true,
+      // markers: true,
       onEnter: () => {
 
         setHidden(false);

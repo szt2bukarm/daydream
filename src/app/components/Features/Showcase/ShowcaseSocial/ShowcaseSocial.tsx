@@ -30,13 +30,12 @@ export default function ShowcaseSocial() {
             wrapper.appendChild(line);
         });
 
-
         gsap.set([`.${styles.header}`, `.${styles.circles}`], {
             opacity: 0,
             pointerEvents: 'none'
         })
         gsap.set(splitText.lines, {
-            y:  100,    
+            y: 100,    
             rotate: 3
         })
 
@@ -131,20 +130,20 @@ export default function ShowcaseSocial() {
         <div className={styles.wrapper}>
             <div className={styles.relative}>
                 <div>
-                    <p className={styles.header}>Connect with who<br/>matter the most</p>
+                    <p className={styles.header}>Connect with who<br></br>matter the most</p>
                     <p className={styles.subtext} ref={textRef}>
                         With Daydream, sharing isn’t just about music—it’s about connection. Instantly share your favorite tracks, playlists, or listening stats with friends. See what your circle is playing in real time and discover new music together.
                     </p>
                 </div>
                 <div ref={uiRef} style={{opacity: 0}}>
-                    <img src="Features/social.png" className={styles.image} />
+                    <img src="Features/social.webp" className={styles.image} />
                     <div className={styles.ui}>
                         <div className={styles.toprow}>
                             <p className={styles.time}>11:27</p>
                             <p className={styles.menuItemSelected}>Friends · Now Playing</p>
                         </div>
                     <p className={styles.smallText}>Friend's live activity</p>
-                </div>
+                    </div>
                 </div>
                 <div className={styles.circles}>
                     {Array.from({ length: 8 }).map((_, index) => (

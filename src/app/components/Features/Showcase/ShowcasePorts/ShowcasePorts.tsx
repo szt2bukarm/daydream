@@ -20,7 +20,7 @@ export default function ShowcasePorts() {
                 display: "block",
                 opacity: 0
             })
-        }, 500);
+        }, 500  );
     },[])
 
     useGSAP(() => {
@@ -113,8 +113,8 @@ export default function ShowcasePorts() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
-                <div className={styles.header}>Crisp sound out of<br></br>every port</div>
-                <div className={styles.subtext} ref={textRef}>Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.</div>
+                <p className={styles.header}>Crisp sound out of<br></br>every port</p>
+                <p className={styles.subtext} ref={textRef}>Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.</p>
                 <div ref={renderRef} style={{display: 'none'}}>
                     <Render2 />
                 </div>

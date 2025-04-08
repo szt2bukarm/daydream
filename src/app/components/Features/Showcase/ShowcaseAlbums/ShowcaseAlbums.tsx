@@ -141,15 +141,15 @@ export default function ShowcaseAlbums() {
                     y: -100,
                     rotate: 3,
                     duration: 1.2,
-                    stagger: 0.1
-                })
-                gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
-                    opacity: 0,
+                    stagger: 0.1,
                     onComplete: () => {
                         gsap.set(`.${styles.wrapper}`, {
                             display: "none"
                         })
                     }
+                })
+                gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
+                    opacity: 0,
                 })
                 gsap.to(uiItem.current, {
                     opacity: 0,

@@ -120,7 +120,7 @@ export default function Colors() {
                 start: 'top top',
                 end: 'top+=3000 top',
                 pin: true,
-                markers: true // you can remove markers if you don't want to see them
+                // markers: true // you can remove markers if you don't want to see them
             }
         })
     },[])

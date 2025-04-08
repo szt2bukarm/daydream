@@ -1,5 +1,5 @@
 .wrapper{
-  display: none;
+  // display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -143,20 +143,20 @@
 }
 
 .subtext{
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 713px;
-    height: 198px;
-    color: #FFF;
-    text-align: center;
-    font-family: Manrope;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 100%; /* 25px */
-    letter-spacing: 0.75px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 787px;
+  height: 198px;
+  color: #FFF;
+  text-align: center;
+  font-family: Manrope;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 25px */
+  letter-spacing: 0.75px;
 }
 
 .circles{

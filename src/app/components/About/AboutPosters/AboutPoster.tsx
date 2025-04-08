@@ -2,12 +2,18 @@ import styles from "./aboutposters.module.scss"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import ScrollTrigger from "gsap/dist/ScrollTrigger"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function AboutPoster({orientation,image}:{orientation?:string,image?:string}) {
     const imageRef = useRef(null);
+    const [mounted,setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    },[])
 
     useGSAP(() => {
+        if (!mounted) return;
         if (orientation !== "right") return;
         if (typeof window === 'undefined') return;
         gsap.set([`.${styles.imageRight}`, `.${styles.backgroundRight}`], {
@@ -36,9 +42,10 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
                 });
             }
         })
-    },[])
+    },[mounted])
 
     useGSAP(() => {
+        if (!mounted) return;
         if (orientation !== "left") return;
         if (typeof window === 'undefined') return;
         gsap.set([`.${styles.imageLeft}`, `.${styles.backgroundLeft}`], {
@@ -50,7 +57,7 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
             trigger: imageRef.current,
             start: 'top 70%',
             end: 'top 70%',
-            markers: true,
+            // markers: true,
             onEnter: () => {
                 gsap.to([`.${styles.backgroundLeft}`, `.${styles.imageLeft}`], {
                     x: 0,
@@ -69,8 +76,9 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
                     delay: 0.15
                 });                
             }})
-    },[])
+    },[mounted])
 
+    if (!mounted) return <></>;
 
     return (
         <div className={styles.wrapper} ref={imageRef}>
