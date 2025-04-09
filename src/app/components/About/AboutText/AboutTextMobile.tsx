@@ -2,14 +2,21 @@ import styles from "./abouttext.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutTextMobile({ texts }: { texts: string[] }) {
     const textRef = useRef([]);
     const wrapper = useRef(null);
+    const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
+    const splitInstanceRef = useRef<SplitType | null>(null);
     let resizeTimeout: NodeJS.Timeout;
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const splitAndStyleText = () => {
         const textElements = textRef.current;
@@ -27,69 +34,99 @@ export default function AboutTextMobile({ texts }: { texts: string[] }) {
         return split;
     };
 
-    useGSAP(() => {
-        const splitTextInstance = splitAndStyleText();
-        if (!splitTextInstance) return;
-
-        gsap.set(splitTextInstance.lines, {
-            y: 100,
-            rotate: 3
+    const setupScrollTrigger = (splitTextInstance: SplitType) => {
+        gsap.set(splitTextInstance.lines, { y: 100, rotate: 3 });
+        
+        const trigger = ScrollTrigger.create({
+            trigger: wrapper.current,
+            start: 'top 70%',
+            end: 'top 70%',
+            // markers: true,
+            onEnter: () => {
+                gsap.to(splitTextInstance.lines, {
+                    y: 0,
+                    rotate: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: 'power4.out'
+                });
+                gsap.to(`.${styles.backgroundRightText}`, {
+                    rotate: 11,
+                    delay: 0.1
+                });
+            }
         });
 
+        return trigger;
+    }
 
-        setTimeout(() => {
-            ScrollTrigger.create({
-                trigger: wrapper.current,
-                start: 'top 70%',
-                end: 'top 70%',
-                // markers: true,
-                onEnter: () => {
-                    gsap.to(splitTextInstance.lines, {
-                        y: 0,
-                        rotate: 0,
-                        duration: 1.2,
-                        stagger: 0.1,
-                        ease: 'power4.out'
-                    });
-                    gsap.to(`.${styles.backgroundRightText}`, {
-                        rotate: 11,
-                        delay: 0.1
-                    });
-                }
-            });
+    useGSAP(() => {
+        if (typeof window === 'undefined') return;
     
-        }, 200);
-
+        let lastWidth = window.innerWidth;
+        const splitTextInstance = splitAndStyleText();
+        if (!splitTextInstance) return;
+    
+        splitInstanceRef.current = splitTextInstance;
+        scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
+    
         const handleResize = () => {
-            clearTimeout(resizeTimeout);
-
-            textRef.current.forEach(text => {
-                if (text && text.style.opacity !== '0') {
-                    gsap.to(text, { opacity: 0, duration: 0.2 });
-                }
-            });
-
-            resizeTimeout = setTimeout(() => {
-                splitTextInstance.revert();
-
-                const resizedSplit = splitAndStyleText();
-
-                gsap.set(resizedSplit.lines, { opacity: 1, y: 0, rotate: 0 });
-
+            const currentWidth = window.innerWidth;
+    
+            if (currentWidth !== lastWidth) {
+                lastWidth = currentWidth;
+    
+                clearTimeout(resizeTimeout!);
+    
+                // Fade out text during resize
                 textRef.current.forEach(text => {
-                    if (text) {
-                        gsap.to(text, { opacity: 1, duration: 0.2 });
+                    if (text && text.style.opacity !== '0') {
+                        gsap.to(text, { opacity: 0, duration: 0.2 });
                     }
                 });
-            }, 200);
+    
+                resizeTimeout = setTimeout(() => {
+                    // Revert previous split
+                    if (splitInstanceRef.current) {
+                        splitInstanceRef.current.revert();
+                        splitInstanceRef.current = null;
+                    }
+    
+                    // Kill existing scroll trigger
+                    if (scrollTriggerInstance.current) {
+                        scrollTriggerInstance.current.kill();
+                        scrollTriggerInstance.current = null;
+                    }
+    
+                    // Re-split text
+                    const newSplit = splitAndStyleText();
+                    if (!newSplit) return;
+                    splitInstanceRef.current = newSplit;
+    
+                    // Create new scroll trigger
+                    const newTrigger = setupScrollTrigger(newSplit);
+                    scrollTriggerInstance.current = newTrigger;
+    
+                    // Refresh ScrollTrigger calculations
+                    ScrollTrigger.refresh();
+    
+                    // Restore text opacity
+                    textRef.current.forEach(text => {
+                        if (text) {
+                            gsap.to(text, { opacity: 1, duration: 0.2 });
+                        }
+                    });
+                }, 200);
+            }
         };
-
+    
         window.addEventListener('resize', handleResize);
         return () => {
-            splitTextInstance.revert();
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [mounted]);
+
+    if (!mounted) return <></>;
 
     return (
         <div className={`${styles.wrapper}`} ref={wrapper}>

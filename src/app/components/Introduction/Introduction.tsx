@@ -10,40 +10,106 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Introduction() {
     gsap.registerEase("customEase", CustomEase.create("customEase", ".9,.6,.2,1"));
-    const textRef = useRef([]);
+    const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
+    const splitInstanceRef = useRef<SplitType | null>(null);
+    const textRef = useRef(null);
+    let resizeTimeout: NodeJS.Timeout | null = null;
 
-    useEffect(() => {
-        const splitText = new SplitType(textRef.current, { types: 'lines' });
-
-        splitText.lines.forEach(line => {
+    const splitAndStyleText = () => {
+        const el = textRef.current;
+      
+          const split = new SplitType(el, { types: 'lines' });
+      
+          split.lines.forEach(line => {
             const wrapper = document.createElement('div');
             wrapper.style.overflow = 'hidden';
             line.parentNode.insertBefore(wrapper, line);
             wrapper.appendChild(line);
+          });
+      
+      
+        return split;
+      };
+    
+      const setupScrollTrigger = () => {
+        gsap.set(textRef.current, { y: 100, rotate: 3,opacity: 0 })
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'top 70%',
+            end: 'top 70%',
+            markers: true,
+            onEnter: () => {
+                gsap.to(textRef.current, {
+                    y: 0,
+                    opacity: 1,
+                    rotate: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: 'power4.out'
+                });
+            }
         });
 
-        gsap.fromTo(splitText.lines,
-            {
-                opacity: 0,
-                y: 100,
-                rotate: 3
-            },
-            {
-                opacity: 1,
-                y: 0,
-                rotate: 0,
-                duration: 1.2,
-                stagger: 0.1,
-                ease: 'power4.out',
-                scrollTrigger: {
-                    trigger: `.${styles.wrapper}`,
-                    start: 'top 70%',
-                    end: 'top 70%',
-                }
-            }
-        );
+        return trigger;
+    };
 
-        return () => splitText.revert();
+    useGSAP(() => {
+        if (typeof window === 'undefined') return;
+        const splitTextInstance = splitAndStyleText();
+        if (!splitTextInstance) return;
+
+        splitInstanceRef.current = splitTextInstance;
+        scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
+
+        const handleResize = () => {
+            clearTimeout(resizeTimeout!);
+
+            // Fade out text during resize
+            textRef.current.forEach(text => {
+                if (text && text.style.opacity !== '0') {
+                    gsap.to(text, { opacity: 0, duration: 0.2 });
+                }
+            });
+
+            resizeTimeout = setTimeout(() => {
+                // Revert previous split
+                if (splitInstanceRef.current) {
+                    splitInstanceRef.current.revert();
+                    splitInstanceRef.current = null;
+                }
+
+                // Kill existing scroll trigger
+                if (scrollTriggerInstance.current) {
+                    scrollTriggerInstance.current.kill();
+                    scrollTriggerInstance.current = null;
+                }
+
+                // Re-split text
+                const newSplit = splitAndStyleText();
+                if (!newSplit) return;
+                splitInstanceRef.current = newSplit;
+
+                // Create new scroll trigger
+                const newTrigger = setupScrollTrigger(newSplit);
+                scrollTriggerInstance.current = newTrigger;
+
+                // Refresh ScrollTrigger calculations
+                ScrollTrigger.refresh();
+
+
+                // Restore text opacity
+                textRef.current.forEach(text => {
+                    if (text) {  
+                        gsap.to(text, { opacity: 1, duration: 0.2 });
+                    }
+                });
+            }, 200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     useGSAP(() => {
@@ -88,14 +154,12 @@ export default function Introduction() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.textWrapper}>
-                <div ref={el => textRef.current[0] = el} className={styles.text}>
+                <div ref={textRef} className={styles.text}>
                     A music player built for the now. Seamless, social, and made to move with you.
                 </div>
-            </div>
-            <div className={styles.textWrapper}>
-                <div ref={el => textRef.current[1] = el} className={styles.text}>
+                {/* <div ref={el => textRef.current[1] = el} className={styles.text}>
                 Connect, share, and discover music together — because great sound is meant to be experienced, not just heard.
-                </div>
+                </div> */}
             </div>
 
             <div className={styles.imageWrapper}>

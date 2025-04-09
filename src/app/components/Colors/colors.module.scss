@@ -42,15 +42,6 @@
     background-color: #BFBFBF;
 }
 
-.gradient{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    height: 10vh !important;
-}
-
 .text{
     position: absolute;
     top: 50%;
@@ -82,5 +73,11 @@
     @media (max-width: 1324px) {
         left: 32px;
         top: 120px;
+    }
+
+    @media (max-width: 724px) {
+        left: 32px;
+        top: 150px;
+        // transform: translateY(-50%);
     }
 }

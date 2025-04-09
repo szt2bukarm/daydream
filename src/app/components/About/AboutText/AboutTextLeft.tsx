@@ -54,41 +54,10 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
         return split;
     };
 
-    // useGSAP(() => {
-    //     if (typeof window === 'undefined') return;
-    //     gsap.set([`.${posterStyles.imageRight}`, `.${posterStyles.backgroundRight}`], {
-    //         x: '-150vw',
-    //         rotate: 0
-    //     });
-
-    //     ScrollTrigger.create({
-    //         trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
-    //         start: 'top 30%',
-    //         end: 'top 30%',
-    //         onEnter: () => {
-    //             gsap.to([`.${posterStyles.backgroundRight}`, `.${posterStyles.imageRight}`], {
-    //                 x: 0,
-    //                 stagger: 0.15,
-    //                 duration: 1.5,
-    //                 ease: 'power4.out'
-    //             });
-    //             gsap.to(`.${posterStyles.backgroundRight}`, {
-    //                 rotate: -28,
-    //                 delay: 0.2
-    //             });
-    //             gsap.to(`.${posterStyles.imageRight}`, {
-    //                 rotate: -18,
-    //                 delay: 0.25
-    //             });
-    //         }
-    //     })
-    // },[mounted])
 
     const setupScrollTrigger = (splitTextInstance: SplitType) => {
-        // Set initial positions
         gsap.set(splitTextInstance.lines, { y: 100, rotate: 3 });
 
-        // Create scroll trigger
         const trigger = ScrollTrigger.create({
             trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
             start: 'top 30%',
@@ -200,12 +169,12 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
         <div className={`${styles.wrapper} ${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`}>
 
             <div className={styles.textWrapper}>
-                <p ref={el => textRef.current[0] = el} className={`${styles.text} ${orientation === "right" ? styles.textRight : styles.textLeft}`}>
+                <div ref={el => textRef.current[0] = el} className={`${styles.text} ${orientation === "right" ? styles.textRight : styles.textLeft}`}>
                     Inspired by the iconic players of the past and the way we discover music today, we’re creating tech that’s not just functional, but personal and fun.
-                </p>
-                <p ref={el => textRef.current[1] = el} className={`${styles.text} ${orientation === "right" ? styles.textRight : styles.textLeft}`}>
+                </div>
+                <div ref={el => textRef.current[1] = el} className={`${styles.text} ${orientation === "right" ? styles.textRight : styles.textLeft}`}>
                     Because music deserves more than just another app—it deserves a device built for the way you live.
-                </p>
+                </div>
             </div>
 
             <AboutPoster image="1" orientation="right" />

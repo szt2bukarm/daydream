@@ -1,6 +1,36 @@
 import styles from './footerwheel.module.scss'
+import navStyles from '../Nav/nav.module.scss'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export default function FooterWheel() {
+
+    useGSAP(() => {
+        setTimeout(() => {
+            gsap.to(`.${navStyles.navWrapper}`, {
+            scrollTrigger: {
+                trigger: `.${styles.wrapper}`,
+                start: 'top-=150 top',
+                end: 'top-=150 top',
+                scrub: true,
+                markers: true,
+                onEnter: () => {
+                    const nav = document.querySelector(`.${navStyles.navWrapper}`)
+                    nav.style.opacity = '0'
+                    nav.style.pointerEvents = 'none'
+                },
+                onEnterBack: () => {
+                    const nav = document.querySelector(`.${navStyles.navWrapper}`)
+                    nav.style.opacity = '1'
+                    nav.style.pointerEvents = 'all'
+                }
+            }
+        })
+        }, 10);
+    },[])
+
+
+    
     return (
         <div className={styles.wrapper}>
             <div className={styles.background}></div>

@@ -40,6 +40,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 100%; /* 24px */
+    text-decoration: none;
 }
 
 .disclamerWrapper{
@@ -49,6 +50,13 @@
     display: flex;
     gap: 15px;
     z-index: 1;
+
+    @media (max-width: 1000px) {
+        bottom: 30px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
 }
 
 .disclamer{
@@ -58,6 +66,16 @@
     font-style: normal;
     font-weight: 400;
     line-height: 100%; /* 24px */
+    text-align: right;
+
+
+    @media (max-width: 1324px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 1000px) {
+        font-size: 16px;
+    }
 }
 
 .credits{
@@ -70,6 +88,10 @@
     line-height: 85%; /* 17px */
     border: 0;
     background-color: transparent;
+
+    @media (max-width: 1324px) {
+        font-size: 16px;
+    }
 }
 
 .logo {
@@ -81,6 +103,14 @@
     padding-inline: 2.3vw;
     gap: 1vw;
     z-index: 1;
+
+    @media (max-width: 1000px) {
+        bottom: 55px
+    }
+
+    @media (max-width: 724px) {
+        bottom: 75px
+    }
 }
 
 .logoSVG {
@@ -110,6 +140,14 @@
     fill: #EE4137 !important;
     stroke: #161616;
     z-index: 0;
+
+    @media (max-width: 724px) {
+        width: 400px;
+        height: 400px;
+        bottom: 0;
+        top: auto;
+        // right: 300px;
+    }
 }
 
 .svg .path {
@@ -130,7 +168,7 @@
 .creditsTextWrapper{
     position: absolute;
     bottom: 30px;
-    left: 50px;
+    // left: 50px;
     display: flex;
     flex-direction: column;
     gap: 35px;
@@ -139,7 +177,20 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
+    width: 100%;
+    padding-inline: 40px;
     line-height: 100%; /* 20px */
+
+    @media (max-width: 1324px) {
+        font-size: 16px;
+        bottom: 40px;
+        // left: 40px;
+    }
+
+    @media (max-width: 724px) {
+    font-size: 14px;
+    bottom: 20px;
+    }
 }
 
 

@@ -1,8 +1,20 @@
 import { Link } from 'next-view-transitions'
 import TransitionLink from '../TransitionLink'
 import styles from './nav.module.scss'
+import { useStore } from '@/useStore'
+import { useEffect } from 'react';
 
 export default function Nav() {
+    const { loaded } = useStore();
+
+    useEffect(() => {
+        if (loaded) {
+            setTimeout(() => {
+                document.querySelector(`.${styles.navWrapper}`).style.opacity = '1'
+            }, 750);
+        }
+    })
+
     return (
         <div className={styles.navWrapper}>
             <div className={styles.nav}>

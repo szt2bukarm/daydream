@@ -16,12 +16,22 @@ export default function FooterNav() {
     const [credits,setCredits] = useState(false);
     const pathRef = useRef(null);
     const [mounted,setMounted] = useState(false);
+    const [width,setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         setMounted(true);
     },[]);
 
     useGSAP(() => {
+        if (!mounted) return;
         if (typeof window === 'undefined') return;
         gsap.set(pathRef.current,{
             animationPlayState: "paused"
@@ -54,7 +64,6 @@ export default function FooterNav() {
                 trigger: `.${wheelStyles.wrapper}`,
                 start: '10% top',
                 end: '10% top',
-                // markers: true
             }
         })
 
@@ -64,7 +73,6 @@ export default function FooterNav() {
                 trigger: `.${wheelStyles.wrapper}`,
                 start: '10% top',
                 end: '10% top',
-                // markers: true
             }
         })
         
@@ -84,25 +92,6 @@ export default function FooterNav() {
             }
         })
 
-        gsap.to(`.${navStyles.navWrapper}`, {
-            scrollTrigger: {
-                trigger: `.${wheelStyles.wrapper}`,
-                start: 'top-=150 top',
-                end: 'top-=150 top',
-                scrub: true,
-                // markers: true,
-                onEnter: () => {
-                    const nav = document.querySelector(`.${navStyles.navWrapper}`)
-                    nav.style.opacity = '0'
-                    nav.style.pointerEvents = 'none'
-                },
-                onEnterBack: () => {
-                    const nav = document.querySelector(`.${navStyles.navWrapper}`)
-                    nav.style.opacity = '1'
-                    nav.style.pointerEvents = 'all'
-                }
-            }
-        })
     }, [mounted]);
 
     const handleCredits = () => {
@@ -137,6 +126,8 @@ export default function FooterNav() {
         return () => window.removeEventListener('scroll', onScroll);
     })
 
+    if (!mounted) return <></>;
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.footer}>
@@ -160,12 +151,17 @@ export default function FooterNav() {
                 </div>
 
                 <div className={styles.disclamerWrapper}>
+                    {width > 724 && 
                     <p className={styles.disclamer}>Daydream is a concept. An exploration in design fiction, see:</p>
+                    }
+                    {width <= 724 && 
+                    <p className={styles.disclamer}>Daydream is a concept.<br></br>An exploration in design fiction, see:</p>
+                    }
                     <button onClick={handleCredits} className={styles.credits}>SITE CREDITS</button>
                 </div>
 
                 <div className={styles.backgroundLogo}>
-                <svg className={styles.svg} width="700" height="700" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                <svg className={styles.svg} viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
                     <path 
                         ref={pathRef}
                         className={styles.path}

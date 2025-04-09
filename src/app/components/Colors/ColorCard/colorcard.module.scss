@@ -10,13 +10,18 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border-radius: 30.399px;
+    border-radius: 30px;
     border: 1px solid #D5D5D5;
     background: #E1E1E1;
 
     @media (max-width: 1324px) {
         width: 70vh;
         height: 70vh;
+    }
+
+    @media (max-width: 724px) {
+        width: 60vh;
+        height: 60vh;
     }
 }
 
@@ -45,12 +50,16 @@
     @media (max-width: 1324px) {
         font-size: 2vh;
     }
+
+    @media (max-width: 724px) {
+        font-size: 1.7vh;
+    }
 }
 
 .colorWrapper{
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 25px
 }
 
 .colorText{
@@ -65,16 +74,20 @@
     @media (max-width: 1324px) {
         font-size: 2vh;
     }
+
+    @media (max-width: 724px) {
+        font-size: 1.5vh;
+    }
 }
 
 .colorCircle{
-    width: 5vh;
-    height: 5vh;
+    min-width: 5vh;
+    min-height: 5vh;
     border-radius: 50%;
 
     @media (max-width: 1324px) {
-        width: 4vh;
-        height: 4vh;
+        min-width: 4vh;
+        min-height: 4vh;
     }
 }
 

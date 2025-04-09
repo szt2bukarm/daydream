@@ -23,6 +23,7 @@ export default function AboutFooter() {
     }, [mounted]);
 
     useGSAP(() => {
+        if (!mounted) return;
         gsap.set([`.${styles.wrapper}`,`.${styles.header}`, `.${styles.text}`, button.current], {
             opacity: 0
         })
@@ -34,7 +35,7 @@ export default function AboutFooter() {
                 start: 'top-=500 70%',
                 end: 'top+=400 70%',
                 scrub: true,
-                // markers: true
+                markers: true
             }
         })
 
@@ -49,36 +50,9 @@ export default function AboutFooter() {
                 
             }
         })
-
-        // ScrollTrigger.create({
-        //     trigger: `.${styles.wrapper}`,
-        //     start: 'top 60%',
-        //     end: 'top 60%',
-        //     onEnter: () => {
-        //         gsap.to(`.${aboutStyles.wrapper}`, {
-        //             backgroundColor: "#000",
-        //             onComplete: () => {
-        //                 gsap.to([`.${styles.wrapper}`,`.${styles.header}`, `.${styles.text}`, button.current], {
-        //                     opacity: 1,
-        //                     stagger: 0.1,
-        //                 })   
-        //             }
-        //         })       
-        //     },
-        //     onLeaveBack: () => {
-        //         gsap.to([`.${styles.wrapper}`,`.${styles.header}`, `.${styles.text}`, button.current], {
-        //             opacity: 0,
-        //             duration: 0.5,
-        //             // stagger: 0.05,
-        //             onComplete: () => {
-        //                 gsap.to(`.${aboutStyles.wrapper}`, {
-        //                     backgroundColor: "#161616"
-        //                 })
-        //             }
-        //         })  
-        //     }
-        // })
     },[mounted])
+
+    if (!mounted) return <></>;
 
     return (
         <div className={styles.wrapper}>

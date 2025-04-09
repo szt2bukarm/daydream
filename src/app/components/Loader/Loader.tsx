@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import styles from './loader.module.scss';
 import {useStore} from '@/useStore';
 import { useGLTF } from '@react-three/drei';
+import { useGSAP } from '@gsap/react';
 
 const letters = ['D', 'A', 'Y', 'D', 'R', 'E', 'A', 'M'];
 const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
@@ -177,6 +178,30 @@ export default function Loader() {
             });
     }, []); 
 
+    const revealLetter = (index) => {
+        gsap.set(`.${styles.logoLetter}[data-index="${index}"]`, {
+            opacity: 1
+        })
+        gsap.to(`.${styles.logoLetter}[data-index="${index}"]`, {
+            y: 0,
+        });
+    };
+
+    useGSAP(() => {
+        gsap.set(`.${styles.logoLetter}`, {
+            y: 50,
+        });
+    
+        const step = 12;
+        const numLetters = 8;
+    
+        for (let i = 0; i < numLetters; i++) {
+            if (progress > step * (i + 1)) {
+                revealLetter(i);
+            }
+        }
+    }, [progress]);
+
     useEffect(() => {
         if (loaded) {
             gsap.to(`.${styles.wrapper}`, {
@@ -201,6 +226,7 @@ export default function Loader() {
                 <div className={styles.logo}>
                     {logoPaths.map((path, index) => (
                         <img
+                            data-index={index}
                             key={index}
                             src={path}
                             alt={letters[index]}

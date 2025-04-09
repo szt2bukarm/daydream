@@ -43,7 +43,6 @@ export default function AboutHeader() {
 
         const initialSplit = splitText();
 
-        // Reset font size to CSS-defined value after a brief moment
         setTimeout(() => {
             text.style.fontSize = '';
         }, 0);
@@ -84,7 +83,10 @@ export default function AboutHeader() {
             }
         );
 
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
             clearTimeout(resizeTimeout);
 
             if (text.style.opacity !== '0') {
@@ -94,21 +96,18 @@ export default function AboutHeader() {
             resizeTimeout = setTimeout(() => {
                 initialSplit.revert();
 
-                // Temporarily set font size to 49px on resize
                 if (width > 724) {
                     text.style.fontSize = '49px';
                 }
 
                 const resizedSplit = splitText();
 
-                // Reset font size to CSS-defined value after a brief moment
                 setTimeout(() => {
                     text.style.fontSize = '';
                 }, 0);
 
                 gsap.set(resizedSplit.lines, { opacity: 1, y: 0, rotate: 0 });
 
-                // Fade text back in after resize completes
                 gsap.to(text, { opacity: 1, duration: 0.2 });
             }, 200);
         };
