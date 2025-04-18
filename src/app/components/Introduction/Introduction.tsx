@@ -12,12 +12,12 @@ export default function Introduction() {
     gsap.registerEase("customEase", CustomEase.create("customEase", ".9,.6,.2,1"));
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const splitInstanceRef = useRef<SplitType | null>(null);
-    const textRef = useRef(null);
+    const textRef = useRef([]);
     let resizeTimeout: NodeJS.Timeout | null = null;
 
     const splitAndStyleText = () => {
         const el = textRef.current;
-      
+
           const split = new SplitType(el, { types: 'lines' });
       
           split.lines.forEach(line => {
@@ -31,15 +31,15 @@ export default function Introduction() {
         return split;
       };
     
-      const setupScrollTrigger = () => {
-        gsap.set(textRef.current, { y: 100, rotate: 3,opacity: 0 })
+      const setupScrollTrigger = (splitTextInstance: SplitType) => {
+        gsap.set(splitTextInstance.lines, { y: 100, rotate: 3 })
         const trigger = ScrollTrigger.create({
             trigger: `.${styles.wrapper}`,
             start: 'top 70%',
             end: 'top 70%',
-            markers: true,
+            // markers: true,
             onEnter: () => {
-                gsap.to(textRef.current, {
+                gsap.to(splitTextInstance.lines, {
                     y: 0,
                     opacity: 1,
                     rotate: 0,
@@ -61,7 +61,11 @@ export default function Introduction() {
         splitInstanceRef.current = splitTextInstance;
         scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
 
+        let lastWidth = window.innerWidth;
+
         const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
             clearTimeout(resizeTimeout!);
 
             // Fade out text during resize
@@ -149,17 +153,17 @@ export default function Introduction() {
                 scrub: true,
             }
         })
-    })
+    },[])
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.textWrapper}>
-                <div ref={textRef} className={styles.text}>
+                <div ref={el => textRef.current[0] = el} className={styles.text}>
                     A music player built for the now. Seamless, social, and made to move with you.
                 </div>
-                {/* <div ref={el => textRef.current[1] = el} className={styles.text}>
+                <div ref={el => textRef.current[1] = el} className={styles.text}>
                 Connect, share, and discover music together — because great sound is meant to be experienced, not just heard.
-                </div> */}
+                </div>
             </div>
 
             <div className={styles.imageWrapper}>

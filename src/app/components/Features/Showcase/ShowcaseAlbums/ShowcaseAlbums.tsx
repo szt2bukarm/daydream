@@ -9,11 +9,13 @@ import { useLenis } from '@studio-freight/react-lenis';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import featuresStyles from '../../features.module.scss';
+import ShowcaseHeader from '../ShowcaseHeader';
+import ShowcaseSubtext from '../ShowcaseSubtext';
 
 const albums = [
     {
         image: 'album1',
-        title: 'Astroworld'
+        title: 'PLAN A'
     },
     {
         image: 'album2',
@@ -23,30 +25,42 @@ const albums = [
         image: 'album3',
         title: 'Testing'
     },
+    {
+        image: 'album4',
+        title: 'DRIP SEASON 4EVER'
+    },
+    {
+        image: 'album5',
+        title: 'TEC'
+    },
+    {
+        image: 'album6',
+        title: 'Rodeo'
+    },
+    {
+        image: 'album7',
+        title: 'Life of a DON'
+    },
+    {
+        image: 'album8',
+        title: 'For All The Dogs'
+    },
+    {
+        image: 'album9',
+        title: 'Astroworld'
+    },
 ];
 
 export default function ShowcaseAlbums() {
     const uiBackground = useRef<HTMLDivElement>(null);
     const uiItem = useRef([]);
     const textContainer = useRef(null);
-    const textRef = useRef([]);
+    const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const lenis = useLenis();
+    let resizeTimeout = null;
 
-    useEffect(() => {
+    useGSAP(() => {
         if (!lenis) return;
-        const splitText = new SplitType(textRef.current, { types: 'lines' });
-
-        splitText.lines.forEach(line => {
-            const wrapper = document.createElement('div');
-            wrapper.style.overflow = 'hidden';
-            line.parentNode.insertBefore(wrapper, line);
-            wrapper.appendChild(line);
-        });
-
-        gsap.set(splitText.lines, {
-            y: 100,
-            rotate: 3
-        })
         gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
             opacity: 0,
         })
@@ -54,8 +68,10 @@ export default function ShowcaseAlbums() {
             opacity: 0,
             y: 30
         })
+    }, [lenis]);
 
-        ScrollTrigger.create({
+    const setupScrollTrigger = () => {
+        const trigger = ScrollTrigger.create({
             trigger: `.${styles.wrapper}`,
             start: 'top+=200 0%',
             end: 'top+=300 0%',
@@ -64,14 +80,6 @@ export default function ShowcaseAlbums() {
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
                 })
-                gsap.to(splitText.lines, {
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    delay: 1,
-                    ease: 'power4.out',
-                });
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 1,
                     delay: 1.3,
@@ -86,12 +94,6 @@ export default function ShowcaseAlbums() {
                 })
             },
             onLeave: () => {
-                gsap.to(splitText.lines, {
-                    y: -100,
-                    rotate: 3,
-                    duration: 1.2,
-                    stagger: 0.1,
-                })
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 0,
                     duration: 0.15,
@@ -105,72 +107,78 @@ export default function ShowcaseAlbums() {
                         })
                     }
                 })
-                // gsap.to(uiItem.current, {
-                //     opacity: 0,
-                //     y: -50,
-                //     stagger: 0.1
-                // })
+
             },
             onEnterBack: () => {
+                lenis?.stop();
+                setTimeout(() => {
+                    lenis?.start();
+                }, 1500);
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
                 })
-                gsap.to(splitText.lines, {
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    ease: 'power4.out',
-                })
+
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 1,
                     duration: 0.15,
-                    onComplete: () => lenis.start()
-                    // delay: 0.3,
                 })
-                // gsap.to(uiItem.current, {
-                //     opacity: 1,
-                //     y: 0,
-                //     delay: 0.3,
-                //     stagger: 0.05,
-                //     onComplete: () => lenis.start()
-                // })
+
             },
             onLeaveBack: () => {
-                gsap.to(splitText.lines, {
-                    y: -100,
-                    rotate: 3,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    onComplete: () => {
-                        gsap.set(`.${styles.wrapper}`, {
-                            display: "none"
-                        })
-                    }
-                })
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 0,
                 })
                 gsap.to(uiItem.current, {
                     opacity: 0,
                     y: -30,
-                    stagger: 0.1
+                    stagger: 0.1,
+                    onComplete: () => {
+                        lenis?.start();
+                    }
                 })
             },
         })
+        return trigger;
+    }
 
-        return () => splitText.revert();
+    useGSAP(() => {
+        if (!lenis) return;
+        if (typeof window === 'undefined') return;
+        scrollTriggerInstance.current = setupScrollTrigger();
+
+        let lastWidth = window.innerWidth;
+
+        const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
+            clearTimeout(resizeTimeout!);
+
+            resizeTimeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, [lenis]);
+
+
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
+                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientLeft}`} />
+                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientRight}`} />
                 <div ref={textContainer}>
-                    <p className={styles.header}>Plays all your favorites,<br></br>and then some</p>
-                    <p className={styles.subtext} ref={el => textRef.current[1] = el}>
+                    <ShowcaseHeader triggerClass={styles.wrapper} start="200" end="300">
+                    Plays all your favorites,<br></br>and then some
+                    </ShowcaseHeader>
+                    <ShowcaseSubtext triggerClass={styles.wrapper} start="200" end="300">
                         Access millions of tracks instantly, or use <b>Daydream Link</b> to load your personal library onto the device.
                         No Wi-Fi? No problem. Your music stays with you, ready to play anytime, anywhere.
-                    </p>
+                    </ShowcaseSubtext>
                 </div>
                 <div className={styles.ui}>
                     <div ref={uiBackground}>
@@ -188,22 +196,10 @@ export default function ShowcaseAlbums() {
                 </div>
                 <div className={styles.albums}>
                     {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
+                        <AlbumCard key={index} image={album.image} title={album.title} index={index} />
                     ))}
                     {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
-                    ))}
-                    {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
-                    ))}
-                    {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
-                    ))}
-                    {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
-                    ))}
-                    {albums.map((album, index) => (
-                        <AlbumCard key={index} image={album.image} title={album.title} />
+                        <AlbumCard key={index} image={album.image} title={album.title} index={index} />
                     ))}
                 </div>
             </div>

@@ -57,23 +57,60 @@
     top: 55%;
     left: 50%;
     transform: translate(-727px, -50%) rotate(90deg);
+
+    @media (max-width: 1324px) {
+        transform: translate(-557px, -50%) rotate(90deg);
+    }
 }
 
 .cable{
-    width: 55px
+    width: 55px;
+
+    @media (max-width: 1324px) {
+        width: calc(55px * 0.75);
+    }
 }
 
 .cable:nth-child(1){
     margin-top: -95px;
+
+    @media (max-width: 1324px) {
+        margin-top: calc(-95px * 0.75);
+    }
 }
 .cable:nth-child(2){
     margin-top: -21px;
+
+    @media (max-width: 1324px) {
+        margin-top: calc(-21px * 0.75);
+    }
 }
 
 .cable:nth-child(3){
     margin-top: 0px;
+
+    @media (max-width: 1324px) {
+        margin-top: calc(0px * 0.7);
+    }
 }
 
+.gradient{
+    height: 100vh;
+    width: 20vw;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    opacity: 0.95;
+
+    &Left{
+        left: 0;
+    }
+
+    &Right{
+        right: 0;
+        transform: rotate(180deg);
+    }
+}
 
 // .cable:nth-child(1){
 //     margin-top: -50px;

@@ -30,6 +30,10 @@
     // height: 0%;
     display: flex;
     z-index: 2;
+
+    @media (max-width: 724px) {
+        bottom: 100px;
+    }
 }
 
 .logoLetter{

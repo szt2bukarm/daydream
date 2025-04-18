@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SplitType from "split-type";
-import styles from './features.module.scss'
+import styles from './features.module.scss';
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Showcase from "./Showcase/Showcase";
@@ -16,29 +16,37 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Features() {
     const wrapperRef = useRef(null);
+    const [width, setWidth] = useState(window.innerWidth);
 
-
-    useGSAP(() => {
-        gsap.to(`.${styles.wrapper}`, {
-            scrollTrigger: {
-                trigger: `.${styles.wrapper}`,
-                start: 'top 0%',
-                end: 'top+=500 0%',
-                // markers: true,
-                pin: true
-            }
-        })
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     },[])
 
+    useGSAP(() => {
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'top 0%',
+            end: 'top+=500 0%',
+            pin: true,
+        });
+
+        return () => {
+            trigger.kill();
+        };
+    }, []);
+
+    if (width < 724) return <div></div>;
 
     return (
         <div className={styles.wrapper} ref={wrapperRef}>
-            <ShowcaseText />
-            <FlipInSequence />
-            <ShowcaseAlbums />
-            <Faces />
-            <ShowcaseSocial />
-            <ShowcasePorts />
+                <ShowcaseText />
+                <FlipInSequence />
+                <ShowcaseAlbums />
+                <Faces />
+                <ShowcaseSocial />
+                <ShowcasePorts />
         </div>
-    )
+    );
 }

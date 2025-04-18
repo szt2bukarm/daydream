@@ -13,7 +13,7 @@ export default function FooterWheel() {
                 start: 'top-=150 top',
                 end: 'top-=150 top',
                 scrub: true,
-                markers: true,
+                // markers: true,
                 onEnter: () => {
                     const nav = document.querySelector(`.${navStyles.navWrapper}`)
                     nav.style.opacity = '0'

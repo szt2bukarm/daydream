@@ -1,0 +1,57 @@
+.wrapper{
+    position: relative;
+    width: 100%;
+    background-color: #161616;
+    margin-bottom: 150px;
+}
+
+.innerWrapper{
+    height: 200px;
+    width: 100%;
+}
+
+.cables{
+    display: flex;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-350px, -50%) rotate(90deg);
+}
+
+.cable{
+    width: 40px;
+}
+
+.shaderWrapper{
+    position: relative;
+    // width: 400px;
+}
+
+.image{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 50%;
+    width: 600px;
+    z-index: 2;
+}
+
+.shader{
+    position: absolute;
+    top: 53%;
+    transform: translateY(-50%);
+    left: 49.5%;
+    width: 600px;
+}
+
+.cable:nth-child(1){
+    margin-top: 10px;
+}
+
+.cable:nth-child(2){
+    margin-top: -20px;
+}
+
+.cable:nth-child(3){
+    margin-top: -40px;
+}

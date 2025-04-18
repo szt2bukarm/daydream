@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import TransitionLink from "./components/TransitionLink3D";
-import Render from './components/Render'
+import Render from './components/Logo3D/Logo3D'
 import FadeLayer from "./components/FadeLayer";
 import Nav from "./components/Nav/Nav";
 import SmoothScroll from "./components/SmoothScroll";

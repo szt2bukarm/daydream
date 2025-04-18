@@ -26,20 +26,32 @@
     top: 0;
     left: 0;
     background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .text{
     position: absolute;
-    top: 50px;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     font-family: "Acumin Pro Wide";
-    font-size: 39px;
+    font-size: 92px;
+    width: 100%;
     font-style: normal;
     font-weight: 500;
     background: linear-gradient(147deg, #FFF -2.84%, #999 77.85%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media (max-width: 1324px) {
+        font-size: 70px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 10vw;
+    }
 }

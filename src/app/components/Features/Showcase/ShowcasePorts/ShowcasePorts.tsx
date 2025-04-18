@@ -5,14 +5,17 @@ import SplitType from 'split-type';
 import { useEffect, useRef } from 'react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useLenis } from '@studio-freight/react-lenis';
-import Render2 from '@/app/components/Render2';
+import Render2 from '@/app/components/Features/Showcase/ShowcaseLogoShader/ShowcaseLogoShader';
+import ShowcaseHeader from '../ShowcaseHeader';
+import ShowcaseSubtext from '../ShowcaseSubtext';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ShowcasePorts() {
-    const textRef = useRef(null);
+    const scrollTriggerInstance = useRef<null | ScrollTrigger>(null);
     const cableRefs = useRef([]);
     const lenis = useLenis();
     const renderRef = useRef(null);
+    let resizeTimeout = null;
 
     useEffect(() => {
         setTimeout(() => {
@@ -20,45 +23,21 @@ export default function ShowcasePorts() {
                 display: "block",
                 opacity: 0
             })
-        }, 500  );
+        }, 500);
     },[])
 
     useGSAP(() => {
-        if (!lenis) return;
-        const splitText = new SplitType(textRef.current, { types: 'lines' });
-
-        splitText.lines.forEach(line => {
-            const wrapper = document.createElement('div');
-            wrapper.style.overflow = 'hidden';
-            line.parentNode.insertBefore(wrapper, line);
-            wrapper.appendChild(line);
-        });
-
         gsap.set(cableRefs.current, {
             y: 1000
         })
+    },[lenis])
 
-        gsap.set(splitText.lines, {
-            y: 100,
-            rotate: 3
-        })
-        gsap.set(`.${styles.header}`, {
-            opacity: 0
-        })
-
-        ScrollTrigger.create({
+    const setupScrollTrigger = () => {
+        const trigger = ScrollTrigger.create({
             trigger: `.${styles.wrapper}`,
             start: 'top+=400 0%',
             end: 'top+=500 0%',
             onEnter: () => {
-                gsap.to(splitText.lines, {
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    ease: 'power4.out',
-                    onComplete: () => lenis.start()
-                });
                 gsap.to(renderRef.current, {
                     opacity: 1,
                     duration: 0.15
@@ -66,10 +45,6 @@ export default function ShowcasePorts() {
                 gsap.set(cableRefs.current, {
                     y: 1000,
                     opacity: 1
-                })
-                gsap.to(`.${styles.header}`, {
-                    opacity: 1,
-                    delay: 0.3,
                 })
                 gsap.to(cableRefs.current, {
                     y: 200,
@@ -84,37 +59,63 @@ export default function ShowcasePorts() {
                     duration: 0.5,
                     stagger: 0.1,
                     ease: 'power4.in',
-                    delay: 1.5
+                    delay: 1.5,
+                    onComplete: () => {
+                        lenis?.start();
+                    }
                 })
             },
+            onEnterBack: () => {
+                lenis?.stop();
+                setTimeout(() => {
+                    lenis?.start();
+                }, 700);
+            },
             onLeaveBack: () => {
-                gsap.to(splitText.lines, {
-                    y: -100,
-                    rotate: 3,
-                    duration: 0.3,
-                    stagger: 0.1,
-                    ease: 'power4.in',
-                    onStart: () => {
-                        window.scrollBy(0, -5)
-                        lenis.stop()
-                    }
-                });
-                gsap.to(`.${styles.header}`, {
-                    opacity: 0,
-                })
                 gsap.to([cableRefs.current,renderRef.current], {
                     opacity: 0,
                     duration: 0.15,
                 })
             }
         })
-    },[lenis])
+        return trigger;
+    }
+
+    useGSAP(() => {
+        if (!lenis) return;
+        if (typeof window === 'undefined') return;
+        scrollTriggerInstance.current = setupScrollTrigger();
+
+        let lastWidth = window.innerWidth;
+
+        const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
+            clearTimeout(resizeTimeout!);
+
+            resizeTimeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [lenis]);
+
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
-                <p className={styles.header}>Crisp sound out of<br></br>every port</p>
-                <p className={styles.subtext} ref={textRef}>Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.</p>
+                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientLeft}`} />
+                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientRight}`} />
+                <ShowcaseHeader triggerClass={styles.wrapper} start='400' end='500'>
+                Crisp sound out of<br></br>every port
+                </ShowcaseHeader>
+\                <ShowcaseSubtext triggerClass={styles.wrapper} start='400' end='500'>
+                    Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.
+                </ShowcaseSubtext>
                 <div ref={renderRef} style={{display: 'none'}}>
                     <Render2 />
                 </div>

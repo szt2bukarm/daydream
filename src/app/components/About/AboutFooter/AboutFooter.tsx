@@ -32,8 +32,8 @@ export default function AboutFooter() {
             backgroundColor: "#000",
             scrollTrigger: {
                 trigger: `.${styles.wrapper}`,
-                start: 'top-=500 70%',
-                end: 'top+=400 70%',
+                start: 'top-=700 70%',
+                end: 'top+=200 70%',
                 scrub: true,
                 markers: true
             }

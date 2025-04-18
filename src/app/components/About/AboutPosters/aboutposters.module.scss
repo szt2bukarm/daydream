@@ -4,6 +4,10 @@
     justify-content: center;
     // margin-block: 15vw;
 
+    @media (max-width: 1324px) {
+        margin-block: 15vw;
+    }
+
     @media (max-width: 724px) {
         margin-block: 25vw;
     }

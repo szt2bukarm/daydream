@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { useEffect, useState } from 'react';
 import { useStore } from '@/useStore';
 import Footer from '../components/Footer/Footer';
+import navStyles from '../components/Nav/nav.module.scss'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +17,13 @@ export default function About() {
 
     useEffect(() => {
         setMounted(true);
+        const nav = document.querySelector(`.${navStyles.navWrapper}`)
+        setTimeout(() => {
+          if (nav) {
+            nav.style.opacity = '1';
+            nav.style.pointerEvents = 'all';
+          }
+        }, 750);
     },[])
 
     useEffect(() => {

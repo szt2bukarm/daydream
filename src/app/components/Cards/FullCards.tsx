@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { use, useRef } from "react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import Logo3D from "../Logo3D/Logo3D";
+import Text3D from "../Text3D/Text3D";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,41 +33,64 @@ const cards = [
 export default function FullCards() {
     const cardsRef = useRef([]);
     const overlayRef = useRef([]);
-
+    const scrollTriggerInstance = useRef<null | ScrollTrigger>(null);
+    const pinTriggerInstance = useRef<null | ScrollTrigger>(null);
+    const overlayTriggerInstance = useRef<null | ScrollTrigger>(null);
+    let resizeTimeout = null;
+    
     useGSAP(() => {
         gsap.set(cardsRef.current, { y: "110vh" });
         gsap.set(overlayRef.current, { opacity: 0 });
+    },[]);
 
+    const setupPin = () => {
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'top 0%',
+            end: 'top+=3500 0%',
+            // markers: true,
+            pin: true,
+        })
+        return trigger;
+    }
+
+    const setupOverlay = () => {
+        const tl = gsap.timeline();
+        tl.to(overlayRef.current[2], {
+            opacity: 1,
+        })
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'top+=2000 0%',
+            end: 'top+=2200 0%',
+            animation: tl,
+            scrub: true,
+            // markers: true         
+        })
+        return trigger;
+    }
+
+    const setupTimeline = () => {
         const tl = gsap.timeline();
 
-        gsap.to(overlayRef.current[2], {
-            opacity: 1,
-            scrollTrigger: {
-                trigger: `.${styles.wrapper}`,
-                start: 'top+=2100 0%',
-                end: 'top+=2300 0%',
-                markers: false,
-                scrub: true,
-                // markers: true,
-            }
-        })
-
-        gsap.to(`.${styles.wrapper}`, {
-            scrollTrigger: {
-                trigger: `.${styles.wrapper}`,
-                start: 'top 0%',
-                end: 'top+=3500 0%',
-                // markers: true,
-                pin: true
-            }
-        })
-
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.cards}`,
+            start: "top-=500 top",
+            end: "top+=2000 top",
+            scrub: true,
+            animation: tl,
+            // markers: true
+        });
 
         // Card 1 animations
         tl.to(cardsRef.current[0], { 
             y: 0,
             duration: 0.333
         }, 0)
+        .to(`.${styles.text}`, {
+            opacity: 0,
+            duration: 0.1
+        })
         .to(cardsRef.current[0], {
             y: 100,
             x: 50,
@@ -106,17 +131,29 @@ export default function FullCards() {
             y: 0,
             duration: 0.333
         }, 0.999)
+        return trigger;
+    }
 
-        
+    useGSAP(() => {
+        if (typeof window === 'undefined') return;
+        overlayTriggerInstance.current = setupOverlay();
+        pinTriggerInstance.current = setupPin();
+        scrollTriggerInstance.current = setupTimeline();
 
-        ScrollTrigger.create({
-            trigger: `.${styles.cards}`,
-            start: "top-=500 top",
-            end: "top+=2000 top",
-            scrub: true,
-            animation: tl,
-        });
-    });
+        const handleResize = () => {
+            clearTimeout(resizeTimeout!);
+
+            resizeTimeout = setTimeout(() => {
+                overlayTriggerInstance.current?.refresh();
+                pinTriggerInstance.current?.refresh();
+                scrollTriggerInstance.current?.refresh(); 
+            }, 200);
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    },[])
+
 
     return (
         <div className={styles.wrapper}>
@@ -125,10 +162,12 @@ export default function FullCards() {
                 {cards.map((card, index) => (
                     <div className={styles.card} ref={el => (cardsRef.current[index] = el)} key={index}>
                         <Fullcard {...card} />
-                        <div style={{background: index == cards.length - 1 ? "linear-gradient(to bottom, #fff,#EE4137)" : "#000"}} ref={el => (overlayRef.current[index] = el)} className={styles.overlay}></div>
+                        <div style={{background: index == cards.length - 1 ? "linear-gradient(to bottom, #fff,#EE4137)" : "#000"}} ref={el => (overlayRef.current[index] = el)} className={styles.overlay}>
+                        </div>
                     </div>
                 ))}
             </div>
+            {/* <Logo3D /> */}
         </div>
     );
 }

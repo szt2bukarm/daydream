@@ -14,6 +14,8 @@ export default function Faces() {
     const orbitRefs = useRef([]);
     const itemRefs = useRef([]);
     const gradientRefs = useRef([]);
+    const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
+    let resizeTimeout = null;
 
     useGSAP(() => {
         orbits.forEach((orbit, index) => {
@@ -36,8 +38,10 @@ export default function Faces() {
             opacity: 0,
             display: "none"
         })
-        
-        ScrollTrigger.create({
+    },[])
+
+    const setupScrollTrigger = () => {
+        const trigger = ScrollTrigger.create({
             trigger: `.${styles.facesWrapper}`,
             start: 'top+=300 0%',
             end: 'top+=400 0%',
@@ -184,7 +188,41 @@ export default function Faces() {
                 })
             }
         })
-    },[])
+        return trigger;
+    }
+
+        useGSAP(() => {
+            if (typeof window === 'undefined') return;
+            scrollTriggerInstance.current = setupScrollTrigger();
+    
+            let lastWidth = window.innerWidth;
+    
+            const handleResize = () => {
+                if (lastWidth === window.innerWidth) return;
+                lastWidth = window.innerWidth;
+                clearTimeout(resizeTimeout!);
+    
+                resizeTimeout = setTimeout(() => {
+                    // if (scrollTriggerInstance.current) {
+                    //     scrollTriggerInstance.current.kill();
+                    //     scrollTriggerInstance.current = null;
+                    // }
+    
+                    // const newTrigger = setupScrollTrigger();
+                    // scrollTriggerInstance.current = newTrigger;
+    
+                    ScrollTrigger.refresh();
+                }, 200);
+            };
+    
+            window.addEventListener('resize', handleResize);
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }, []);
+
+
+    
 
     return (
         <div className={styles.facesWrapper}>
@@ -205,6 +243,7 @@ export default function Faces() {
         ))}
 
         <div className={styles.orbit} style={{ width: "670px", height: "670px" }}>
+            <div className={styles.expandedItemWrapper}>
             <div className={styles.expandedItem}>
                 <div className={styles.expanded}>
                     <div
@@ -234,6 +273,7 @@ export default function Faces() {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         </div>

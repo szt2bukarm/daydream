@@ -17,10 +17,23 @@
 
 .navWrapper{
     position: absolute;
-    top: 80px;
+    top: 5vw;
     left: 2.5vw;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 724px) {
+        top: 35px;
+        left: 30px;
+    }
+
+    @media (max-height: 650px) {
+        top: 150px;
+    }
+
+    @media (max-height: 570px) {
+        top: 250px;
+    }
 }
 
 .navText{
@@ -41,6 +54,10 @@
     font-weight: 400;
     line-height: 100%; /* 24px */
     text-decoration: none;
+
+    @media (max-width: 724px) {
+        margin-bottom: 10px;
+    }
 }
 
 .disclamerWrapper{
@@ -52,7 +69,7 @@
     z-index: 1;
 
     @media (max-width: 1000px) {
-        bottom: 30px;
+        bottom: 50px;
         flex-direction: column;
         align-items: flex-end;
         gap: 5px;
@@ -89,7 +106,7 @@
     border: 0;
     background-color: transparent;
 
-    @media (max-width: 1324px) {
+    @media (max-width: 724px) {
         font-size: 16px;
     }
 }
@@ -105,16 +122,16 @@
     z-index: 1;
 
     @media (max-width: 1000px) {
-        bottom: 55px
+        bottom: 75px;
     }
 
     @media (max-width: 724px) {
-        bottom: 75px
+        bottom: 95px
     }
 }
 
 .logoSVG {
-    height: 15vw; /* Scales dynamically with viewport height */
+    height: 15vw; 
     fill: #171717;
     margin-right: 1vw;
 }
@@ -182,14 +199,16 @@
     line-height: 100%; /* 20px */
 
     @media (max-width: 1324px) {
+        bottom: 30px;
+    }
+
+    @media (max-width: 1000px) {
         font-size: 16px;
         bottom: 40px;
-        // left: 40px;
     }
 
     @media (max-width: 724px) {
     font-size: 14px;
-    bottom: 20px;
     }
 }
 

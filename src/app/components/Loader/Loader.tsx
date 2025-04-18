@@ -22,9 +22,15 @@ const assets = [
     "Colors/7.png", 
     "Colors/8.png",
     "Colors/colors.webp",
-    "Features/Albums/album1.png",
-    "Features/Albums/album2.png",
-    "Features/Albums/album3.png",
+    "Features/Albums/album1.webp",
+    "Features/Albums/album2.webp",
+    "Features/Albums/album3.webp",
+    "Features/Albums/album4.webp",
+    "Features/Albums/album5.webp",
+    "Features/Albums/album6.webp",
+    "Features/Albums/album7.webp",
+    "Features/Albums/album8.webp",
+    "Features/Albums/album9.webp",
     "Features/Cables/cable1.png",
     "Features/Cables/cable2.png",
     "Features/Cables/cable3.png",
@@ -130,14 +136,37 @@ const assets = [
     "Hero/hero26.webp",
     "Hero/hero27.webp",
     "LogoSVG/logo.svg",
-    "LogoSVG/logoBG.svg"
+    "LogoSVG/logoBG.svg",
 ];
+
+
 
 export default function Loader() {
     const {setLoaded,loaded} = useStore();
     const [progress, setProgress] = useState(0);
     const [hideLoader,setHideLoader] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
+    const videoPath = '/hero.mp4';
 
+    const preloadVideo = () => {
+      return new Promise((resolve, reject) => {
+        const video = document.createElement('video');
+        video.src = videoPath;
+        video.muted = true;
+        video.preload = 'auto';
+    
+        video.oncanplaythrough = () => {
+          resolve();
+        };
+    
+        video.onloadeddata = () => {
+          resolve();
+        };
+    
+        video.load();
+      });
+    };
+    
     useEffect(() => {
         useGLTF.preload("/model.glb");
     })
@@ -148,7 +177,7 @@ export default function Loader() {
 
             const checkAllLoaded = () => {
                 if (loadedAssets === totalAssets) {
-                    resolve(); // All assets are loaded
+                    resolve()
                 }
             };
 
@@ -159,24 +188,33 @@ export default function Loader() {
                     loadedAssets++;
                     const progress = (loadedAssets / totalAssets) * 100;
                     setProgress(progress);
-                    console.log(`Loaded asset: ${asset} (${progress.toFixed(2)}%)`);
                     checkAllLoaded();
                 };
-                img.onerror = () => reject(`Failed to load asset: ${asset}`);
                 img.src = asset;
             });
         });
     };
 
     useEffect(() => {
-        preloadAssets(assets)
-            .then(() => {
-                setLoaded(true);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []); 
+        const loadAllAssets = async () => {
+          try {
+            // Load assets and video in parallel
+            await Promise.all([
+              preloadAssets(assets),
+              preloadVideo()
+            ]);
+            
+            console.log('All assets and video loaded');
+            setLoaded(true);
+            setVideoLoaded(true);
+          } catch (error) {
+            console.error('Loading error:', error);
+          }
+        };
+    
+        loadAllAssets();
+      }, []);
+    
 
     const revealLetter = (index) => {
         gsap.set(`.${styles.logoLetter}[data-index="${index}"]`, {
@@ -203,7 +241,9 @@ export default function Loader() {
     }, [progress]);
 
     useEffect(() => {
-        if (loaded) {
+        console.log(loaded,videoLoaded)
+        if (loaded && videoLoaded) {
+            console.log('fing')
             gsap.to(`.${styles.wrapper}`, {
                 clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
                 duration: 0.5,
@@ -214,13 +254,16 @@ export default function Loader() {
                 }
             })
         }
-    }, [loaded]);
+    }, [loaded,videoLoaded]);
 
     if (hideLoader) return null;
 
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
             <div className={styles.wrapper}>
+            <video autoPlay muted loop style={{opacity: 0, position: "absolute",zIndex: "-1"}} onCanPlayThrough={() => setVideoLoaded(true)}>
+                    <source src={`hero.webm`} type="video/webm" />
+                </video>
                 <div className={styles.background}></div>
                 <img src="loader.png" className={styles.logos} alt="loader" />
                 <div className={styles.logo}>

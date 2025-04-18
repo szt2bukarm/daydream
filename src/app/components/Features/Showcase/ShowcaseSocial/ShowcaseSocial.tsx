@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useLenis } from '@studio-freight/react-lenis';
 import SplitType from 'split-type';
+import ShowcaseHeader from '../ShowcaseHeader';
+import ShowcaseSubtext from '../ShowcaseSubtext';
 gsap.registerPlugin(ScrollTrigger);
 
 const orbits = [
@@ -14,36 +16,25 @@ const orbits = [
 ];
 
 export default function ShowcaseSocial() {
-    const textRef = useRef(null);
     const lenis = useLenis();
+    const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
+    let resizeTimeout = null;
     const uiRef = useRef(null);
 
     useGSAP(() => {
         if (!lenis) return;
-
-        const splitText = new SplitType(textRef.current, { types: 'lines' });
-
-        splitText.lines.forEach(line => {
-            const wrapper = document.createElement('div');
-            wrapper.style.overflow = 'hidden';
-            line.parentNode.insertBefore(wrapper, line);
-            wrapper.appendChild(line);
-        });
-
         gsap.set([`.${styles.header}`, `.${styles.circles}`], {
             opacity: 0,
             pointerEvents: 'none'
         })
-        gsap.set(splitText.lines, {
-            y: 100,    
-            rotate: 3
-        })
+    },[lenis]);
 
-        ScrollTrigger.create({
+    const setupScrollTrigger = () => {
+        const trigger = ScrollTrigger.create({
             trigger: `.${styles.wrapper}`,
             start: 'top+=300 0%',
             end: 'top+=400 0%',
-            // markers: true,
+            // markers: true,   
             onEnter: () => {
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
@@ -56,13 +47,6 @@ export default function ShowcaseSocial() {
                     opacity: 1,
                     duration: 0.15
                 })
-                gsap.to(splitText.lines, {
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    ease: 'power4.out',
-                });
             },
             onLeaveBack: () => {
                 gsap.to([`.${styles.header}`, `.${styles.circles}`,uiRef.current], {
@@ -71,17 +55,6 @@ export default function ShowcaseSocial() {
                         gsap.set(`.${styles.wrapper}`, {
                             display: "none"
                         })        
-                    }
-                });
-                gsap.to(splitText.lines, {
-                    y: -100,
-                    rotate: 3,
-                    duration: 0.3,
-                    stagger: 0.1,
-                    ease: 'power4.in',
-                    onStart: () => {
-                        lenis.stop()
-                        window.scrollBy(0, -5)
                     }
                 });
             },
@@ -94,19 +67,12 @@ export default function ShowcaseSocial() {
                         })
                     }
                 });
-                gsap.to(splitText.lines, {
-                    y: -100,
-                    rotate: 3,
-                    duration: 0.3,
-                    stagger: 0.1,
-                    ease: 'power4.in',
-                    onStart: () => {
-                        lenis.stop()
-                        window.scrollBy(0, 5)
-                    }
-                });
             },
             onEnterBack: () => {
+                lenis?.stop();
+                setTimeout(() => {
+                    lenis?.start();
+                }, 1000);
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
                 })
@@ -114,26 +80,44 @@ export default function ShowcaseSocial() {
                     opacity: 1,
                     delay: 0.3
                 });
-                gsap.to(splitText.lines, {
-                    y: 0,
-                    rotate: 0,
-                    duration: 1.2,
-                    stagger: 0.1,
-                    ease: 'power4.out',
-                    onComplete: () => lenis.start()
-                });
             }
         });
-    },[lenis]);
+        return trigger;
+    }
+
+    useGSAP(() => {
+        if (!lenis) return;
+        if (typeof window === 'undefined') return;
+        scrollTriggerInstance.current = setupScrollTrigger();
+
+        let lastWidth = window.innerWidth;
+
+        const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
+            clearTimeout(resizeTimeout!);
+
+            resizeTimeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [lenis]);
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
                 <div>
-                    <p className={styles.header}>Connect with who<br></br>matter the most</p>
-                    <p className={styles.subtext} ref={textRef}>
-                        With Daydream, sharing isn’t just about music—it’s about connection. Instantly share your favorite tracks, playlists, or listening stats with friends. See what your circle is playing in real time and discover new music together.
-                    </p>
+                    <ShowcaseHeader triggerClass={styles.wrapper} start="300" end="400">
+                    Connect with who<br></br>matter the most
+                    </ShowcaseHeader>
+                    <ShowcaseSubtext triggerClass={styles.wrapper} start="300" end="400">
+                    With Daydream, sharing isn’t just about music—it’s about connection. Instantly share your favorite tracks, playlists, or listening stats with friends. See what your circle is playing in real time and discover new music together.
+                    </ShowcaseSubtext>
                 </div>
                 <div ref={uiRef} style={{opacity: 0}}>
                     <img src="Features/social.webp" className={styles.image} />

@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import { use, useEffect, useRef, useState } from 'react'
+gsap.registerPlugin(ScrollTrigger);
 
 const data = [
     {
@@ -52,28 +53,55 @@ const data = [
 ]
 
 export default function Colors() {
-    const horizontalTrigger = useRef(null);
+    const horizontalTrigger = useRef<ScrollTrigger | null>(null);
     const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+    const spanRef = useRef([]);
 
     // Handle resize event
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
+            setHeight(window.innerHeight);
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // useGSAP(() => {
-    //     gsap.to(`.${styles.wrapper}`, {
-    //         scrollTrigger: {
-    //             trigger: `.${styles.wrapper}`,
-    //             start: 'top top',
-    //             end: 'top top',
-    //             pin: true
-    //         }
-    //     })
-    // }, [])
+    useGSAP(() => {
+        gsap.set(`.${styles.image}`, {
+            y: 200
+        })
+
+        gsap.set(`.${styles.gradient}`, {
+            y: 200
+        })
+
+        const tl = gsap.timeline();
+        tl.to(`.${styles.image}`, {
+            y: 100    
+        })
+
+        ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'top-=500 top',
+            end: 'top+=1000 top',
+            // pin: true,
+            scrub: true,
+            animation: tl,
+            // markers: true,
+        })
+
+        gsap.to(`.${styles.gradient}`, {
+            y: 400,
+            scrollTrigger: {
+                trigger: `.${styles.wrapper}`,
+                start: 'top-=200 top',
+                end: 'top+=2500 top',
+                scrub: true
+            }
+        })
+    },[])
 
     useEffect(() => {
         const cards = document.querySelector(`.${styles.cards}`);
@@ -82,6 +110,7 @@ export default function Colors() {
         gsap.set(cards, {
             x: 0
         })
+
 
         const rect = cards.children[0].getBoundingClientRect();
         const totalWidth = (rect.width + 16) * data.length;
@@ -95,48 +124,79 @@ export default function Colors() {
                     trigger: `.${styles.variants}`,
                     start: 'top top',
                     end: 'top+=3000 top',
-                    scrub: true
+                    scrub: true,
                 }
             });
         }
         
-        // Refresh ScrollTrigger to apply changes
         ScrollTrigger.refresh();
 
         return () => {
-            // Cleanup on unmount
             if (horizontalTrigger.current) {
                 horizontalTrigger.current.kill();
                 horizontalTrigger.current = null;
             }
         };
-    }, [width]); // Runs only when width changes
+    }, [width, height]); 
 
 
     useGSAP(() => {
-        gsap.to(`.${styles.variants}`, {
-            scrollTrigger: {
-                trigger: `.${styles.variants}`,
-                start: 'top top',
-                end: 'top+=3000 top',
-                pin: true,
-                // markers: true // you can remove markers if you don't want to see them
-            }
+
+        ScrollTrigger.create({
+            trigger: `.${styles.variants}`,
+            start: 'top top',
+            end: 'top+=3000 top',
+            pin: true,
+            // markers: true,
         })
     },[])
 
+    useGSAP(() => {
+        if (!spanRef.current) return;
+    
+        ScrollTrigger.matchMedia({
+            // Only activate for screens wider than 1324px
+            "(min-width: 1324px)": () => {
+                const tl = gsap.timeline();
+                spanRef.current.forEach((el, i) => {
+                    tl.to(el, {
+                        opacity: 0,
+                        duration: 0.05
+                    }, i * 0.05);
+                });
+    
+                ScrollTrigger.create({
+                    trigger: `.${styles.variants}`,
+                    start: 'top top',
+                    end: '+=300',
+                    scrub: true,
+                    animation: tl,
+                    // markers: true
+                });
+            }
+        });
+    }, []);
 
     return (
         <div className={styles.wrapper}>
+
+
+
             <div className={styles.imageWrapper}>
                 <div className={styles.background}></div>
                 <img src="Colors/colors.webp" className={styles.image} />
-            </div>
-            <div className={styles.variants}>
-                {/* <div className={styles.gradient}>
+                <div className={styles.gradient}>
                     <GradientWave />
-                </div> */}
-                <p className={styles.text}>Colored like no other</p>
+                </div>
+            </div>
+
+            <div className={styles.variants}>
+                <div className={styles.text}>
+                    <span ref={el => spanRef.current[3] = el}>Colored</span>
+                    <span ref={el => spanRef.current[2] = el}>like</span>
+                    <span ref={el => spanRef.current[1] = el}>no</span>
+                    <span ref={el => spanRef.current[0] = el}>other</span>
+                </div>
                 <div className={styles.cards}>
                     {data.map((item,index) => (
                         <ColorCard key={index} text={item.text} colors={item.colors} name={item.name} image={item.image} />

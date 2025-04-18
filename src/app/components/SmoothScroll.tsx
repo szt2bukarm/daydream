@@ -16,7 +16,7 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <ReactLenis className="current-page" root options={{ lerp: 0.1, duration: 1, }}>
+    <ReactLenis className="current-page" root options={{ lerp: 0.1, duration: 1,smoothTouch: true }}>
       {children}
     </ReactLenis>
   );

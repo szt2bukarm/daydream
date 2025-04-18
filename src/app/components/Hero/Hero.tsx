@@ -14,7 +14,6 @@ export default function Hero() {
 
     useEffect(() => {
         let currentFrame = 1;
-
         const playSequence = () => {
             const nextFrame = () => {
                 setImageIndex(currentFrame);
@@ -66,11 +65,9 @@ export default function Hero() {
         <div className={styles.wrapper}>
             {/* <div className="aurora" style={{opacity: 0}}> */}
             <div className={styles.imageWrapper}>
-                <img
-                    src={`/Hero/hero${imageIndex}.webp`}
-                    alt="Animated sequence"
-                    className={styles.image}
-                />
+                <video autoPlay muted loop className={styles.image}>
+                    <source src={`hero.mp4`} type="video/webm" />
+                </video>
             </div>
             <div className={styles.fog1}></div>
             <div className={styles.fog2}></div> 

@@ -8,6 +8,10 @@
     width: 100vw;
     height: 100vh;
     padding-inline: 3vw;
+
+    @media (max-width: 724px) {
+        padding-inline: 5vw;
+    }
 }
 
 .icon{
@@ -20,6 +24,10 @@
     background-color: #282828;
     font-size: 36px;
     margin-top: 50px;
+
+    @media (max-width: 724px) {
+        margin-top: 30px;
+    }
 }
 
 .textWrapper{
@@ -47,4 +55,9 @@
     font-weight: 400;
     line-height: 129%; /* 32.25px */
     letter-spacing: -0.25px;
+
+    @media (max-width: 724px) { 
+        width: 100%;
+        font-size: 20px;
+    }
 }

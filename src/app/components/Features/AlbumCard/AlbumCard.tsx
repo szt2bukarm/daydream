@@ -3,7 +3,7 @@ import styles from './albumcard.module.scss';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-export default function AlbumCard({image,title}:{image:string,title:string}) {
+export default function AlbumCard({image,title,index}:{image:string,title:string,index:number}) {
     const usersRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
 
@@ -57,23 +57,144 @@ export default function AlbumCard({image,title}:{image:string,title:string}) {
   
     return (
         <div className={styles.wrapper} style={{
-            backgroundImage: `linear-gradient(185deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%), url(Features/Albums/${image}.png)`,
+            backgroundImage: `linear-gradient(185deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%), url(Features/Albums/${image}.webp)`,
             backgroundSize: "cover",
             backgroundPosition: "center"            
         }}
         onMouseMove={tiltHandler} onMouseLeave={onLeave}>
             <div className={styles.inner}>
-                <div className={styles.users} ref={usersRef}>
-                    <div className={styles.user}>
+                {index == 0 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={styles.user}>
+                          <img src="Features/user1.png" className={styles.userImage}/>
+                      </div>
+                      <div className={styles.user}>
+                          <img src="Features/user4.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user2.svg" className={styles.userSVG}/>
+                      </div>
+                  </div>}
+                {index == 1 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={styles.user}>
+                          <img src="Features/user4.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.purple}`}>
+                          <img src="Features/user3.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={styles.user}>
+                          <img src="Features/user1.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user2.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <p className={styles.userInitials}>LA</p>
+                      </div>
+                  </div>}
+                {index == 2 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.dark}`}>
+                      <img src="Features/user5.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.pink}`}>
+                          <p className={styles.userInitials}>SM</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.purple}`}>
+                          <img src="Features/user3.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.blue}`}>
+                          <p className={styles.userInitials}>SP</p>
+                      </div>
+                    </div>}
+                {index == 3 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.dark}`}>
+                        <img src="Features/user6.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.pink}`}>
+                          <p className={styles.userInitials}>BA</p>
+                      </div>             
+                    </div>}
+                {index == 4 && 
+                    <div className={styles.users} ref={usersRef}>
+                  <div className={`${styles.user} ${styles.dark}`}>
+                        <img src="Features/user6.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.blue}`}>
+                          <p className={styles.userInitials}>PT</p>
+                      </div>  
+                      <div className={`${styles.user} ${styles.dark}`}>
+                          <p className={styles.userInitials}>GR</p>
+                      </div>  
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <p className={styles.userInitials}>SJ</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.dark}`}>
                         <img src="Features/user1.png" className={styles.userImage}/>
-                    </div>
-                    <div className={styles.user}>
-                        <img src="Features/user4.png" className={styles.userImage}/>
-                    </div>
-                    <div className={`${styles.user} ${styles.orange}`}>
-                        <img src="Features/user2.svg" className={styles.userSVG}/>
-                    </div>
-                </div>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                        <img src="Features/user3.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.white}`}>
+                          <p className={styles.userInitials}>+4</p>
+                      </div>
+                  </div>}
+                  {index == 5 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user2.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.white}`}>
+                          <p className={styles.userInitials}>AM</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.pink}`}>
+                          <img src="Features/user6.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.purple}`}>
+                          <p className={styles.userInitials}>KT</p>
+                      </div>
+                    </div>}
+
+                {index == 6 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.blue}`}>
+                          <p className={styles.userInitials}>DZ</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.dark}`}>
+                          <img src="Features/user5.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user1.png" className={styles.userImage}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user3.svg" className={styles.userSVG}/>
+                      </div>
+                    </div>}
+
+                {index == 7 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.dark}`}>
+                          <p className={styles.userInitials}>MC</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user6.png" className={styles.userImage}/>
+                      </div>
+                    </div>}
+
+                {index == 8 && 
+                    <div className={styles.users} ref={usersRef}>
+                      <div className={`${styles.user} ${styles.pink}`}>
+                          <p className={styles.userInitials}>XA</p>
+                      </div>
+                      <div className={`${styles.user} ${styles.orange}`}>
+                          <img src="Features/user2.svg" className={styles.userSVG}/>
+                      </div>
+                      <div className={`${styles.user} ${styles.dark}`}>
+                          <img src="Features/user5.png" className={styles.userImage}/>
+                      </div>
+                    </div>}
                 <p className={styles.title} ref={titleRef}>{title}</p>
             </div>
         </div>

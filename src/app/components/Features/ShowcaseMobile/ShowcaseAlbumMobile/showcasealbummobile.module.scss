@@ -1,0 +1,22 @@
+.wrapper{
+    position: relative;
+    width: 100%;
+    background-color: #161616;
+    margin-bottom: 150px;
+}
+
+.albums{
+    width: max-content;
+    display: flex;
+    gap: 8px;
+    animation: scroll 30s linear infinite;
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc((-192px * 6)));
+        }
+    }
+}

@@ -23,8 +23,9 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
 
         ScrollTrigger.create({
             trigger: imageRef.current,
-            start: 'top 70%',
-            end: 'top 70%',
+            start: 'top 50%',
+            end: 'top 50%',
+            markers: true,
             onEnter: () => {
                 gsap.to([`.${styles.backgroundRight}`, `.${styles.imageRight}`], {
                     x: 0,
@@ -55,9 +56,9 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
 
         ScrollTrigger.create({
             trigger: imageRef.current,
-            start: 'top 70%',
-            end: 'top 70%',
-            // markers: true,
+            start: 'top 50%',
+            end: 'top 50%',
+            markers: true,
             onEnter: () => {
                 gsap.to([`.${styles.backgroundLeft}`, `.${styles.imageLeft}`], {
                     x: 0,
