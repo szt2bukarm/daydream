@@ -41,6 +41,7 @@ export default function FullCards() {
     useGSAP(() => {
         gsap.set(cardsRef.current, { y: "110vh" });
         gsap.set(overlayRef.current, { opacity: 0 });
+        gsap.set(`.${styles.text}`, { opacity: 0 });
     },[]);
 
     const setupPin = () => {
@@ -83,7 +84,11 @@ export default function FullCards() {
         });
 
         // Card 1 animations
-        tl.to(cardsRef.current[0], { 
+        tl.to(`.${styles.text}`, {
+            opacity: 1,
+            duration: 0.1
+        }, 0)
+        .to(cardsRef.current[0], { 
             y: 0,
             duration: 0.333
         }, 0)

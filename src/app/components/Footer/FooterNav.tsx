@@ -133,9 +133,18 @@ export default function FooterNav() {
             <div className={styles.footer}>
                 <div className={styles.navWrapper}>
                     <p className={styles.navText}>NAV</p>
-                    <TransitionLink href="/" className={styles.navItem}>Daydream</TransitionLink>
-                    <TransitionLink href="/gallery" className={styles.navItem}>Gallery</TransitionLink>
-                    <TransitionLink href="/about" className={styles.navItem}>About</TransitionLink>
+                    <TransitionLink href="/" className={styles.navItem}>
+                        <p className={styles.navItemTextInline}>Daydream</p>
+                        <p className={styles.navItemTextSlideup}>Daydream</p>
+                    </TransitionLink>
+                    <TransitionLink href="/gallery" className={styles.navItem}>
+                        <p className={styles.navItemTextInline}>Gallery</p>
+                        <p className={styles.navItemTextSlideup}>Gallery</p>
+                    </TransitionLink>
+                    <TransitionLink href="/about" className={styles.navItem}>
+                        <p className={styles.navItemTextInline}>About</p>
+                        <p className={styles.navItemTextSlideup}>About</p>
+                    </TransitionLink>
                 </div>
 
                 <div className={styles.logo}>

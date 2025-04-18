@@ -90,7 +90,7 @@ export default function ShowcaseAlbums() {
                     y: 0,
                     delay: 1.35,
                     stagger: 0.05,
-                    onComplete: () => lenis.start()
+                    // onComplete: () => lenis.start()
                 })
             },
             onLeave: () => {
@@ -98,7 +98,7 @@ export default function ShowcaseAlbums() {
                     opacity: 0,
                     duration: 0.15,
                     onStart: () => {
-                        lenis.stop()
+                        // lenis.stop()
                         window.scrollBy(0, 5)
                     },
                     onComplete: () => {
@@ -110,10 +110,10 @@ export default function ShowcaseAlbums() {
 
             },
             onEnterBack: () => {
-                lenis?.stop();
-                setTimeout(() => {
-                    lenis?.start();
-                }, 1500);
+                // lenis?.stop();
+                // setTimeout(() => {
+                    // lenis?.start();
+                // }, 1500);
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
                 })
@@ -132,9 +132,9 @@ export default function ShowcaseAlbums() {
                     opacity: 0,
                     y: -30,
                     stagger: 0.1,
-                    onComplete: () => {
-                        lenis?.start();
-                    }
+                    // onComplete: () => {
+                        // lenis?.start();
+                    // }
                 })
             },
         })

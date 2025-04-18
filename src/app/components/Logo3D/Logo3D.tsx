@@ -174,7 +174,7 @@ export default function Logo3D() {
 
   return (
     <div className={styles.wrapper}>
-      <Canvas orthographic resize={{ scroll: false }} camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none'}}>
+      <Canvas orthographic resize={{ scroll: false }} camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none',display: hidden ? 'none' : 'block'}}>
           <Scene1 />
         </Canvas>
     </div>

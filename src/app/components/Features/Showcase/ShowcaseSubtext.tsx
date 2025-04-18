@@ -56,6 +56,8 @@ export default function ShowcaseSubtext({
             start: `top+=${start} 0%`,
             end: `top+=${end} 0%`,
             onEnter: () => {
+                // lenis?.stop();
+                window.scrollBy(0,10);
                 gsap.to(split.lines, {
                     y: 0,
                     rotate: 0,
@@ -65,8 +67,14 @@ export default function ShowcaseSubtext({
                     ease: 'power4.out',
                     delay: start == "200" ? 1 : 0,
                 });
+                setTimeout(() => {
+                    lenis.start();
+                    },
+                1500);
             },
             onEnterBack: () => {
+                // lenis?.stop();
+                window.scrollBy(0,-10);
                 gsap.to(split.lines, {
                     y: 0,
                     rotate: 0,
@@ -74,9 +82,14 @@ export default function ShowcaseSubtext({
                     stagger: 0.1,
                     ease: 'power4.out',
                 })
+                setTimeout(() => {
+                    lenis.start();
+                    },
+                1500);
             },
             onLeave: () => {
-                // if (end === "500") return;
+
+                if (end === "500") return;
                 gsap.to(split.lines, {
                     y: -100,
                     rotate: 3,

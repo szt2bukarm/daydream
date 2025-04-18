@@ -75,11 +75,17 @@
     background-color: transparent;
     margin-bottom: 70px;
     z-index: 2;
+    cursor: pointer;
 
     @media (max-width: 1324px) {
         font-size: 20px;
         padding: 20px 50px 20px 50px;
         width: 220px;
+    }
+
+    &:hover{
+        background-color: #4F4F4F;
+        color: #eaeaea;
     }
 }
 

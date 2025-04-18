@@ -51,7 +51,7 @@ body{
 .scrollText{
   color: #222;
   font-family: "Acumin Pro Wide";
-  font-size: 800px;
+  font-size: 100vh;
   margin-top: 60px;
   transform: translateY(-40px);
   font-style: normal;

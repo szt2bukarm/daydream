@@ -60,17 +60,17 @@ export default function ShowcasePorts() {
                     stagger: 0.1,
                     ease: 'power4.in',
                     delay: 1.5,
-                    onComplete: () => {
-                        lenis?.start();
-                    }
+                    // onComplete: () => {
+                    //     lenis?.start();
+                    // }
                 })
             },
-            onEnterBack: () => {
-                lenis?.stop();
-                setTimeout(() => {
-                    lenis?.start();
-                }, 700);
-            },
+            // onEnterBack: () => {
+                // lenis?.stop();
+                // setTimeout(() => {
+                    // lenis?.start();
+                // }, 700);
+            // },
             onLeaveBack: () => {
                 gsap.to([cableRefs.current,renderRef.current], {
                     opacity: 0,
@@ -121,7 +121,7 @@ export default function ShowcasePorts() {
                 </div>
                 <div className={styles.cables}>
                     {Array.from({ length: 3 }).map((_, index) => (
-                        <img key={index} src={`Features/Cables/cable${index + 1}.png`} className={styles.cable} ref={el => cableRefs.current[index] = el} />
+                        <img key={index} src={`Features/Cables/cable${index + 1}.webp`} className={styles.cable} ref={el => cableRefs.current[index] = el} />
                     ))}
                 </div>
             </div>

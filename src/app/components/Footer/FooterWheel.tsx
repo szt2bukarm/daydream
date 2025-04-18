@@ -29,12 +29,48 @@ export default function FooterWheel() {
         }, 10);
     },[])
 
+    useGSAP(() => {
+        const button = document.querySelector(`.${styles.button}`);
+    
+        if (!button) return;
+    
+        const updateMagnet = (e: MouseEvent) => {
+            const boundingRect = button.getBoundingClientRect(); // update every time nya~
+            const mousePosX = e.clientX - boundingRect.left;
+            const mousePosY = e.clientY - boundingRect.top;
+    
+            gsap.to(button, {
+                x: (mousePosX - boundingRect.width / 2) * 0.4,
+                y: (mousePosY - boundingRect.height / 2) * 0.4,
+                duration: 0.8,
+                ease: 'power3.out',
+            });
+        };
+    
+        const resetMagnet = () => {
+            gsap.to(button, {
+                x: 0,
+                y: 0,
+                duration: 0.8,
+                ease: 'elastic.out(1,0.4)',
+            });
+        };
+    
+        button.addEventListener('mousemove', updateMagnet);
+        button.addEventListener('mouseleave', resetMagnet);
+    
+        // Cleanup to avoid memory leaks owo~
+        return () => {
+            button.removeEventListener('mousemove', updateMagnet);
+            button.removeEventListener('mouseleave', resetMagnet);
+        };
+    }, []);
 
     
     return (
         <div className={styles.wrapper}>
             <div className={styles.background}></div>
-            <img src="textlogo.png" className={styles.logo} />
+            <img src="textlogo.svg" className={styles.logo} />
             <div className={styles.wheel}>
                 <p>asd</p>
                 <img src="Colors/1.png" className={`${styles.image} ${styles.image1}`} />

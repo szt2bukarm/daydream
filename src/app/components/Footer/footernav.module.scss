@@ -47,6 +47,7 @@
 }
 
 .navItem{
+    position: relative;
     color: #161616;
     font-family: "Acumin Pro Wide";
     font-size: 24px;
@@ -54,9 +55,34 @@
     font-weight: 400;
     line-height: 100%; /* 24px */
     text-decoration: none;
+    height: 25px;
+    width: 150px;
+    overflow: hidden;
+
+    &:hover .navItemTextInline{
+        top: -25px;
+    }
+
+    &:hover .navItemTextSlideup{
+        top: 0px;
+    }
 
     @media (max-width: 724px) {
         margin-bottom: 10px;
+    }
+
+    &TextInline{
+        position: absolute;
+        top: 0px;
+        left: 0;
+        transition: 250ms;
+    }
+    &TextSlideup{
+        position: absolute;
+        top: 25px;
+        left: 0;
+        transition: 250ms;
+        font-weight: 600;
     }
 }
 
@@ -96,6 +122,7 @@
 }
 
 .credits{
+    position: relative;
     color: #161616;
     text-align: center;
     font-family: "Acumin Pro Wide";
@@ -105,11 +132,27 @@
     line-height: 85%; /* 17px */
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 
     @media (max-width: 724px) {
         font-size: 16px;
     }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #161616;
+        transition: 250ms;
+    }
+    &:hover::after {
+        width: 100%;
+    }
 }
+
 
 .logo {
     position: absolute;

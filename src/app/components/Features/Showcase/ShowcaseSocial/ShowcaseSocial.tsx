@@ -41,7 +41,7 @@ export default function ShowcaseSocial() {
                 })
                 gsap.to([`.${styles.header}`, `.${styles.circles}`], {
                     opacity: 1,
-                    onComplete: () => lenis.start()
+                    // onComplete: () => lenis.start()
                 });
                 gsap.to(uiRef.current, {
                     opacity: 1,
@@ -69,10 +69,10 @@ export default function ShowcaseSocial() {
                 });
             },
             onEnterBack: () => {
-                lenis?.stop();
-                setTimeout(() => {
-                    lenis?.start();
-                }, 1000);
+                // lenis?.stop();
+                // setTimeout(() => {
+                //     lenis?.start();
+                // }, 1000);
                 gsap.set(`.${styles.wrapper}`, {
                     display: "block"
                 })
