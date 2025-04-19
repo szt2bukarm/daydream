@@ -38,7 +38,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
                 trigger: inline ? `.${featuresMobileStyles.wrapper}` : `.${featuresStyles.wrapper}`,
                 start: inline ? "top-=400" : 'top 0%',
                 end: inline ? "bottom 0%" : "top+=200 0%",
-                markers: true,
+                // markers: true,
                 onEnter: () => {
                     gsap.set(`.${styles.wrapper}`, {
                         opacity: 1
@@ -65,7 +65,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
             trigger: inline ? `.${featuresMobileStyles.wrapper}` : `.${featuresStyles.wrapper}`,
             start: inline ? "top-=400" : 'top 0%',
             end: inline ? "bottom 0%" : "top+=200 0%",
-            markers: true,
+            // markers: true,
             onEnter: () => {
                 if (!splitTextInstance.lines) return;
                 const currentY = gsap.getProperty(splitTextInstance.lines[0], 'y');

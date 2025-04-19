@@ -97,15 +97,6 @@ export default function ShowcaseAlbums() {
                 gsap.to([`.${styles.albums}`, `.${styles.ui}`, `.${styles.header}`], {
                     opacity: 0,
                     duration: 0.15,
-                    onStart: () => {
-                        // lenis.stop()
-                        window.scrollBy(0, 5)
-                    },
-                    onComplete: () => {
-                        gsap.set(`.${styles.wrapper}`, {
-                            display: "none"
-                        })
-                    }
                 })
 
             },
@@ -169,8 +160,6 @@ export default function ShowcaseAlbums() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
-                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientLeft}`} />
-                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientRight}`} />
                 <div ref={textContainer}>
                     <ShowcaseHeader triggerClass={styles.wrapper} start="200" end="300">
                     Plays all your favorites,<br></br>and then some

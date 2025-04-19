@@ -10,10 +10,10 @@ export default function GradientWaveItem({ index }: { index: number }) {
         console.log()
         gsap.to(ref.current, {
             width: "500%",
-            duration: 3,
+            duration: 2,
             repeat: -1,
             yoyo: true,
-            delay: index * 0.33,
+            delay: index * 0.2,
             // repeatDelay: 0.1,
             ease: "linear"
     })}, [])

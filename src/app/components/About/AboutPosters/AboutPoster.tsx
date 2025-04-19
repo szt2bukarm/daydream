@@ -25,7 +25,7 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
             trigger: imageRef.current,
             start: 'top 50%',
             end: 'top 50%',
-            markers: true,
+            // markers: true,
             onEnter: () => {
                 gsap.to([`.${styles.backgroundRight}`, `.${styles.imageRight}`], {
                     x: 0,
@@ -58,7 +58,7 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
             trigger: imageRef.current,
             start: 'top 50%',
             end: 'top 50%',
-            markers: true,
+            // markers: true,
             onEnter: () => {
                 gsap.to([`.${styles.backgroundLeft}`, `.${styles.imageLeft}`], {
                     x: 0,

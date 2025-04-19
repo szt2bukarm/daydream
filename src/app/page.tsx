@@ -17,6 +17,7 @@ import FeaturesMobile from "./components/Features/ShowcaseMobile/FeaturesMobile"
 import navStyles from './components/Nav/nav.module.scss'
 import Logo3D from "./components/Logo3D/Logo3D";
 import Text3D from "./components/Text3D/Text3D";
+import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,7 @@ export default function Home() {
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
+    
     const handleResize = () => {
       const currentWidth = window.innerWidth;
 
@@ -68,6 +70,7 @@ export default function Home() {
   return (
     <>
     <div className={styles.wrapper}>
+      <VideoPlayer />
       <Hero />
       <Introduction />
       <FloatingCards />

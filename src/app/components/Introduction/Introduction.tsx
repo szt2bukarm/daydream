@@ -5,6 +5,7 @@ import SplitType from 'split-type'
 import { CustomEase,ScrollTrigger } from 'gsap/all'
 import { useEffect, useRef } from 'react'
 import GlowButton from '../Shared/TeaserButton/GlowButton'
+import { useStore } from '@/useStore'
 gsap.registerPlugin(CustomEase);
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,10 @@ export default function Introduction() {
     gsap.registerEase("customEase", CustomEase.create("customEase", ".9,.6,.2,1"));
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const splitInstanceRef = useRef<SplitType | null>(null);
+    const overlayTriggerInstance = useRef<ScrollTrigger | null>(null);
     const textRef = useRef([]);
     let resizeTimeout: NodeJS.Timeout | null = null;
+    const {setShowPlayer} = useStore();
 
     const splitAndStyleText = () => {
         const el = textRef.current;
@@ -53,6 +56,22 @@ export default function Introduction() {
         return trigger;
     };
 
+    const setupOverlay = () => {
+        const tl = gsap.timeline();
+        tl.to(`.${styles.image}`, {
+            opacity: 0.05,
+        })
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: 'bottom-=1000 0%',
+            end: 'bottom 0%',
+            animation: tl,
+            scrub: true,
+            // markers: true,
+        })
+        return trigger;
+    };
+
     useGSAP(() => {
         if (typeof window === 'undefined') return;
         const splitTextInstance = splitAndStyleText();
@@ -60,6 +79,7 @@ export default function Introduction() {
 
         splitInstanceRef.current = splitTextInstance;
         scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
+        overlayTriggerInstance.current = setupOverlay();
 
         let lastWidth = window.innerWidth;
 
@@ -76,29 +96,19 @@ export default function Introduction() {
             });
 
             resizeTimeout = setTimeout(() => {
-                // Revert previous split
-                if (splitInstanceRef.current) {
-                    splitInstanceRef.current.revert();
-                    splitInstanceRef.current = null;
-                }
-
                 // Kill existing scroll trigger
                 if (scrollTriggerInstance.current) {
-                    scrollTriggerInstance.current.kill();
-                    scrollTriggerInstance.current = null;
+                    scrollTriggerInstance.current.refresh();
+                }
+
+                if (overlayTriggerInstance.current) {
+                    overlayTriggerInstance.current.refresh();
                 }
 
                 // Re-split text
                 const newSplit = splitAndStyleText();
                 if (!newSplit) return;
                 splitInstanceRef.current = newSplit;
-
-                // Create new scroll trigger
-                const newTrigger = setupScrollTrigger(newSplit);
-                scrollTriggerInstance.current = newTrigger;
-
-                // Refresh ScrollTrigger calculations
-                ScrollTrigger.refresh();
 
 
                 // Restore text opacity
@@ -124,7 +134,7 @@ export default function Introduction() {
                 trigger: `.${styles.wrapper}`,
                 start: '10% 20%',
                 end: '80% 20%',
-                markers: false,
+                // markers: false,
                 scrub: true,
             }
         })
@@ -132,26 +142,12 @@ export default function Introduction() {
 
     useGSAP(() => {
         const height = window.innerHeight
-        console.log(height)
         ScrollTrigger.create({
             trigger: `.${styles.imageWrapper}`,
             start: '80% 80%',
             end: `bottom+=${height} 80%`,
-            markers: false,
+            // markers: false,
             pin: `.${styles.imageWrapper}`,
-        })
-    },[])
-
-    useGSAP(() => {
-        gsap.to(`.${styles.image}`, {
-            opacity: 0.05,
-            scrollTrigger: {
-                trigger: `.${styles.imageTextWrapper}`,
-                start: 'top 20%',
-                end: 'bottom+=500 20%',
-                markers: false,
-                scrub: true,
-            }
         })
     },[])
 
@@ -168,7 +164,7 @@ export default function Introduction() {
 
             <div className={styles.imageWrapper}>
                 <div className={styles.teaserButtonWrapper}>
-                    <GlowButton>Watch Teaser</GlowButton>
+                    <GlowButton onClick={() => setShowPlayer(true)}>Watch Teaser</GlowButton>
                 </div>
                 <div className={styles.imageTextWrapper}>
                     <p className={styles.imageText}>FROM THE WALKMAN TO THE IPOD, MUSIC PLAYERS HAVE ALWAYS SHAPED HOW WE LISTEN.</p>

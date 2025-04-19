@@ -75,6 +75,7 @@ export default function ShowcasePorts() {
                 gsap.to([cableRefs.current,renderRef.current], {
                     opacity: 0,
                     duration: 0.15,
+                    stagger: 0.1
                 })
             }
         })
@@ -108,8 +109,6 @@ export default function ShowcasePorts() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
-                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientLeft}`} />
-                <img src="Features/gradient.webp" className={`${styles.gradient} ${styles.gradientRight}`} />
                 <ShowcaseHeader triggerClass={styles.wrapper} start='400' end='500'>
                 Crisp sound out of<br></br>every port
                 </ShowcaseHeader>

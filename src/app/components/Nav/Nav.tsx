@@ -13,7 +13,7 @@ export default function Nav() {
                 document.querySelector(`.${styles.navWrapper}`).style.opacity = '1'
             }, 750);
         }
-    })
+    },[loaded])
 
     return (
         <div className={styles.navWrapper}>

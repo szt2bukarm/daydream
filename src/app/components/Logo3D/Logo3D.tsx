@@ -44,7 +44,7 @@ function Model({ url }: { url: string }) {
       scrub: true,
       pin:true,
       animation: tl,
-      markers: true,
+      // markers: true,
     })
 
     tl.to(meshRef.scale, {

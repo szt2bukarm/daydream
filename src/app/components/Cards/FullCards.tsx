@@ -145,7 +145,10 @@ export default function FullCards() {
         pinTriggerInstance.current = setupPin();
         scrollTriggerInstance.current = setupTimeline();
 
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            if (lastWidth === window.innerWidth) return;
+            lastWidth = window.innerWidth;
             clearTimeout(resizeTimeout!);
 
             resizeTimeout = setTimeout(() => {

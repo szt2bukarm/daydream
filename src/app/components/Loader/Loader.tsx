@@ -95,7 +95,6 @@ const assets = [
     "FlipInsequence/flipin59.webp",
     "FlipInsequence/flipin60.webp",
     "FlipInsequence/flipin61.webp",
-    "Features/frame.png",
     "Features/user1.png",
     "Features/user2.svg",
     "Features/user3.svg",
@@ -177,11 +176,9 @@ export default function Loader() {
               preloadVideo()
             ]);
             
-            console.log('All assets and video loaded');
             setLoaded(true);
             setVideoLoaded(true);
           } catch (error) {
-            console.error('Loading error:', error);
           }
         };
     
@@ -216,7 +213,6 @@ export default function Loader() {
     useEffect(() => {
         console.log(loaded,videoLoaded)
         if (loaded && videoLoaded) {
-            console.log('fing')
             gsap.to(`.${styles.wrapper}`, {
                 clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
                 duration: 0.5,

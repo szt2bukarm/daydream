@@ -25,6 +25,10 @@ body{
   background-color: #080808;
 }
 
+body.lock-scroll {
+  overflow: hidden;
+}
+
 .page{
   position: relative;
   width: 100vw !important;

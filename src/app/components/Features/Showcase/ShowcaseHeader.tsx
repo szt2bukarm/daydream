@@ -20,7 +20,7 @@ export default function ShowcaseHeader({ triggerClass,start,end, children }: { t
                 trigger: `.${triggerClass}`,
                 start: `top+=${start} 0%`,
                 end: `top+=${end} 0%`,
-                markers: true,
+                // markers: true,
                 onEnter: () => {
                     gsap.to(headerRef.current, {
                         opacity: 1,

@@ -6,6 +6,27 @@
     width: 100vw;
 }
 
+.gradient{
+    position: absolute;
+    width: 500px;
+    height: 100vh;
+    z-index: 1;
+
+    @media (max-width: 1100px) {
+        display: none;
+    }
+
+
+    &Left{
+        left: 0;
+    }
+
+    &Right{
+        right: 0;
+        transform: rotate(180deg);
+    }
+}
+
 .text{
     position: absolute;
     top: 0;

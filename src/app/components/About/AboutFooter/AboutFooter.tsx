@@ -35,7 +35,7 @@ export default function AboutFooter() {
                 start: 'top-=700 70%',
                 end: 'top+=200 70%',
                 scrub: true,
-                markers: true
+                // markers: true
             }
         })
 

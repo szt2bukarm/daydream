@@ -31,14 +31,14 @@ export default function FloatingCards() {
 
         const xValues = calculateX();
 
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: `.${styles.wrapper}`,
-                start: "top top",
-                end: "bottom-=1000 top",
-                scrub: true,
-            }
-        });
+        const timeline = gsap.timeline();
+        const trigger = ScrollTrigger.create({
+            trigger: `.${styles.wrapper}`,
+            start: "top top",
+            end: "bottom-=1000 top",
+            scrub: true,
+            animation: timeline,
+        })
 
         cardsRef.current.forEach((card, index) => {
             timeline.to(card, {
@@ -48,13 +48,13 @@ export default function FloatingCards() {
             }, index * 0.05);
         });
 
-        return timeline;
+        return trigger;
     };
 
     const setupCardPositions = () => {
         const isMobile = window.innerWidth <= 1024;
         const cardPositions = isMobile
-            ? [{ x: "150vw", y: 100, rotate: 5 }, { x: "150vw", y: 100, rotate: -5 }, { x: "150vw", y: 100, rotate: 4 }, { x: "150vw", y: 100, rotate: -4 }]
+            ? [{ x: "150vw", y: 50, rotate: 5 }, { x: "150vw", y: 50, rotate: -5 }, { x: "150vw", y: 50, rotate: 4 }, { x: "150vw", y: 50, rotate: -4 }]
             : [{ x: "150vw", y: 110, rotate: 15 }, { x: "150vw", y: 40, rotate: -15 }, { x: "150vw", y: 35, rotate: 20 }, { x: "150vw", y: 120, rotate: -15 }];
 
         cardsRef.current.forEach((card, index) => {
@@ -107,27 +107,23 @@ export default function FloatingCards() {
         const handleResize = () => {
             if (lastWidth === window.innerWidth) return;
             lastWidth = window.innerWidth;
-            clearTimeout(resizeTimeout);
+            clearTimeout(resizeTimeout!);
 
             resizeTimeout = setTimeout(() => {
                 if (timelineInstance.current) {
-                    timelineInstance.current.kill();
-                    timelineInstance.current = null;
+                    timelineInstance.current.refresh();
                 }
 
                 if (scrollTriggerInstance.current) {
-                    scrollTriggerInstance.current.kill();
-                    scrollTriggerInstance.current = null;
+                    scrollTriggerInstance.current.refresh();
                 }
 
                 if (overlayTriggerInstance.current) {
-                    overlayTriggerInstance.current.kill();
-                    overlayTriggerInstance.current = null;
+                    overlayTriggerInstance.current.refresh();
                 }
 
-                setup();
                 ScrollTrigger.refresh();
-            }, 200);
+            }, 1000);
         };
 
         window.addEventListener("resize", handleResize);

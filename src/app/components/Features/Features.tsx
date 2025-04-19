@@ -41,6 +41,9 @@ export default function Features() {
 
     return (
         <div className={styles.wrapper} ref={wrapperRef}>
+            <img src="gradient.png" className={`${styles.gradient} ${styles.gradientLeft}`}/>
+            <img src="gradient.png" className={`${styles.gradient} ${styles.gradientRight}`}/>
+
                 <ShowcaseText />
                 <FlipInSequence />
                 <ShowcaseAlbums />

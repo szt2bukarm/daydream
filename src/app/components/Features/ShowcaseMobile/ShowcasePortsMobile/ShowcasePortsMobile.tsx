@@ -30,7 +30,7 @@ export default function ShowcasePortsMobile() {
             <div className={styles.innerWrapper}>
                 <div className={styles.cables}>
                 {Array.from({ length: 3 }).map((_, index) => (
-                        <img key={index} src={`Features/Cables/cable${index + 1}.png`} className={styles.cable} />
+                        <img key={index} src={`Features/Cables/cable${index + 1}.webp`} className={styles.cable} />
                     ))}
                 </div>
                 <div className={styles.imageWrapper}>

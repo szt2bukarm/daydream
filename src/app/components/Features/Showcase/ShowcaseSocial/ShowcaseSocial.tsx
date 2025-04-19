@@ -120,14 +120,16 @@ export default function ShowcaseSocial() {
                     </ShowcaseSubtext>
                 </div>
                 <div ref={uiRef} style={{opacity: 0}}>
-                    <img src="Features/social.webp" className={styles.image} />
-                    <div className={styles.ui}>
+                    <video autoPlay loop muted playsInline className={styles.image}>
+                        <source src="Features/social.mp4" type="video/mp4" />
+                    </video>
+                    {/* <div className={styles.ui}>
                         <div className={styles.toprow}>
                             <p className={styles.time}>11:27</p>
                             <p className={styles.menuItemSelected}>Friends · Now Playing</p>
                         </div>
                     <p className={styles.smallText}>Friend's live activity</p>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={styles.circles}>
                     {Array.from({ length: 8 }).map((_, index) => (

@@ -56,7 +56,7 @@ export default function ShowcaseSubtext({
             start: `top+=${start} 0%`,
             end: `top+=${end} 0%`,
             onEnter: () => {
-                // lenis?.stop();
+                lenis?.stop();
                 window.scrollBy(0,10);
                 gsap.to(split.lines, {
                     y: 0,
@@ -73,7 +73,7 @@ export default function ShowcaseSubtext({
                 1500);
             },
             onEnterBack: () => {
-                // lenis?.stop();
+                lenis?.stop();
                 window.scrollBy(0,-10);
                 gsap.to(split.lines, {
                     y: 0,

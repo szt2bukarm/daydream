@@ -3,6 +3,7 @@ import gsap from "gsap";
 import styles from "./hero.module.scss";
 import Aurora from "./Aurora";
 import { useGSAP } from "@gsap/react";
+import SplitType from "split-type";
 
 const letters = ['D', 'A', 'Y', 'D', 'R', 'E', 'A', 'M'];
 const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
@@ -11,6 +12,31 @@ export default function Hero() {
     const [imageIndex, setImageIndex] = useState(1);
     const totalFrames = 27;
     const intervalRef = useRef(null);
+    const textRef = useRef(null);
+
+
+    useEffect(() => {
+
+        const split = new SplitType(textRef.current, { types: 'lines' });
+        
+        split.lines.forEach(line => {
+            const wrapper = document.createElement('div');
+            wrapper.style.overflow = 'hidden';
+            line.parentNode?.insertBefore(wrapper, line);
+            wrapper.appendChild(line);
+        });
+        
+        gsap.set(split.lines, {
+            y: 100
+        })
+        gsap.to(split.lines, {
+            y: 0,
+            delay: 0.55,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power4.out'
+        })
+    },[])
 
     useEffect(() => {
         let currentFrame = 1;
@@ -65,9 +91,9 @@ export default function Hero() {
         <div className={styles.wrapper}>
             {/* <div className="aurora" style={{opacity: 0}}> */}
             <div className={styles.imageWrapper}>
-                <video autoPlay muted loop className={styles.image}>
-                    <source src={`hero.mp4`} type="video/webm" />
-                </video>
+            <video autoPlay muted loop playsInline className={styles.image}>
+                <source src={`hero.mp4`} type="video/mp4" />
+            </video>
             </div>
             <div className={styles.fog1}></div>
             <div className={styles.fog2}></div> 
@@ -81,7 +107,7 @@ export default function Hero() {
                     />
                 ))}
             </div>
-            <p className={styles.text}>Sound unchained.<br></br>Music, redefined.</p>
+            <p className={styles.text} ref={textRef}>Sound unchained.<br></br>Music, redefined.</p>
             <div className={styles.aurora}>
             <Aurora />
             </div>

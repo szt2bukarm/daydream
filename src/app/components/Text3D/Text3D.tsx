@@ -48,7 +48,7 @@ export default function Text3D() {
       end: "top+=6000 top",
       scrub: true,
     //   pin: true,
-      markers: true,
+    //   markers: true,
       animation: tl,
     });
     return trigger;
