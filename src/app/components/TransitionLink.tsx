@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { useTransitionRouter } from "next-view-transitions";
 import navStyles from './Nav/nav.module.scss'
+import { usePathname } from "next/navigation";
 
 export default function TransitionLink({ href, children, className }) {
     const Router = useTransitionRouter();
+    const pathname = usePathname();
 
     const animation = () => {
             document.documentElement.animate([
@@ -51,6 +53,7 @@ export default function TransitionLink({ href, children, className }) {
     return (
         <Link href={href} onClick={(e) => {
             e.preventDefault();
+            if (pathname === href) return;
             const nav = document.querySelector(`.${navStyles.navWrapper}`)
             if (nav) {
                 nav.style.backdropFilter = 'blur(0px)'

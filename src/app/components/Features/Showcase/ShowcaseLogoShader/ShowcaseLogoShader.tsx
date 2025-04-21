@@ -142,13 +142,27 @@ const Scene = () => {
   );
 };
 
+const isMobileOrTablet = () => {
+  if (typeof navigator === 'undefined') return false;
+  return /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
+};
+
 const ShowcaseLogoShader = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileOrTablet());
+  }, []);
+
+  const cappedDPR = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 1.5) : 1;
+
   return (
-    <div className={styles.wrapper}>
+    <div className={isMobile ? styles.mobileWrapper : styles.wrapper}>
       <Canvas
         gl={{ preserveDrawingBuffer: true }}
         style={{ pointerEvents: 'none' }}
         camera={{ position: [0, 0, 1], near: 0.1, far: 10 }}
+        dpr={cappedDPR}
       >
         <Scene />
       </Canvas>

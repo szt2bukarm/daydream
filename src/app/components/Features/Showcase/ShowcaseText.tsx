@@ -58,6 +58,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
             }
         })
     })
+    const preventScroll = (e: TouchEvent) => e.preventDefault();
 
     const setupScrollTrigger = (splitTextInstance: SplitType) => {
         gsap.set(splitTextInstance.lines, { y: 100, rotate: 3 });
@@ -65,13 +66,14 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
             trigger: inline ? `.${featuresMobileStyles.wrapper}` : `.${featuresStyles.wrapper}`,
             start: inline ? "top-=400" : 'top 0%',
             end: inline ? "bottom 0%" : "top+=200 0%",
-            // markers: true,
             onEnter: () => {
                 if (!splitTextInstance.lines) return;
                 const currentY = gsap.getProperty(splitTextInstance.lines[0], 'y');
                 if (currentY !== 0) {
                     if (!inline) {
                         lenis.stop();
+                        document.addEventListener('touchmove', preventScroll, { passive: false });
+                        document.body.classList.add('lock-scroll');
                     }
                     gsap.to(splitTextInstance.lines, {
                         y: 0,
@@ -79,7 +81,11 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
                         duration: 1.2,
                         stagger: 0.1,
                         ease: 'power4.out',
-                        onComplete: () => lenis.start()
+                        onComplete: () => {
+                            lenis.start();
+                            document.body.classList.remove('lock-scroll');
+                            document.removeEventListener('touchmove', preventScroll);
+                        }
                     });
                 }
             },
@@ -190,7 +196,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
 
 
     return (
-        <div className={`${styles.wrapper} ${inline ? '' : styles.absolute}`}>
+        <div className={`${styles.wrapper} ${inline ? '' : styles.absolute}`} style={{marginTop : inline ? "200px" : "0px", marginBottom : inline ? "100px" : "0px"}}>
             <div className={styles.textWrapper}>
                 <div ref={el => textRef.current[0] = el} className={styles.text}>
                     Daydream is crafted with precision. Minimal, tactile, and built to feel as good as it sounds.

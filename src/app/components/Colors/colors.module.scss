@@ -78,6 +78,14 @@
         transform: translateX(-50%);
         top: 50px;
     }
+
+    @media (max-width: 724px) {
+        font-size: 30px;
+        padding-inline: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+    }
 }
 
 .cards{

@@ -17,6 +17,8 @@ export default function FooterNav() {
     const pathRef = useRef(null);
     const [mounted,setMounted] = useState(false);
     const [width,setWidth] = useState(window.innerWidth);
+    const transformInstance = useRef<ScrollTrigger | null>(null);
+    let resizeTimeout = null;
 
     useEffect(() => {
         const handleResize = () => {
@@ -75,24 +77,38 @@ export default function FooterNav() {
                 end: '10% top',
             }
         })
-        
 
+        // gsap.to(`.${styles.wrapper}`, {
+        //     y: 0,
+        //     scrollTrigger: {
+        //         trigger: `.${wheelStyles.wrapper}`,
+        //         start: '0% top',
+        //         end: '100% top',
+        //         scrub: true,
+        //         // markers: true
+        //     }
+        // })
+
+    }, [mounted]);
+
+    const transformTimeline = () => {
         gsap.set(`.${styles.wrapper}`, {
             y: 150
         })
-
-        gsap.to(`.${styles.wrapper}`, {
+        const tl = gsap.timeline();
+        tl.to(`.${styles.wrapper}`, {
             y: 0,
-            scrollTrigger: {
-                trigger: `.${wheelStyles.wrapper}`,
-                start: '0% top',
-                end: '100% top',
-                scrub: true,
-                // markers: true
-            }
         })
-
-    }, [mounted]);
+        const trigger = ScrollTrigger.create({
+            trigger: `.${wheelStyles.wrapper}`,
+            start: '0% top',
+            end: '80% top',
+            scrub: true,
+            animation: tl,
+            markers: true
+        })
+        return trigger;
+    }
 
     const handleCredits = () => {
         setCredits(!credits);
@@ -124,7 +140,21 @@ export default function FooterNav() {
         }
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
-    })
+    },[])
+
+    useGSAP(() => {
+        if (!mounted) return;
+        transformInstance.current = transformTimeline();
+        
+        const handleResize = () => {
+            clearTimeout(resizeTimeout!);
+            resizeTimeout = setTimeout(() => {
+                transformInstance.current.refresh();
+            },200)
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    },[mounted])
 
     if (!mounted) return <></>;
 

@@ -53,44 +53,45 @@
 
 .cables{
     display: flex;
+    flex-direction: column;
     position: absolute;
     top: 55%;
     left: 50%;
-    transform: translate(-727px, -50%) rotate(90deg);
+    transform: translate(-937px, -50%);
 
     @media (max-width: 1324px) {
-        transform: translate(-557px, -50%) rotate(90deg);
+        transform: translate(-715px, -50%);
     }
 }
 
 .cable{
-    width: 55px;
+    height: 55px;
 
     @media (max-width: 1324px) {
-        width: calc(55px * 0.75);
+        height: calc(55px * 0.75);
     }
 }
 
 .cable:nth-child(1){
-    margin-top: -95px;
+    margin-right: -95px;
 
     @media (max-width: 1324px) {
-        margin-top: calc(-95px * 0.75);
+        margin-right: calc(-95px * 0.75);
     }
 }
 .cable:nth-child(2){
-    margin-top: -21px;
+    margin-right: -21px;
 
     @media (max-width: 1324px) {
-        margin-top: calc(-21px * 0.75);
+        margin-right: calc(-21px * 0.75);
     }
 }
 
 .cable:nth-child(3){
-    margin-top: 0px;
+    margin-right: 0px;
 
     @media (max-width: 1324px) {
-        margin-top: calc(0px * 0.7);
+        margin-right: calc(0px * 0.7);
     }
 }
 

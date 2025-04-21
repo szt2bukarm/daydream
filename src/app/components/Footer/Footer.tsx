@@ -7,7 +7,7 @@ export default function Footer() {
             <div style={{position: "fixed",width: "100%", height: "720px", bottom: "0", left: 0}}>
                 <FooterNav />
             </div>
-            <div style={{marginBottom: "650px"}}>
+            <div style={{marginBottom: "690px"}}>
             <FooterWheel />
             </div>
         </div>

@@ -34,8 +34,8 @@ export default function Text3D() {
     tl.to(splitRef.current.words, {
       opacity: 1,
       duration: 0.15,
-      stagger: 0.1
-    }, 3.25)
+      stagger: 0.08
+    }, 3.2)
     .to(splitRef.current.words, {
       opacity: 0,
       duration: 0,

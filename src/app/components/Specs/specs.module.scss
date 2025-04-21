@@ -193,7 +193,7 @@
     overflow: hidden;
 
     @supports (-webkit-touch-callout: none) {
-        filter: blur(15px);
+        filter: blur(5px);
     }
 }
 

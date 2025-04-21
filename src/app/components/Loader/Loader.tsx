@@ -114,140 +114,138 @@ const assets = [
 
 
 export default function Loader() {
-    const {setLoaded,loaded} = useStore();
+    const { setLoaded, loaded } = useStore();
     const [progress, setProgress] = useState(0);
-    const [hideLoader,setHideLoader] = useState(false);
+    const [hideLoader, setHideLoader] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const [domReady, setDomReady] = useState(false);
+  
     const videoPath = '/hero.mp4';
-
+  
     const preloadVideo = () => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const video = document.createElement('video');
         video.src = videoPath;
         video.muted = true;
         video.preload = 'auto';
-    
-        video.oncanplaythrough = () => {
-          resolve();
-        };
-    
-        video.onloadeddata = () => {
-          resolve();
-        };
-    
+        video.oncanplaythrough = resolve;
+        video.onloadeddata = resolve;
         video.load();
       });
     };
-    
+  
     useEffect(() => {
-        useGLTF.preload("/model.glb");
-    })
+      useGLTF.preload("/model.glb");
+  
+      const onDOMContentLoaded = () => setDomReady(true);
+      if (document.readyState === "complete" || document.readyState === "interactive") {
+        setDomReady(true);
+      } else {
+        window.addEventListener("DOMContentLoaded", onDOMContentLoaded);
+      }
+  
+      return () => {
+        window.removeEventListener("DOMContentLoaded", onDOMContentLoaded);
+      };
+    }, []);
+  
     const preloadAssets = (assets) => {
-        return new Promise((resolve, reject) => {
-            const totalAssets = assets.length;
-            let loadedAssets = 0;
-
-            const checkAllLoaded = () => {
-                if (loadedAssets === totalAssets) {
-                    resolve()
-                }
-            };
-
-            assets.forEach((asset) => {
-                const img = new Image();
-                img.onload = () => {
-                    window[asset] = img;
-                    loadedAssets++;
-                    const progress = (loadedAssets / totalAssets) * 100;
-                    setProgress(progress);
-                    checkAllLoaded();
-                };
-                img.src = asset;
-            });
-        });
-    };
-
-    useEffect(() => {
-        const loadAllAssets = async () => {
-          try {
-            // Load assets and video in parallel
-            await Promise.all([
-              preloadAssets(assets),
-              preloadVideo()
-            ]);
-            
-            setLoaded(true);
-            setVideoLoaded(true);
-          } catch (error) {
+      return new Promise((resolve) => {
+        const totalAssets = assets.length;
+        let loadedAssets = 0;
+  
+        const checkAllLoaded = () => {
+          if (loadedAssets === totalAssets) {
+            resolve();
           }
         };
-    
-        loadAllAssets();
-      }, []);
-    
-
-    const revealLetter = (index) => {
-        gsap.set(`.${styles.logoLetter}[data-index="${index}"]`, {
-            opacity: 1
-        })
-        gsap.to(`.${styles.logoLetter}[data-index="${index}"]`, {
-            y: 0,
+  
+        assets.forEach((asset) => {
+          const img = new Image();
+          img.onload = () => {
+            window[asset] = img;
+            loadedAssets++;
+            const progress = (loadedAssets / totalAssets) * 100;
+            setProgress(progress);
+            checkAllLoaded();
+          };
+          img.src = asset;
         });
+      });
     };
-
-    useGSAP(() => {
-        gsap.set(`.${styles.logoLetter}`, {
-            y: 50,
-        });
-    
-        const step = 12;
-        const numLetters = 8;
-    
-        for (let i = 0; i < numLetters; i++) {
-            if (progress > step * (i + 1)) {
-                revealLetter(i);
-            }
-        }
-    }, [progress]);
-
+  
     useEffect(() => {
-        console.log(loaded,videoLoaded)
-        if (loaded && videoLoaded) {
-            gsap.to(`.${styles.wrapper}`, {
-                clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
-                duration: 0.5,
-                ease: 'power2.out',
-                delay: 0.5,
-                onComplete: () => {
-                    setHideLoader(true)
-                }
-            })
+      const loadAllAssets = async () => {
+        try {
+          await Promise.all([
+            preloadAssets(assets),
+            preloadVideo()
+          ]);
+          setLoaded(true);
+          setVideoLoaded(true);
+        } catch (error) {
+          console.error("Asset preload error:", error);
         }
-    }, [loaded,videoLoaded]);
-
+      };
+  
+      loadAllAssets();
+    }, []);
+  
+    const revealLetter = (index) => {
+      gsap.set(`.${styles.logoLetter}[data-index="${index}"]`, { opacity: 1 });
+      gsap.to(`.${styles.logoLetter}[data-index="${index}"]`, { y: 0 });
+    };
+  
+    useGSAP(() => {
+      gsap.set(`.${styles.logoLetter}`, { y: 50 });
+  
+      const step = 12;
+      const numLetters = 8;
+  
+      for (let i = 0; i < numLetters; i++) {
+        if (progress > step * (i + 1)) {
+          revealLetter(i);
+        }
+      }
+    }, [progress]);
+  
+    useEffect(() => {
+      if (loaded && videoLoaded && domReady) {
+        gsap.to(`.${styles.wrapper}`, {
+          clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
+          duration: 0.5,
+          ease: 'power2.out',
+          delay: 0.5,
+          onComplete: () => {
+            setHideLoader(true);
+          }
+        });
+      }
+    }, [loaded, videoLoaded, domReady]);
+  
     if (hideLoader) return null;
-
+  
     return (
-        <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
-            <div className={styles.wrapper}>
-            <video autoPlay muted loop style={{opacity: 0, position: "absolute",zIndex: "-1"}} onCanPlayThrough={() => setVideoLoaded(true)}>
-                    <source src={`hero.webm`} type="video/webm" />
-                </video>
-                <div className={styles.background}></div>
-                <img src="loader.png" className={styles.logos} alt="loader" />
-                <div className={styles.logo}>
-                    {logoPaths.map((path, index) => (
-                        <img
-                            data-index={index}
-                            key={index}
-                            src={path}
-                            alt={letters[index]}
-                            className={styles.logoLetter}
-                        />
-                    ))}
-                </div>
-                <div className={styles.fog}></div>
-            </div>
+      <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
+        <div className={styles.wrapper}>
+          <video autoPlay muted loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
+            <source src={`hero.webm`} type="video/webm" />
+          </video>
+          <div className={styles.background}></div>
+          <img src="loader.png" className={styles.logos} alt="loader" />
+          <div className={styles.logo}>
+            {logoPaths.map((path, index) => (
+              <img
+                data-index={index}
+                key={index}
+                src={path}
+                alt={letters[index]}
+                className={styles.logoLetter}
+              />
+            ))}
+          </div>
+          <div className={styles.fog}></div>
         </div>
+      </div>
     );
-}
+  }

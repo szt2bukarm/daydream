@@ -27,13 +27,12 @@ export default function Home() {
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
-    
     const handleResize = () => {
       const currentWidth = window.innerWidth;
 
       const crossedThreshold =
-        (lastWidth.current <= 724 && currentWidth > 724) ||
-        (lastWidth.current > 724 && currentWidth <= 724);
+        (lastWidth.current <= 725 && currentWidth > 725) ||
+        (lastWidth.current > 725 && currentWidth <= 725);
 
       if (crossedThreshold) {
         window.location.reload();
@@ -76,7 +75,7 @@ export default function Home() {
       <FloatingCards />
       <FeaturesMobile />
       <Features />
-      <div style={{position: "relative",width: '100%',height: '100%'}}>
+      <div style={{position: "relative",width: '100%',height: '100%',contain: "style"}}>
         <FullCards />
         <Logo3D />
       </div>

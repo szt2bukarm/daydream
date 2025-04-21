@@ -34,9 +34,10 @@ export default function ShowcasePortsMobile() {
                     ))}
                 </div>
                 <div className={styles.imageWrapper}>
+                    <img className={styles.gradient} src='gradient.png' />
                     <img className={styles.image} src="FlipInsequence/flipin61.webp" />
                     <div className={styles.shader}>
-                    <ShowcaseLogoShader />
+                        <ShowcaseLogoShader />
                     </div>
                 </div>
             </div>

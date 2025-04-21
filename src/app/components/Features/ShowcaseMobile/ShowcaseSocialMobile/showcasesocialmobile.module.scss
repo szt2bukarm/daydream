@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    // overflow: hidden;
 }
 
 .circles{
@@ -23,6 +24,13 @@
     object-fit: cover;
 }
 
+.innerWrapper{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .expanded {
     position: relative;
     display: inline-flex;
@@ -33,7 +41,7 @@
     border-radius: 74px !important;
     width: 422px;
     height: 148px;
-    // transform: translateY(15px);
+    transform: translateY(-3px);
     background: linear-gradient(216deg, rgba(213, 213, 213, 0.20) 0.09%, rgba(116, 116, 116, 0.08) 32.02%, rgba(53, 53, 53, 0.00) 52.88%, rgba(217, 217, 217, 0.20) 101.61%);
     overflow: hidden;
     scale: 0.85;

@@ -57,6 +57,7 @@ export default function ShowcaseSubtext({
             end: `top+=${end} 0%`,
             onEnter: () => {
                 lenis?.stop();
+                document.body.classList.add('lock-scroll');
                 window.scrollBy(0,10);
                 gsap.to(split.lines, {
                     y: 0,
@@ -69,11 +70,13 @@ export default function ShowcaseSubtext({
                 });
                 setTimeout(() => {
                     lenis.start();
+                    document.body.classList.remove('lock-scroll');
                     },
-                1500);
+                start == "200" ? 2500 : 1500);
             },
             onEnterBack: () => {
                 lenis?.stop();
+                document.body.classList.add('lock-scroll');
                 window.scrollBy(0,-10);
                 gsap.to(split.lines, {
                     y: 0,
@@ -83,7 +86,8 @@ export default function ShowcaseSubtext({
                     ease: 'power4.out',
                 })
                 setTimeout(() => {
-                    lenis.start();
+                        lenis.start();
+                        document.body.classList.remove('lock-scroll');
                     },
                 1500);
             },

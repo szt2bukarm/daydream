@@ -6,10 +6,10 @@
     z-index: 2;
     pointer-events: none;
 
-    @media (max-width: 724px) {
-        margin-top: 200px;
-        margin-bottom: 100px;
-    }
+    // @media (max-width: 724px) {
+    //     margin-top: 200px;
+    //     margin-bottom: 100px;
+    // }
 }
 
 .absolute{
@@ -26,6 +26,10 @@
 
     @media (max-width: 1324px) {
         width: 800px;
+    }
+
+    @media (max-width: 924px) {
+        width: 600px;
     }
 
     @media (max-width: 724px) {
@@ -51,6 +55,11 @@
     }
 
     @media (max-width: 924px) {
+        font-size: 35px;
+    }
+
+
+    @media (max-width: 724px) {
         font-size: 25px;
     }
 }

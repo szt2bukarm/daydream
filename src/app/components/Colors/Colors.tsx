@@ -120,6 +120,7 @@ export default function Colors() {
             horizontalTrigger.current = gsap.to(`.${styles.cards}`, {
                 x: scrollDistance,
                 ease: "none",
+                force3D: true,
                 scrollTrigger: {
                     trigger: `.${styles.variants}`,
                     start: 'top top',
@@ -147,6 +148,7 @@ export default function Colors() {
             start: 'top top',
             end: 'top+=3000 top',
             pin: true,
+            // anticipatePin: 1
             // markers: true,
         })
     },[])
@@ -155,7 +157,6 @@ export default function Colors() {
         if (!spanRef.current) return;
     
         ScrollTrigger.matchMedia({
-            // Only activate for screens wider than 1324px
             "(min-width: 1324px)": () => {
                 const tl = gsap.timeline();
                 spanRef.current.forEach((el, i) => {
@@ -197,7 +198,7 @@ export default function Colors() {
                     <span ref={el => spanRef.current[1] = el}>no</span>
                     <span ref={el => spanRef.current[0] = el}>other</span>
                 </div>
-                <div className={styles.cards}>
+                <div className={styles.cards} style={{willChange: "transform"}}>
                     {data.map((item,index) => (
                         <ColorCard key={index} text={item.text} colors={item.colors} name={item.name} image={item.image} />
                     ))}

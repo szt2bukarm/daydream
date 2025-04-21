@@ -4,11 +4,15 @@ import styles from "./hero.module.scss";
 import Aurora from "./Aurora";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
-
+import { CustomEase } from "gsap/dist/CustomEase";
+gsap.registerPlugin(CustomEase);
 const letters = ['D', 'A', 'Y', 'D', 'R', 'E', 'A', 'M'];
 const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
 
 export default function Hero() {
+
+    CustomEase.create("customease", "M0,0 C0.075,0.82 0.165,1 1,1");
+
     const [imageIndex, setImageIndex] = useState(1);
     const totalFrames = 27;
     const intervalRef = useRef(null);
@@ -27,14 +31,14 @@ export default function Hero() {
         });
         
         gsap.set(split.lines, {
-            y: 100
+            y: 300
         })
         gsap.to(split.lines, {
             y: 0,
-            delay: 0.55,
-            duration: 1,
+            delay: 0.5,
+            duration: 1.5,
             stagger: 0.2,
-            ease: 'power4.out'
+            ease: 'customease'
         })
     },[])
 

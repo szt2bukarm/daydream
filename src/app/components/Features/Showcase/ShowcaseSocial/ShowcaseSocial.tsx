@@ -133,7 +133,7 @@ export default function ShowcaseSocial() {
                 </div>
                 <div className={styles.circles}>
                     {Array.from({ length: 8 }).map((_, index) => (
-                        <Circle key={index} width={index * 300} height={index * 300} index={index} />
+                        <Circle key={index} width={index * 300} height={index * 300} index={index} mobile={false} />
                     ))}
                 </div>
             </div>

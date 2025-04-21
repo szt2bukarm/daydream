@@ -8,6 +8,7 @@
     padding-bottom: 52px;
     border-radius: 20px;
     overflow: hidden;
+    will-change: transform;
 
     @media (max-width: 1324px) {
         width: 39vw;

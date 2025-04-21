@@ -51,13 +51,15 @@ function Model({ url }: { url: string }) {
       x: 0.8,
       y: 0.8,
       z: 0.8,
-      duration: 1
+      duration: 1,
+      force3D: true,
     }, 1.2)
 
     // Second animation: rotate (25%-75% of scroll)
     tl.to(meshRef.rotation, {
       y: '+=12',
-      duration: 4
+      duration: 4,
+      force3D: true,
     }, 1.7) 
 
     return trigger;
@@ -118,6 +120,8 @@ export default function Logo3D() {
   const [hidden,setHidden] = useState(false);
   const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
   let resizeTimeout = null;
+  const cappedDPR = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 1.5) : 1
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -174,7 +178,7 @@ export default function Logo3D() {
 
   return (
     <div className={styles.wrapper}>
-      <Canvas orthographic resize={{ scroll: false }} camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none',display: hidden ? 'none' : 'block'}}>
+      <Canvas dpr={cappedDPR} orthographic resize={{ scroll: false }} camera={{ position: [0, 0, 20], zoom: 100, near: 0.1, far: 1000 }} gl={{ alpha: true, stencil: true, antialias: true }} style={{ width: '100%', height: '100%', zIndex: 1, background: 'transparent',pointerEvents: 'none',display: hidden ? 'none' : 'block'}}>
           <Scene1 />
         </Canvas>
     </div>

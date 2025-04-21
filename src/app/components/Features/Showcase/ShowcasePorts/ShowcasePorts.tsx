@@ -8,6 +8,7 @@ import { useLenis } from '@studio-freight/react-lenis';
 import Render2 from '@/app/components/Features/Showcase/ShowcaseLogoShader/ShowcaseLogoShader';
 import ShowcaseHeader from '../ShowcaseHeader';
 import ShowcaseSubtext from '../ShowcaseSubtext';
+import ShowcaseLogoShader from '@/app/components/Features/Showcase/ShowcaseLogoShader/ShowcaseLogoShader';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ShowcasePorts() {
@@ -28,7 +29,7 @@ export default function ShowcasePorts() {
 
     useGSAP(() => {
         gsap.set(cableRefs.current, {
-            y: 1000
+            x: -1000
         })
     },[lenis])
 
@@ -43,11 +44,11 @@ export default function ShowcasePorts() {
                     duration: 0.15
                 })
                 gsap.set(cableRefs.current, {
-                    y: 1000,
+                    x: -1000,
                     opacity: 1
                 })
                 gsap.to(cableRefs.current, {
-                    y: 200,
+                    x: -200,
                     duration: 1,
                     delay: 0.3,
                     stagger: 0.2,
@@ -55,7 +56,7 @@ export default function ShowcasePorts() {
                 })
                 
                 gsap.to(cableRefs.current, {
-                    y: 0,
+                    x: 0,
                     duration: 0.5,
                     stagger: 0.1,
                     ease: 'power4.in',
@@ -116,7 +117,7 @@ export default function ShowcasePorts() {
                     Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.
                 </ShowcaseSubtext>
                 <div ref={renderRef} style={{display: 'none'}}>
-                    <Render2 />
+                    <ShowcaseLogoShader />
                 </div>
                 <div className={styles.cables}>
                     {Array.from({ length: 3 }).map((_, index) => (

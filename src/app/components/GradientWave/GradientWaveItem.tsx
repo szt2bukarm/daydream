@@ -1,25 +1,39 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import styles from './gradientwave.module.scss'
 import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import styles from './gradientwave.module.scss';
 
-export default function GradientWaveItem({ index }: { index: number }) {
-    const ref = useRef(null);
+interface GradientWaveItemProps {
+  index: number;
+}
 
-    useGSAP(() => {
-        console.log()
-        gsap.to(ref.current, {
-            width: "500%",
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            delay: index * 0.2,
-            // repeatDelay: 0.1,
-            ease: "linear"
-    })}, [])
+export default function GradientWaveItem({ index }: GradientWaveItemProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
 
+  useGSAP(() => {
+    if (!ref.current) return;
 
-    return (
-        <div className={styles.gradient} ref={ref}></div>
-    )
+    gsap.to(ref.current, {
+      width: "500%",
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      delay: index * 0.2,
+      ease: "linear",
+      force3D: true,
+      willChange: "width",
+    });
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={styles.gradient}
+      style={{
+        willChange: "width",
+        transform: "translateZ(0)",
+        backfaceVisibility: "hidden",
+      }}
+    />
+  );
 }

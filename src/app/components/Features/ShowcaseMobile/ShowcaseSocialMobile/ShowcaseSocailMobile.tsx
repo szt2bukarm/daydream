@@ -28,9 +28,11 @@ export default function ShowcaseSocailMobile() {
         Connect with who<br></br>matter the most
         </ShowcaseHeaderMobile>
 
+        <div style={{marginBlock: "100px"}}></div>
+        <div className={styles.innerWrapper}>
         <div className={styles.circles}>
             {Array.from({ length: 8 }).map((_, index) => (
-                <Circle key={index} width={index * 120} height={index * 120} index={index} />
+                <Circle key={index} width={index * 120} height={index * 120} index={index} mobile={true}/>
             ))}
         </div>
 
@@ -62,6 +64,7 @@ export default function ShowcaseSocailMobile() {
                         </div>
                     </div>
                 </div>
+        </div>
 
 
         <ShowcaseSubtextMobile>
