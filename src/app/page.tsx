@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [mounted,setMounted] = useState(false);
-
+  const {isMobile} = useStore();
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function Home() {
         <FullCards />
         <Logo3D />
       </div>
-        <Text3D />
+      <Text3D />
       <Colors />
       <Specs />
     </div>

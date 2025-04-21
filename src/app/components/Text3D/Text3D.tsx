@@ -1,5 +1,5 @@
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
 import styles from './text3d.module.scss'
@@ -10,9 +10,11 @@ export default function Text3D() {
     const splitRef = useRef<SplitType | null>(null);
     const textInstance = useRef<ScrollTrigger | null>(null);
     const textRef = useRef(null);
+    const [mounted,setMounted] = useState(false);
 
 
   useEffect(() => {
+    setMounted(true);
     if (typeof window === 'undefined') return;
 
     const split = new SplitType(textRef.current, { types: 'words' });
@@ -27,7 +29,7 @@ export default function Text3D() {
     splitRef.current = split;
   
     gsap.set(split.words, { opacity: 0 });
-  })
+  },[])
 
   const textTrigger = () => {
     const tl = gsap.timeline();
@@ -55,8 +57,9 @@ export default function Text3D() {
   }
 
   useEffect(() => {
+    if (!mounted) return;
     textTrigger();
-  },[])
+  },[mounted])
 
 //   useEffect(() => {
 //     if (typeof window === 'undefined') return;

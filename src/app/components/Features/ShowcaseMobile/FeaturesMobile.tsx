@@ -1,46 +1,29 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import ShowcaseText from '../Showcase/ShowcaseText';
-import styles from './featuresmobile.module.scss';
-import ShowcaseAlbumMobile from './ShowcaseAlbumMobile/ShowcaseAlbumMobile';
-import ShowcasePortsMobile from './ShowcasePortsMobile/ShowcasePortsMobile';
-import ShowcaseSocailMobile from './ShowcaseSocialMobile/ShowcaseSocailMobile';
-
-function isMobileUserAgent() {
-  if (typeof navigator === 'undefined') return false;
-  const ua = navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod|android|mobile/.test(ua);
-}
+import { useEffect, useState } from 'react'
+import ShowcaseText from '../Showcase/ShowcaseText'
+import styles from './featuresmobile.module.scss'
+import ShowcaseAlbumMobile from './ShowcaseAlbumMobile/ShowcaseAlbumMobile'
+import ShowcasePortsMobile from './ShowcasePortsMobile/ShowcasePortsMobile'
+import ShowcaseSocailMobile from './ShowcaseSocialMobile/ShowcaseSocailMobile'
+import { useStore } from '@/useStore'
 
 export default function FeaturesMobile() {
-  const [shouldRender, setShouldRender] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth <= 724 || isMobileUserAgent();
-  });
+    const [width, setWidth] = useState(window.innerWidth);
+    const { isMobile } = useStore();
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 724 || isMobileUserAgent()) {
-        setShouldRender(true);
-      } else {
-        setShouldRender(false);
-      }
-    };
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-    handleResize(); // run once on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    if (width > 724 && !isMobile) return <div></div>;
 
-  if (!shouldRender) return null;
-
-  return (
-    <div className={styles.wrapper}>
-      <ShowcaseText inline={true} />
-      <ShowcaseAlbumMobile />
-      <ShowcaseSocailMobile />
-      <ShowcasePortsMobile />
-    </div>
-  );
+    return (
+        <div className={styles.wrapper}>
+            <ShowcaseText inline={true} />
+            <ShowcaseAlbumMobile />
+            <ShowcaseSocailMobile />
+            <ShowcasePortsMobile />
+        </div>
+    )
 }

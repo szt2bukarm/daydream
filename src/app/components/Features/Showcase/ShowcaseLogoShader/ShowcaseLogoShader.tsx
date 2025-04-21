@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import styles from './showcaselogoshader.module.scss'
+import { useStore } from '@/useStore';
 
 // Utility to load a texture with settings
 const loadTextureAsync = (path: string): Promise<THREE.Texture> => {
@@ -142,17 +143,10 @@ const Scene = () => {
   );
 };
 
-const isMobileOrTablet = () => {
-  if (typeof navigator === 'undefined') return false;
-  return /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
-};
 
 const ShowcaseLogoShader = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const {isMobile} = useStore();
 
-  useEffect(() => {
-    setIsMobile(isMobileOrTablet());
-  }, []);
 
   const cappedDPR = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 1.5) : 1;
 

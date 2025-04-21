@@ -6,16 +6,12 @@ import gsap from 'gsap';
 import navStyles from '../Nav/nav.module.scss'
 import { useLenis } from '@studio-freight/react-lenis';
 
-const isMobile = () => {
-  if (typeof navigator === 'undefined') return false;
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-};
-
+  
 export default function VideoPlayer() {
   const iframeRef = useRef<HTMLDivElement>(null);
   const [player, setPlayer] = useState<Player | null>(null);
   const [showUnmute, setShowUnmute] = useState(false);
-  const { showPlayer, setShowPlayer } = useStore();
+  const { showPlayer, setShowPlayer, isMobile } = useStore();
   const lenis = useLenis();
 
   useEffect(() => {
@@ -31,13 +27,12 @@ export default function VideoPlayer() {
       controls: false,
       responsive: true,
       loop: true,
-      muted: isMobile(), // Only muted on mobile/tablet
+      muted: isMobile, 
     });
 
     setPlayer(newPlayer);
 
-    // Show unmute button only on mobile
-    if (isMobile()) {
+    if (isMobile) {
       setShowUnmute(true);
     } else {
       newPlayer.setVolume(1);
@@ -47,9 +42,7 @@ export default function VideoPlayer() {
 
   useEffect(() => {
     if (!player) return;
-    player.play().catch(() => {
-      // Do nothing — expected for autoplay on mobile
-    });
+    player.play()
   }, [player]);
 
   const closePlayer = () => {

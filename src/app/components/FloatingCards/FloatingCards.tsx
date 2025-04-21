@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import GradientWave from '../GradientWave/GradientWave';
 import ScrollVelocity from '../ScrollText/ScrollText';
+import { useStore } from '@/useStore';
 gsap.registerPlugin(ScrollTrigger);
 
 const cards = [
@@ -21,8 +22,9 @@ export default function FloatingCards() {
   const timelineInstance = useRef(null);
   const overlayTriggerInstance = useRef(null);
   let resizeTimeout = null;
+  const {isMobile} = useStore();
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1024;
+  const smallerScreen = typeof window !== 'undefined' && window.innerWidth <= 1024;
 
   const createTimeline = () => {
     const calculateX = () => {
@@ -46,7 +48,7 @@ export default function FloatingCards() {
       timeline.to(card, {
         x: xValues[index],
         rotate: index % 2 === 0 ? -3 : 3,
-        duration: isMobile ? 0.05 : 0.15,
+        duration: smallerScreen ? 0.05 : 0.15,
         ease: 'power1.out',
         force3D: true
       }, index * 0.05);
@@ -56,7 +58,7 @@ export default function FloatingCards() {
   };
 
   const setupCardPositions = () => {
-    const cardPositions = isMobile
+    const cardPositions = smallerScreen
       ? [
           { x: "120vw", y: 30, rotate: 2 },
           { x: "130vw", y: 40, rotate: -2 },
@@ -167,7 +169,9 @@ export default function FloatingCards() {
     <div className={styles.wrapper}>
       <div className={styles.fixed}>
         <GradientWave />
+        {!isMobile && 
         <ScrollVelocity texts={["SHARE CONNECT DISCOVER"]} className='scrollText' velocity={300} />
+        }
         {cards.map((card, index) => (
           <div
             key={index}

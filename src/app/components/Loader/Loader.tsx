@@ -119,7 +119,20 @@ export default function Loader() {
     const [hideLoader, setHideLoader] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [domReady, setDomReady] = useState(false);
+    const {setIsMobile} = useStore();
   
+    useEffect(() => {
+        const checkIfMobile = () => {
+          const ua = navigator.userAgent.toLowerCase();
+          const isMobileUA = /iphone|ipod|android|mobile/.test(ua);
+          const isIpad =
+            /ipad/.test(ua) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+          return isMobileUA || isIpad;
+        };
+        setIsMobile(checkIfMobile());
+      }, []);
+
     const videoPath = '/hero.mp4';
   
     const preloadVideo = () => {

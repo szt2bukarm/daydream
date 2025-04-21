@@ -14,32 +14,34 @@ import ShowcaseSocial from "./Showcase/ShowcaseSocial/ShowcaseSocial";
 import ShowcaseText from "./Showcase/ShowcaseText";
 import Faces from "./Showcase/ShowcaseSocial/Faces";
 import ShowcasePorts from "./Showcase/ShowcasePorts/ShowcasePorts";
+import { useStore } from "@/useStore";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function isMobileDevice() {
-  if (typeof navigator === 'undefined') return false;
-  const ua = navigator.userAgent.toLowerCase();
-  return /android|iphone|ipad|ipod|mobile/.test(ua);
-}
 
 export default function Features() {
   const wrapperRef = useRef(null);
-  const [shouldRender, setShouldRender] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth > 724 || !isMobileDevice();
-  });
+  const [width, setWidth] = useState(window.innerWidth);
+  const { isMobile } = useStore();
 
   useEffect(() => {
-    const handleResize = () => {
-      const newShouldRender = window.innerWidth > 724 || !isMobileDevice();
-      setShouldRender(newShouldRender);
-    };
-
-    handleResize(); // run once on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
   }, []);
+  //   const { isMobile } = useStore();
+//   const [shouldRender, setShouldRender] = useState(true);
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       const newShouldRender = window.innerWidth > 724 && !isMobile;
+//       setShouldRender(newShouldRender);
+//     };
+
+//     handleResize(); // run once on mount
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
 
   useGSAP(() => {
     const trigger = ScrollTrigger.create({
@@ -54,7 +56,7 @@ export default function Features() {
     };
   }, []);
 
-  if (!shouldRender) return null;
+  if (width <= 724 || isMobile) return <div></div>;
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
