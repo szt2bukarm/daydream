@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "DAYDREAM",
     images: [
       {
-        url: "/opengraph.png",
+        url: "https://opengraph.b-cdn.net/production/images/a829d42c-ed09-4747-8f43-58e1499022a0.png?token=ruKvAORKjKW6MaMDFUDxz1sDkvyHb4T9LHGU_8z5Zko&height=297&width=512&expires=33282915381",
         width: 512,
         height: 297,
         alt: "DAYDREAM preview image",
