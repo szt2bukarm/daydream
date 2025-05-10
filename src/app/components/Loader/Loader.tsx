@@ -246,7 +246,7 @@ export default function Loader() {
     return (
       <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
         <div className={styles.wrapper}>
-          <video autoPlay muted loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
+          <video style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
             <source src={`hero.mp4`} type="video/mp4" />
             <Aurora />
           </video>
