@@ -66,10 +66,10 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                 {index == 0 && 
                     <div className={styles.users} ref={usersRef}>
                       <div className={styles.user}>
-                          <img src="Features/user1.png" className={styles.userImage}/>
+                          <img src="Features/user1.webp" className={styles.userImage}/>
                       </div>
                       <div className={styles.user}>
-                          <img src="Features/user4.png" className={styles.userImage}/>
+                          <img src="Features/user4.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
                           <img src="Features/user2.svg" className={styles.userSVG}/>
@@ -78,13 +78,13 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                 {index == 1 && 
                     <div className={styles.users} ref={usersRef}>
                       <div className={styles.user}>
-                          <img src="Features/user4.png" className={styles.userImage}/>
+                          <img src="Features/user4.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.purple}`}>
                           <img src="Features/user3.svg" className={styles.userSVG}/>
                       </div>
                       <div className={styles.user}>
-                          <img src="Features/user1.png" className={styles.userImage}/>
+                          <img src="Features/user1.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
                           <img src="Features/user2.svg" className={styles.userSVG}/>
@@ -96,7 +96,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                 {index == 2 && 
                     <div className={styles.users} ref={usersRef}>
                       <div className={`${styles.user} ${styles.dark}`}>
-                      <img src="Features/user5.png" className={styles.userImage}/>
+                      <img src="Features/user5.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.pink}`}>
                           <p className={styles.userInitials}>SM</p>
@@ -111,7 +111,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                 {index == 3 && 
                     <div className={styles.users} ref={usersRef}>
                       <div className={`${styles.user} ${styles.dark}`}>
-                        <img src="Features/user6.png" className={styles.userImage}/>
+                        <img src="Features/user6.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.pink}`}>
                           <p className={styles.userInitials}>BA</p>
@@ -120,7 +120,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                 {index == 4 && 
                     <div className={styles.users} ref={usersRef}>
                   <div className={`${styles.user} ${styles.dark}`}>
-                        <img src="Features/user6.png" className={styles.userImage}/>
+                        <img src="Features/user6.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.blue}`}>
                           <p className={styles.userInitials}>PT</p>
@@ -132,7 +132,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                           <p className={styles.userInitials}>SJ</p>
                       </div>
                       <div className={`${styles.user} ${styles.dark}`}>
-                        <img src="Features/user1.png" className={styles.userImage}/>
+                        <img src="Features/user1.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
                         <img src="Features/user3.svg" className={styles.userSVG}/>
@@ -150,7 +150,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                           <p className={styles.userInitials}>AM</p>
                       </div>
                       <div className={`${styles.user} ${styles.pink}`}>
-                          <img src="Features/user6.png" className={styles.userImage}/>
+                          <img src="Features/user6.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.purple}`}>
                           <p className={styles.userInitials}>KT</p>
@@ -163,10 +163,10 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                           <p className={styles.userInitials}>DZ</p>
                       </div>
                       <div className={`${styles.user} ${styles.dark}`}>
-                          <img src="Features/user5.png" className={styles.userImage}/>
+                          <img src="Features/user5.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
-                          <img src="Features/user1.png" className={styles.userImage}/>
+                          <img src="Features/user1.webp" className={styles.userImage}/>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
                           <img src="Features/user3.svg" className={styles.userSVG}/>
@@ -179,7 +179,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                           <p className={styles.userInitials}>MC</p>
                       </div>
                       <div className={`${styles.user} ${styles.orange}`}>
-                          <img src="Features/user6.png" className={styles.userImage}/>
+                          <img src="Features/user6.webp" className={styles.userImage}/>
                       </div>
                     </div>}
 
@@ -192,7 +192,7 @@ export default function AlbumCard({image,title,index}:{image:string,title:string
                           <img src="Features/user2.svg" className={styles.userSVG}/>
                       </div>
                       <div className={`${styles.user} ${styles.dark}`}>
-                          <img src="Features/user5.png" className={styles.userImage}/>
+                          <img src="Features/user5.webp" className={styles.userImage}/>
                       </div>
                     </div>}
                 <p className={styles.title} ref={titleRef}>{title}</p>

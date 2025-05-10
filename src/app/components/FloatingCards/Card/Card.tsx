@@ -3,7 +3,7 @@ import styles from './card.module.scss'
 export default function Card({icon,text,header,style,image}:{icon?:string,text?:string,header?:string,style?:string,image?:string}) {
     return (
         <div className={`${styles.wrapper} ${style == "dark" ? styles.dark : styles.light}`}>
-            <img src={`FloatingCard/${image}.png`} className={styles.note} />
+            <img src={`FloatingCard/${image}.webp`} alt="Card icon" className={styles.note} />
             <div className={styles.inner}>
                 <div className={styles.icon}>{icon}</div>
                 <div className={styles.textWrapper}>

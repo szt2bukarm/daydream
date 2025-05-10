@@ -52,7 +52,7 @@ export default function ShowcaseSocailMobile() {
                         }}
                     ></div>
                     <div className={styles.innerContent}>
-                        <img className={styles.expandedImage} src="Features/user1.png" />
+                        <img className={styles.expandedImage} src="Features/user1.webp" alt='User face icon' />
                         <div className={styles.expandedDetails}>
                             <p className={styles.expandedName}>Feliza Lemoine</p>
                             <p className={styles.expandedText}>Currently Listening</p>

@@ -1,3 +1,4 @@
+"use client"
 import { Link } from 'next-view-transitions'
 import TransitionLink from '../TransitionLink'
 import styles from './nav.module.scss'

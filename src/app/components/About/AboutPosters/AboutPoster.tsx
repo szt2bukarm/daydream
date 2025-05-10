@@ -84,7 +84,7 @@ export default function AboutPoster({orientation,image}:{orientation?:string,ima
     return (
         <div className={styles.wrapper} ref={imageRef}>
             <div className={`${styles.imageWrapper} ${orientation == "right" ? styles.imageWrapperRight : styles.imageWrapperLeft}`}>
-                <img src={`About/poster${image}.png`}className={`${styles.image} ${orientation == "right" ? styles.imageRight : styles.imageLeft}`} />
+                <img alt="Daydream poster" src={`About/poster${image}.png`}className={`${styles.image} ${orientation == "right" ? styles.imageRight : styles.imageLeft}`} />
                 <div className={`${styles.background} ${orientation == "right" ? styles.backgroundRight : styles.backgroundLeft}`}></div>
             </div>
         </div>

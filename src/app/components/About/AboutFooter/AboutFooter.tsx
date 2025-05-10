@@ -73,7 +73,7 @@ export default function AboutFooter() {
                 <GlowButton>Open Positions</GlowButton> 
             </div>
             <div className={styles.backgroundWrapper}>
-                <img src="/About/logostroke.png" className={styles.backgroundImage} />
+                <img src="/About/logostroke.webp" alt="Daydream logo outline" className={styles.backgroundImage} />
                 <div className={styles.background}>
                     <div className={styles.backgroundInner}>
                         <div className={styles.blob}>   </div>

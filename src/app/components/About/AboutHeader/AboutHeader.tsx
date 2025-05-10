@@ -121,7 +121,7 @@ export default function AboutHeader() {
 
     return (
         <div className={styles.wrapper}>
-            <img src="logo.svg" className={styles.logo} />
+            <img src="logo.svg" alt="logo" className={styles.logo} />
             <p className={styles.text} ref={textRef}>
                 Behind Daydream is a team dedicated to rethinking how we experience music
             </p>

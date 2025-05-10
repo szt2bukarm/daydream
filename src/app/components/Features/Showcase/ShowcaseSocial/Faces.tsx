@@ -6,13 +6,13 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const orbits = [
-  { size: 890, duration: 30, img: 'Features/user5.png' },
-  { size: 1100, duration: 20, img: 'Features/user6.png' },
-  { size: 1100, duration: 50, img: 'Features/user4.png' },
-  { size: 890, duration: 45, img: 'Features/user7.png' },
-  { size: 1100, duration: 45, img: 'Features/user8.png' },
-  { size: 890, duration: 60, img: 'Features/user9.png' },
-  { size: 890, duration: 70, img: 'Features/user10.png' }
+  { size: 890, duration: 30, img: 'Features/user5.webp' },
+  { size: 1100, duration: 20, img: 'Features/user6.webp' },
+  { size: 1100, duration: 50, img: 'Features/user4.webp' },
+  { size: 890, duration: 45, img: 'Features/user7.webp' },
+  { size: 1100, duration: 45, img: 'Features/user8.webp' },
+  { size: 890, duration: 60, img: 'Features/user9.webp' },
+  { size: 890, duration: 70, img: 'Features/user10.webp' }
 ];
 
 export default function Faces() {
@@ -69,6 +69,9 @@ export default function Faces() {
   };
 
   const animateIn = () => {
+    gsap.to(itemRefs.current, {
+      opacity: 1,
+    })
     gsap.set(`.${styles.facesWrapper}`, { display: 'block' });
     gsap.set(`.${styles.expandedDetails}`, { opacity: 0 });
     gsap.set(`.${styles.expandedImage}`, { scale: 1.85 });
@@ -81,7 +84,7 @@ export default function Faces() {
       ease: 'back.out(1.1)'
     });
     gsap.to(`.${styles.expandedImage}`, { scale: 1, delay: 0.9 });
-    gsap.to(`.${styles.expanded}`, { width: 430, duration: 0.2, delay: 0.9 });
+    gsap.to(`.${styles.expanded}`, { width: 460, duration: 0.2, delay: 0.9 });
     gsap.to(`.${styles.expandedDetails}`, {
       opacity: 1,
       duration: 0.2,
@@ -91,6 +94,9 @@ export default function Faces() {
   };
 
   const animateOut = () => {
+    gsap.to(itemRefs.current, {
+      opacity: 0,
+    })
     gsap.to(`.${styles.expanded}`, {
       scale: 0,
       delay: 0.4,
@@ -176,7 +182,8 @@ export default function Faces() {
               <div className={styles.innerContent}>
                 <img
                   className={styles.expandedImage}
-                  src="Features/user1.png"
+                  src="Features/user1.webp"
+                  alt="User face icon"
                 />
                 <div className={styles.expandedDetails}>
                   <p className={styles.expandedName}>Feliza Lemoine</p>
@@ -184,9 +191,9 @@ export default function Faces() {
                   <div className={styles.expandedPlayingWrapper}>
                     <div className={styles.expandedPlaying}></div>
                     <p className={styles.expandedPlayingTrack}>
-                      Summertime in Paris
+                      BROTHER STONE
                     </p>
-                    <p className={styles.expandedPlayingFeat}>Jaden</p>
+                    <p className={styles.expandedPlayingFeat}>Feat. Kodak Black</p>
                   </div>
                 </div>
               </div>

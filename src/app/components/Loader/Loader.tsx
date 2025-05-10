@@ -5,22 +5,23 @@ import styles from './loader.module.scss';
 import {useStore} from '@/useStore';
 import { useGLTF } from '@react-three/drei';
 import { useGSAP } from '@gsap/react';
+import Aurora from '../Hero/Aurora';
 
 const letters = ['D', 'A', 'Y', 'D', 'R', 'E', 'A', 'M'];
 const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
 
 const assets = [
-    "About/logostroke.png",
+    "About/logostroke.webp",
     "About/poster1.png",
     "About/poster2.png",
-    "Colors/1.png",
-    "Colors/2.png",
-    "Colors/3.png",
-    "Colors/4.png",
-    "Colors/5.png",
-    "Colors/6.png",
-    "Colors/7.png", 
-    "Colors/8.png",
+    "Colors/1.webp",
+    "Colors/2.webp",
+    "Colors/3.webp",
+    "Colors/4.webp",
+    "Colors/5.webp",
+    "Colors/6.webp",
+    "Colors/7.webp", 
+    "Colors/8.webp",
     "Colors/colors.webp",
     "Features/Albums/album1.webp",
     "Features/Albums/album2.webp",
@@ -95,18 +96,22 @@ const assets = [
     "FlipInsequence/flipin59.webp",
     "FlipInsequence/flipin60.webp",
     "FlipInsequence/flipin61.webp",
-    "Features/user1.png",
+    "Features/user1.webp",
     "Features/user2.svg",
     "Features/user3.svg",
-    "Features/user4.png",
-    "Features/user5.png",
-    "Features/user6.png",
-    "FloatingCard/fingerprint.png",
-    "FloatingCard/link.png",
-    "FloatingCard/note.png",
-    "FloatingCard/spiral.png",
-    "Fullcards/card1.png",
-    "Fullcards/card2.png",
+    "Features/user4.webp",
+    "Features/user5.webp",
+    "Features/user6.webp",
+    "Features/user7.webp",
+    "Features/user8.webp",
+    "Features/user9.webp",
+    "Features/user10.webp",
+    "FloatingCard/fingerprint.webp",
+    "FloatingCard/link.webp",
+    "FloatingCard/note.webp",
+    "FloatingCard/spiral.webp",
+    "Fullcards/card1.webp",
+    "Fullcards/card2.webp",
     "LogoSVG/logo.svg",
     "LogoSVG/logoBG.svg",
 ];
@@ -242,7 +247,8 @@ export default function Loader() {
       <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
         <div className={styles.wrapper}>
           <video autoPlay muted loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
-            <source src={`hero.webm`} type="video/webm" />
+            <source src={`hero.mp4`} type="video/mp4" />
+            <Aurora />
           </video>
           <div className={styles.background}></div>
           <img src="loader.png" className={styles.logos} alt="loader" />

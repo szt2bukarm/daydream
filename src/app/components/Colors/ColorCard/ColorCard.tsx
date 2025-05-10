@@ -16,7 +16,7 @@ export default function ColorCard({text,colors,name,image}: {text:string[],color
                     ))}
                 </div>
             </div>
-            <img src={`Colors/${image}.png`} className={styles.image} />
+            <img src={`Colors/${image}.webp`} alt={name} className={styles.image} />
         </div>
     )
 }

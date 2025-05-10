@@ -95,7 +95,7 @@ export default function Specs() {
                 </div>
             </div>
             <div className={styles.backgroundWrapper}>
-                <img src="outline.webp" className={styles.backgroundImage} />
+                <img src="outline.webp" alt='DAYDREAM player outline' className={styles.backgroundImage} />
                 <div className={styles.backgroundOutline}>
                     <div className={styles.backgroundInner}>
                         <div className={styles.blob}>   </div>

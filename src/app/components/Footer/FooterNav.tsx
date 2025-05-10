@@ -178,13 +178,13 @@ export default function FooterNav() {
                 </div>
 
                 <div className={styles.logo}>
-                    <img src="LogoSVG/logo.svg" className={styles.logoSVG} ref={(el) => (letterRefs.current[0] = el)}/>
+                    <img alt="Logo letter" src="LogoSVG/logo.svg" className={styles.logoSVG} ref={(el) => (letterRefs.current[0] = el)}/>
                     {logoPaths.map((path, index) => (
                         <img
                         key={index}
                         src={path}
                         className={styles.letter}
-                        ref={(el) => (letterRefs.current[index+1] = el)} // Assigning ref to each image
+                        ref={(el) => (letterRefs.current[index+1] = el)} 
                         />
                     ))}
                 </div>

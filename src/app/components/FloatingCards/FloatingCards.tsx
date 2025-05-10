@@ -129,41 +129,56 @@ export default function FloatingCards() {
     });
   };
 
+
   useGSAP(() => {
     if (typeof window === 'undefined') return;
 
     const setup = () => {
-      setupCardPositions();
-      timelineInstance.current = createTimeline();
-      scrollTriggerInstance.current = setupWrapperTrigger();
-      overlayTriggerInstance.current = setupOverlay();
+        setupCardPositions();
+        timelineInstance.current = createTimeline();
+        scrollTriggerInstance.current = setupWrapperTrigger();
+        overlayTriggerInstance.current = setupOverlay();
     };
 
     setup();
 
     let lastWidth = window.innerWidth;
-    const handleResize = () => {
-      if (lastWidth === window.innerWidth) return;
-      lastWidth = window.innerWidth;
 
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        timelineInstance.current?.refresh();
-        scrollTriggerInstance.current?.refresh();
-        overlayTriggerInstance.current?.refresh();
-        ScrollTrigger.refresh(true);
-      }, 300);
+    const handleResize = () => {
+        if (lastWidth === window.innerWidth) return;
+        lastWidth = window.innerWidth;
+        clearTimeout(resizeTimeout!);
+
+        resizeTimeout = setTimeout(() => {
+            if (timelineInstance.current) {
+                timelineInstance.current.kill();
+                timelineInstance.current = null;
+            }
+
+            if (scrollTriggerInstance.current) {
+                scrollTriggerInstance.current.kill();
+                scrollTriggerInstance.current = null;
+            }
+
+            if (overlayTriggerInstance.current) {
+                overlayTriggerInstance.current.kill();
+                overlayTriggerInstance.current = null;
+            }
+
+            setup();
+
+            ScrollTrigger.refresh();
+        }, 1000);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      timelineInstance.current?.kill();
-      scrollTriggerInstance.current?.kill();
-      overlayTriggerInstance.current?.kill();
+        window.removeEventListener("resize", handleResize);
+        if (timelineInstance.current) timelineInstance.current.kill();
+        if (scrollTriggerInstance.current) scrollTriggerInstance.current.kill();
     };
-  }, []);
+}, []);
 
   return (
     <div className={styles.wrapper}>

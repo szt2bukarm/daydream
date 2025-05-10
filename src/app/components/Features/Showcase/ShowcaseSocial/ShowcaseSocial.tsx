@@ -10,10 +10,6 @@ import ShowcaseHeader from '../ShowcaseHeader';
 import ShowcaseSubtext from '../ShowcaseSubtext';
 gsap.registerPlugin(ScrollTrigger);
 
-const orbits = [
-    { size: '890px', duration: 25, img: 'Features/user5.png' },
-    { size: '1100px', duration: 20, img: 'Features/user6.png' }
-];
 
 export default function ShowcaseSocial() {
     const lenis = useLenis();

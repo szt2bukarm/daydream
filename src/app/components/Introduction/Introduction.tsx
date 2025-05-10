@@ -171,7 +171,7 @@ export default function Introduction() {
                     <p className={styles.imageText}>BUT MUSIC HAS EVOLVED—IT’S NO LONGER JUST PERSONAL, IT’S SOCIAL. DAYDREAM IS INSPIRED BY THE PAST, BUILT FOR NOW.</p>
                     <p className={styles.imageText}>BECAUSE MUSIC ISN’T JUST HEARD—IT’S FELT, TOGETHER.</p>
                 </div>
-                <img src="introduction.png" className={styles.image} />
+                <img src="introduction.webp" alt='Image showing two DAYDREAM player color variants' className={styles.image} />
             </div>
         </div>
     )
