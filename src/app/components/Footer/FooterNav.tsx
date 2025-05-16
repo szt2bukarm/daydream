@@ -105,7 +105,7 @@ export default function FooterNav() {
             end: '80% top',
             scrub: true,
             animation: tl,
-            markers: true
+            // markers: true
         })
         return trigger;
     }

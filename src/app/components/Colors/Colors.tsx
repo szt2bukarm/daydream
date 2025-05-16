@@ -184,7 +184,6 @@ export default function Colors() {
                 opacity: 1,
                 duration: 0.3,
                 scrollTrigger: {
-                    markers: true,
                     trigger: el,
                     start: 'top 70%',
                 }
