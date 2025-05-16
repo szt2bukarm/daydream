@@ -10,6 +10,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import { ViewTransitions } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import Loader from "./components/Loader/Loader";
+import Alert from "./components/Alert/Alert";
 
 export const metadata: Metadata = {
   title: "DAYDREAM",
@@ -72,6 +73,7 @@ export default function RootLayout({
         <Loader />
         <SmoothScroll>
           {children}
+          <Alert />
         </SmoothScroll>
         {/* <div style={{color:"white",position: "absolute",top:"1%",left:"50%",transform:"translate(-50%,-50%)",zIndex:10}}>
             <TransitionLink href="/oldal">oldal</TransitionLink>

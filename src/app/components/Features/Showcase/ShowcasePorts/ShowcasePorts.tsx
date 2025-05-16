@@ -110,12 +110,14 @@ export default function ShowcasePorts() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.relative}>
+                <div>
                 <ShowcaseHeader triggerClass={styles.wrapper} start='400' end='500'>
                 Crisp sound out of<br></br>every port
                 </ShowcaseHeader>
-\                <ShowcaseSubtext triggerClass={styles.wrapper} start='400' end='500'>
+                <ShowcaseSubtext triggerClass={styles.wrapper} start='400' end='500'>
                     Daydream delivers high-fidelity sound through every connection. With a <b>premium DAC</b> at its core, it outputs rich, detailed audio whether you're using <b>USB-C, 3.5mm, or 6.35mm</b>.
                 </ShowcaseSubtext>
+                </div>
                 <div ref={renderRef} style={{display: 'none'}}>
                     <ShowcaseLogoShader />
                 </div>

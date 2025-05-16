@@ -12,19 +12,19 @@ const data = [
         text: ["One that started it all.","Perfect for any occasion."],
         name: 'Starter',
         colors: ['#2D2D2D','#EE4137'],
-        image: '1'
+        image: '1',
     },
     {
         text: ["Deep, refined, and effortlessly cool.","A colorway that’s truly stealthy."],
         name: 'Stealth Black',
         colors: ['#1B1B1B'],
-        image: '2'
+        image: '2',
     },
     {
         text: ["Inspired by old translucent tech."],
         name: 'Electric Purple',
         colors: ["#2D2D2D","#A692C2"],
-        image: '3'
+        image: '3',
     }, 
     {
         text: ["It’s crisp, minimal, and timeless.","A pure, futuristic statement."],
@@ -56,9 +56,9 @@ export default function Colors() {
     const horizontalTrigger = useRef<ScrollTrigger | null>(null);
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
+    const mobileCardsRef = useRef<HTMLDivElement[]>([]);
     const spanRef = useRef([]);
 
-    // Handle resize event
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
@@ -70,7 +70,7 @@ export default function Colors() {
 
     useGSAP(() => {
         gsap.set(`.${styles.image}`, {
-            y: 200
+            y: width < 724 ? 100 : 200
         })
 
         gsap.set(`.${styles.gradient}`, {
@@ -79,17 +79,15 @@ export default function Colors() {
 
         const tl = gsap.timeline();
         tl.to(`.${styles.image}`, {
-            y: 100    
+            y: width < 724 ? 50 : 100    
         })
 
         ScrollTrigger.create({
             trigger: `.${styles.wrapper}`,
-            start: 'top-=500 top',
-            end: 'top+=1000 top',
-            // pin: true,
+            start: width < 724 ? 'top-=1000 top' : 'top-=500 top',
+            end: width < 724 ? 'top+=500 top' : 'top+=1000 top',
             scrub: true,
             animation: tl,
-            // markers: true,
         })
 
         gsap.to(`.${styles.gradient}`, {
@@ -142,16 +140,14 @@ export default function Colors() {
 
 
     useGSAP(() => {
-
+        if (width <= 724) return;
         ScrollTrigger.create({
             trigger: `.${styles.variants}`,
             start: 'top top',
             end: 'top+=3000 top',
             pin: true,
-            // anticipatePin: 1
-            // markers: true,
         })
-    },[])
+    },[width])
 
     useGSAP(() => {
         if (!spanRef.current) return;
@@ -172,16 +168,32 @@ export default function Colors() {
                     end: '+=300',
                     scrub: true,
                     animation: tl,
-                    // markers: true
                 });
             }
         });
     }, []);
 
+    useGSAP(() => {
+        if (width > 724) return;
+        gsap.set(mobileCardsRef.current, {
+            opacity: 0
+        })
+
+        mobileCardsRef.current.forEach((el, i) => {
+            gsap.to(el, {
+                opacity: 1,
+                duration: 0.3,
+                scrollTrigger: {
+                    markers: true,
+                    trigger: el,
+                    start: 'top 70%',
+                }
+            })
+        })
+    },[])
+
     return (
         <div className={styles.wrapper}>
-
-
 
             <div className={styles.imageWrapper}>
                 <div className={styles.background}></div>
@@ -198,11 +210,22 @@ export default function Colors() {
                     <span ref={el => spanRef.current[1] = el}>no</span>
                     <span ref={el => spanRef.current[0] = el}>other</span>
                 </div>
-                <div className={styles.cards} style={{willChange: "transform"}}>
+                {width > 724 && (
+                    <div className={styles.cards} style={{willChange: "transform"}}>
                     {data.map((item,index) => (
-                        <ColorCard key={index} text={item.text} colors={item.colors} name={item.name} image={item.image} />
+                        <ColorCard key={index} text={item.text} colors={item.colors} name={item.name} image={item.image}/>
                     ))}
                 </div>
+                )}
+                {width <= 724 && (
+                    <div className={styles.cardsMobile}>
+                        {data.map((item,index) => (
+                            <div key={index} ref={el => mobileCardsRef.current[index] = el} style={{display:'flex',justifyContent: 'center'}}>
+                            <ColorCard text={item.text} colors={item.colors} name={item.name} image={item.image} />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )

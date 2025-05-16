@@ -2,8 +2,10 @@ import styles from './footerwheel.module.scss'
 import navStyles from '../Nav/nav.module.scss'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useStore } from '@/useStore'
 
 export default function FooterWheel() {
+    const {setShowAlert} = useStore();
 
     useGSAP(() => {
         setTimeout(() => {
@@ -98,7 +100,7 @@ export default function FooterWheel() {
                 <img alt="Daydream color variant" src="Colors/8.webp" className={`${styles.image} ${styles.image24 }`} />
            </div>
            <p className={styles.text}>Join Waitlist for<br></br>Daydream Model 1</p>
-            <button className={styles.button}>Join Waitlist</button>
+            <button className={styles.button} onClick={() => setShowAlert(true)}>Join Waitlist</button>
 
         </div>
     )

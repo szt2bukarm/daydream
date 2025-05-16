@@ -190,6 +190,9 @@ export default function ShowcaseAlbums() {
                     {albums.map((album, index) => (
                         <AlbumCard key={index} image={album.image} title={album.title} index={index} />
                     ))}
+                    {albums.map((album, index) => (
+                        <AlbumCard key={index} image={album.image} title={album.title} index={index} />
+                    ))}
                 </div>
             </div>
         </div>

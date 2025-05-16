@@ -5,12 +5,13 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useEffect, useRef, useState } from 'react'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import { useStore } from '@/useStore'
 gsap.registerPlugin(ScrollTrigger);
 export default function AboutFooter() {
     const button = useRef(null);
     const [width, setWidth] = useState(window.innerWidth);
     const [mounted, setMounted] = useState(false);
-
+    const {setShowAlert} = useStore();
     useEffect(() => {
         setMounted(true);
     },[])
@@ -70,7 +71,7 @@ export default function AboutFooter() {
             )}
 
             <div ref={button}>
-                <GlowButton>Open Positions</GlowButton> 
+                <GlowButton onClick={() => setShowAlert(true)}>Open Positions</GlowButton> 
             </div>
             <div className={styles.backgroundWrapper}>
                 <img src="/About/logostroke.webp" alt="Daydream logo outline" className={styles.backgroundImage} />

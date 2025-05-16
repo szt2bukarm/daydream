@@ -1,12 +1,13 @@
 import styles from './floatingcards.module.scss';
 import Card from './Card/Card';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import GradientWave from '../GradientWave/GradientWave';
 import ScrollVelocity from '../ScrollText/ScrollText';
 import { useStore } from '@/useStore';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const cards = [
@@ -21,10 +22,9 @@ export default function FloatingCards() {
   const scrollTriggerInstance = useRef(null);
   const timelineInstance = useRef(null);
   const overlayTriggerInstance = useRef(null);
-  let resizeTimeout = null;
-  const {isMobile} = useStore();
-
-  const smallerScreen = typeof window !== 'undefined' && window.innerWidth <= 1024;
+  const resizeTimeout = useRef(null);
+  const smallerScreenRef = useRef(window.innerWidth <= 1024);
+  const { isMobile } = useStore();
 
   const createTimeline = () => {
     const calculateX = () => {
@@ -48,22 +48,33 @@ export default function FloatingCards() {
       timeline.to(card, {
         x: xValues[index],
         rotate: index % 2 === 0 ? -3 : 3,
-        duration: smallerScreen ? 0.05 : 0.15,
+        duration: smallerScreenRef.current ? 0.05 : 0.15,
         ease: 'power1.out',
-        force3D: true
       }, index * 0.05);
     });
+
+    if (smallerScreenRef.current) {
+      cardsRef.current.forEach((card, index) => {
+        timeline.to(card, {
+          // x: xValues[index],
+          y: 100,
+          rotate: index % 2 === 0 ? -3 : 3,
+          duration: smallerScreenRef.current ? 0.05 : 0.1,
+          ease: 'power1.out',
+        }, index * 0.05);
+      });
+    }
 
     return trigger;
   };
 
   const setupCardPositions = () => {
-    const cardPositions = smallerScreen
+    const cardPositions = smallerScreenRef.current
       ? [
-          { x: "120vw", y: 30, rotate: 2 },
-          { x: "130vw", y: 40, rotate: -2 },
-          { x: "125vw", y: 35, rotate: 1 },
-          { x: "135vw", y: 38, rotate: -1 }
+          { y: '110vh',x:"10%", rotate: 20 },
+          { y: '110vh',x:"10%", rotate: -20 },
+          { y: '110vh',x:"10%", rotate: 10 },
+          { y: '110vh',x:"10%", rotate: -10 }
         ]
       : [
           { x: "150vw", y: 110, rotate: 15 },
@@ -129,15 +140,14 @@ export default function FloatingCards() {
     });
   };
 
-
   useGSAP(() => {
     if (typeof window === 'undefined') return;
 
     const setup = () => {
-        setupCardPositions();
-        timelineInstance.current = createTimeline();
-        scrollTriggerInstance.current = setupWrapperTrigger();
-        overlayTriggerInstance.current = setupOverlay();
+      setupCardPositions();
+      timelineInstance.current = createTimeline();
+      scrollTriggerInstance.current = setupWrapperTrigger();
+      overlayTriggerInstance.current = setupOverlay();
     };
 
     setup();
@@ -145,47 +155,40 @@ export default function FloatingCards() {
     let lastWidth = window.innerWidth;
 
     const handleResize = () => {
-        if (lastWidth === window.innerWidth) return;
-        lastWidth = window.innerWidth;
-        clearTimeout(resizeTimeout!);
+      if (lastWidth === window.innerWidth) return;
 
-        resizeTimeout = setTimeout(() => {
-            if (timelineInstance.current) {
-                timelineInstance.current.kill();
-                timelineInstance.current = null;
-            }
+      lastWidth = window.innerWidth;
+      smallerScreenRef.current = window.innerWidth <= 1024;
 
-            if (scrollTriggerInstance.current) {
-                scrollTriggerInstance.current.kill();
-                scrollTriggerInstance.current = null;
-            }
+      clearTimeout(resizeTimeout.current);
 
-            if (overlayTriggerInstance.current) {
-                overlayTriggerInstance.current.kill();
-                overlayTriggerInstance.current = null;
-            }
+      resizeTimeout.current = setTimeout(() => {
+        if (timelineInstance.current) timelineInstance.current.kill();
+        if (scrollTriggerInstance.current) scrollTriggerInstance.current.kill();
+        if (overlayTriggerInstance.current) overlayTriggerInstance.current.kill();
 
-            setup();
+        setup();
 
-            ScrollTrigger.refresh();
-        }, 1000);
+        ScrollTrigger.refresh();
+      }, 200);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
-        window.removeEventListener("resize", handleResize);
-        if (timelineInstance.current) timelineInstance.current.kill();
-        if (scrollTriggerInstance.current) scrollTriggerInstance.current.kill();
+      window.removeEventListener("resize", handleResize);
+      if (timelineInstance.current) timelineInstance.current.kill();
+      if (scrollTriggerInstance.current) scrollTriggerInstance.current.kill();
+      if (overlayTriggerInstance.current) overlayTriggerInstance.current.kill();
     };
-}, []);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.fixed}>
         <GradientWave />
         {!isMobile && 
-        <ScrollVelocity texts={["SHARE CONNECT DISCOVER"]} className='scrollText' velocity={300} />
+          <ScrollVelocity texts={["SHARE CONNECT DISCOVER"]} className='scrollText' velocity={300} />
         }
         {cards.map((card, index) => (
           <div
@@ -214,4 +217,3 @@ export default function FloatingCards() {
     </div>
   );
 }
-

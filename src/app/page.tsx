@@ -23,30 +23,37 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [mounted,setMounted] = useState(false);
-  const {isMobile} = useStore();
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
-
+  const lastHeight = useRef(typeof window !== 'undefined' ? window.innerHeight : 0);
+  
   useEffect(() => {
     const handleResize = () => {
       const currentWidth = window.innerWidth;
-
-      const crossedThreshold =
+      const currentHeight = window.innerHeight;
+  
+      const crossedWidthThreshold =
         (lastWidth.current <= 725 && currentWidth > 725) ||
         (lastWidth.current > 725 && currentWidth <= 725);
-
-      if (crossedThreshold) {
+  
+      const crossedHeightThreshold =
+        (lastHeight.current <= 730 && currentHeight > 730) ||
+        (lastHeight.current > 730 && currentHeight <= 730);
+  
+      if (crossedWidthThreshold || crossedHeightThreshold) {
         window.location.reload();
       }
-
+  
       lastWidth.current = currentWidth;
+      lastHeight.current = currentHeight;
     };
-
+  
     window.addEventListener('resize', handleResize);
-
+  
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
 
   useEffect(() => {
     setMounted(true);

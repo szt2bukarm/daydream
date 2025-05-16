@@ -27,6 +27,12 @@
     background-color: #eaeaea;
     border-radius: 30px;
     z-index: 0;
+
+    @media (max-width: 724px) {
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        border-radius: 20px;
+    }
 }
 
 .logo{

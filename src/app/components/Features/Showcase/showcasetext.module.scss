@@ -10,6 +10,10 @@
     //     margin-top: 200px;
     //     margin-bottom: 100px;
     // }
+
+    @media (max-height: 650px) {
+        scale: 0.8;
+    }
 }
 
 .absolute{

@@ -77,6 +77,9 @@ export default function ShowcaseAlbumMobile() {
                     {albums.map((album, index) => (
                         <AlbumCard key={index} image={album.image} title={album.title} index={index} />
                     ))}
+                    {albums.map((album, index) => (
+                        <AlbumCard key={index} image={album.image} title={album.title} index={index} />
+                    ))}
                 </div>
                 <ShowcaseSubtextMobile>
                 Access millions of tracks instantly, or use <b>Daydream Link</b> to load your personal library onto the device.

@@ -62,12 +62,20 @@
     @media (max-width: 1324px) {
         transform: translate(-715px, -50%);
     }
+
+    @media (max-height: 840px) {
+        transform: translate(-715px, -50%);
+    }
 }
 
 .cable{
     height: 55px;
 
     @media (max-width: 1324px) {
+        height: calc(55px * 0.75);
+    }
+
+    @media (max-height: 840px) {
         height: calc(55px * 0.75);
     }
 }
@@ -78,11 +86,19 @@
     @media (max-width: 1324px) {
         margin-right: calc(-95px * 0.75);
     }
+
+    @media (max-height: 840px) {
+        margin-right: calc(-95px * 0.75);
+    }
 }
 .cable:nth-child(2){
     margin-right: -21px;
 
     @media (max-width: 1324px) {
+        margin-right: calc(-21px * 0.75);
+    }
+
+    @media (max-height: 840px) {
         margin-right: calc(-21px * 0.75);
     }
 }
@@ -91,6 +107,10 @@
     margin-right: 0px;
 
     @media (max-width: 1324px) {
+        margin-right: calc(0px * 0.7);
+    }
+
+    @media (max-height: 840px) {
         margin-right: calc(0px * 0.7);
     }
 }

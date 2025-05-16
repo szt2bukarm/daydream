@@ -45,6 +45,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
                     })
                 },
                 onLeave: () => {
+                    if (inline) return;
                     gsap.set(`.${styles.wrapper}`, {
                         opacity: 0,
                         delay: 1
@@ -90,6 +91,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
                 }
             },
             onLeave: () => {
+                if (inline) return;
                 if (!inline) {
                     lenis.stop()
                     window.scrollBy(0, 5)
@@ -109,6 +111,7 @@ export default function ShowcaseText({inline}:{inline?:boolean}) {
                 });
             },
             onEnterBack: () => {
+                if (inline) return;
                 if (!inline) {
                     lenis.stop();
                 }

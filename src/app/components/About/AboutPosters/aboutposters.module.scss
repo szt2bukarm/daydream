@@ -32,6 +32,9 @@
 .imageWrapperRight{
     transform: translateX(100px);
     margin-bottom: 100px;
+    @media (min-width: 1800px) {
+        transform: translateX(-70px);
+    }
 
     @media (max-width: 1550px) {
         transform: translateX(50px);
@@ -50,6 +53,9 @@
 
 .imageWrapperLeft{
     transform: translateX(-100px);
+    @media (min-width: 1800px) {
+        transform: translateX(70px);
+    }
     
     @media (max-width: 1550px) {
         transform: translateX(-50px);

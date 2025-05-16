@@ -34,6 +34,7 @@ export default function ShowcaseSubtext({
         split.lines.forEach(line => {
             const wrapper = document.createElement('div');
             wrapper.style.overflow = 'hidden';
+            wrapper.style.paddingBottom = '3px';
             line.parentNode?.insertBefore(wrapper, line);
             wrapper.appendChild(line);
         });

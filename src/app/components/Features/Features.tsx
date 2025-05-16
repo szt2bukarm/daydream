@@ -22,6 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Features() {
   const wrapperRef = useRef(null);
   const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
   const { isMobile } = useStore();
 
   useEffect(() => {
@@ -29,19 +30,6 @@ export default function Features() {
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
   }, []);
-  //   const { isMobile } = useStore();
-//   const [shouldRender, setShouldRender] = useState(true);
-
-//   useEffect(() => {
-//     const handleResize = () => {
-//       const newShouldRender = window.innerWidth > 724 && !isMobile;
-//       setShouldRender(newShouldRender);
-//     };
-
-//     handleResize(); // run once on mount
-//     window.addEventListener('resize', handleResize);
-//     return () => window.removeEventListener('resize', handleResize);
-//   }, []);
 
   useGSAP(() => {
     const trigger = ScrollTrigger.create({
@@ -56,7 +44,7 @@ export default function Features() {
     };
   }, []);
 
-  if (width <= 724 || isMobile) return <div></div>;
+  if (width <= 724 || isMobile || height <= 730) return <div></div>;
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>

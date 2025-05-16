@@ -20,5 +20,9 @@
     @media (max-width: 1324px) {
         width: calc(904px * 0.8);
     }
+    
+    @media (max-height: 840px) {
+        width: calc(904px * 0.8);
+    }
 }
 

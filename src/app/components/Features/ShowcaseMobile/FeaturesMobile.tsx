@@ -8,6 +8,7 @@ import { useStore } from '@/useStore'
 
 export default function FeaturesMobile() {
     const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
     const { isMobile } = useStore();
 
     useEffect(() => {
@@ -16,7 +17,7 @@ export default function FeaturesMobile() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    if (width > 724 && !isMobile) return <div></div>;
+    if (width > 724 && !isMobile && height > 730) return <div></div>;
 
     return (
         <div className={styles.wrapper}>

@@ -112,6 +112,8 @@ const assets = [
     "FloatingCard/spiral.webp",
     "Fullcards/card1.webp",
     "Fullcards/card2.webp",
+    "Fullcards/card3.webp",
+    "Fullcards/card3Mobile.webp",
     "LogoSVG/logo.svg",
     "LogoSVG/logoBG.svg",
 ];
@@ -246,10 +248,10 @@ export default function Loader() {
     return (
       <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
         <div className={styles.wrapper}>
-          <video style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
+          <video autoPlay muted playsInline loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
             <source src={`hero.mp4`} type="video/mp4" />
-            <Aurora />
           </video>
+          <Aurora />
           <div className={styles.background}></div>
           <img src="loader.png" className={styles.logos} alt="loader" />
           <div className={styles.logo}>

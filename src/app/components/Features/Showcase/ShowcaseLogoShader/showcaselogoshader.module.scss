@@ -13,6 +13,18 @@
         height: calc(300px * 0.8);
     }
 
+    @media (max-height: 840px) {
+        width: calc(780px * 0.79);
+        height: calc(300px * 0.8);
+        transform: translate(-48.9%, -75%);
+    }
+
+    @media (max-height: 600px) {
+        width: calc(780px * 0.7);
+        height: calc(300px * 0.7);
+        transform: translate(-50.3%, -65%);
+    }
+
     @media (max-width: 724px) {
         width: calc(780px * 0.7);
         height: calc(300px * 0.7);
@@ -35,4 +47,11 @@
         height: calc(300px * 0.7);
         transform: translate(-50.5%, -67%);
     }
+
+    @media (max-height: 840px) {
+        width: calc(780px * 0.7);
+        height: calc(300px * 0.7);
+        transform: translate(-50.5%, -67%);
+    }
+
 }

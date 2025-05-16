@@ -10,6 +10,9 @@ interface Store {
     showPlayer: boolean;
     setShowPlayer: (showPlayer: boolean) => void
 
+    showAlert: boolean;
+    setShowAlert: (showAlert: boolean) => void
+
     isMobile: boolean;
     setIsMobile: (isMobile: boolean) => void
 }
@@ -23,6 +26,9 @@ export const useStore = create<Store>((set) => ({
 
     showPlayer: false,
     setShowPlayer: (showPlayer) => set({ showPlayer }),
+
+    showAlert: false,
+    setShowAlert: (showAlert) => set({ showAlert }),
 
     isMobile: false,
     setIsMobile: (isMobile) => set({ isMobile })

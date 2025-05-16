@@ -13,18 +13,21 @@ const cards = [
   {
     icon: "🔒",
     image: "1",
+    imageMobile: '1',
     header: "Private Mode",
     text: "Keep your listening sessions truly yours. With Private Mode, your activity stays off the grid—no tracking, no sharing, just you and your music.",
   },
   {
     icon: "✨",
     image: "2",
+    imageMobile: '2',
     header: "Daydream Assistant",
     text: "A smart companion built for music lovers. Find songs, control playback, and discover new tracks with simple voice commands.",
   },
   {
     icon: "🛜",
-    image: "2",
+    image: "3",
+    imageMobile: '3Mobile',
     header: "eSIM Connectivity",
     text: "Always online, no Wi-Fi needed. Stream, share, and stay connected wherever you go with built-in eSIM support.",
   },

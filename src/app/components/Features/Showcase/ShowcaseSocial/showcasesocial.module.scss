@@ -64,6 +64,12 @@
       height: calc(290px * 0.8);
       padding: 20px 30px;
   }
+
+  @media (max-height: 840px) {
+      width: calc(772px * 0.8);
+      height: calc(290px * 0.8);
+      padding: 20px 30px;
+  }
 }
 
 
@@ -77,6 +83,11 @@
   letter-spacing: -0.238px;
 
   @media (max-width: 1324px) {
+      font-size: calc(23.787px * 0.8);
+      letter-spacing: calc(-0.238px * 0.8);
+  }
+
+  @media (max-height: 840px) {
       font-size: calc(23.787px * 0.8);
       letter-spacing: calc(-0.238px * 0.8);
   }
@@ -111,6 +122,11 @@
       font-size: calc(14.867px * 0.8);
       letter-spacing: calc(-0.149px * 0.8);
   }
+
+  @media (max-height: 840px) {
+      font-size: calc(14.867px * 0.8);
+      letter-spacing: calc(-0.149px * 0.8);
+  }
 }
 
 .toprow{
@@ -122,6 +138,11 @@
   margin-bottom: 10px;
 
   @media (max-width: 1324px) {
+      gap: calc(18px * 0.8);
+      margin-bottom: calc(20px * 0.7);
+  }
+
+  @media (max-height: 840px) {
       gap: calc(18px * 0.8);
       margin-bottom: calc(20px * 0.7);
   }
@@ -142,6 +163,11 @@
       font-size: calc(16px * 0.8);
       letter-spacing: calc(-0.18px * 0.8);
   }
+
+  @media (max-height: 840px) {
+      font-size: calc(16px * 0.8);
+      letter-spacing: calc(-0.18px * 0.8);
+  }
 }
 
 .image{
@@ -154,6 +180,12 @@
     z-index: 3;
 
     @media (max-width: 1324px) {
+      width: calc(790px * 0.8);
+      height: calc(300px * 0.8);
+      transform: translate(-48%, -75%);
+  }
+
+  @media (max-height: 840px) {
       width: calc(790px * 0.8);
       height: calc(300px * 0.8);
       transform: translate(-48%, -75%);
@@ -214,6 +246,10 @@ height: 890px;
   transform: translate(15vw,50px);
   @media (max-width: 1324px) {
       transform: translateY(70px) scale(0.8);
+  }
+
+  @media (max-height: 840px) {
+      transform: translateY(70px) translateX(170px) scale(0.8);
   }
 }
 
