@@ -37,7 +37,7 @@ export default function Alert() {
         })
         gsap.to(`.${styles.alert}`,{
             opacity: 0,
-            scale: 0.5,
+            // scale: 0.5,
             duration: 0.25,
             // ease: 'back.out(1.7)',
             onComplete: () => {
