@@ -71,6 +71,20 @@ export default function Home() {
     }
   },[])
 
+  useEffect(() => {
+    const handleSpace = (e: KeyboardEvent) => {
+      if (e.code === 'Space' && !['INPUT', 'TEXTAREA'].includes((document.activeElement as HTMLElement)?.tagName)) {
+        e.preventDefault();
+      }
+    };
+  
+    window.addEventListener('keydown', handleSpace);
+  
+    return () => {
+      window.removeEventListener('keydown', handleSpace);
+    };
+  }, []);
+
   if (!mounted) return <></>;   
 
   return (
