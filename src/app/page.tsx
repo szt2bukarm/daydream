@@ -25,9 +25,11 @@ export default function Home() {
   const [mounted,setMounted] = useState(false);
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
   const lastHeight = useRef(typeof window !== 'undefined' ? window.innerHeight : 0);
-  
+  const {isMobile} = useStore();
+
   useEffect(() => {
     const handleResize = () => {
+      if (isMobile) return;
       const currentWidth = window.innerWidth;
       const currentHeight = window.innerHeight;
   
