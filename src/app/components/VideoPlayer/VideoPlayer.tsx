@@ -1,21 +1,21 @@
-import Player from '@vimeo/player'
 import { useEffect, useRef, useState } from 'react';
-import styles from './videoplayer.module.scss'
+import styles from './videoplayer.module.scss';
+import navStyles from '../Nav/nav.module.scss';
 import { useStore } from '@/useStore';
 import gsap from 'gsap';
-import navStyles from '../Nav/nav.module.scss'
 import { useLenis } from '@studio-freight/react-lenis';
+import Player from '@vimeo/player';
 
-  
 export default function VideoPlayer() {
   const iframeRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [player, setPlayer] = useState<Player | null>(null);
   const [showUnmute, setShowUnmute] = useState(false);
   const { showPlayer, setShowPlayer, isMobile } = useStore();
   const lenis = useLenis();
 
   useEffect(() => {
-    if (!iframeRef.current || !showPlayer) return;
+    if (!iframeRef.current || !showPlayer || isMobile) return;
 
     if (player) {
       player.destroy().catch(() => {});
@@ -27,23 +27,64 @@ export default function VideoPlayer() {
       controls: false,
       responsive: true,
       loop: true,
-      muted: isMobile, 
+      muted: false,
     });
 
     setPlayer(newPlayer);
-
-    if (isMobile) {
-      setShowUnmute(true);
-    } else {
-      newPlayer.setVolume(1);
-    }
-
-  }, [showPlayer]);
+    newPlayer.setVolume(1);
+  }, [showPlayer, isMobile]);
 
   useEffect(() => {
-    if (!player) return;
-    player.play()
-  }, [player]);
+    if (!showPlayer || !isMobile) return;
+  
+    const video = videoRef.current;
+    if (!video) return;
+  
+    const tryFullscreen = async () => {
+      try {
+        if (video.requestFullscreen) {
+          await video.requestFullscreen();
+        } else if ((video as any).webkitEnterFullscreen) {
+          await (video as any).webkitEnterFullscreen(); // iOS Safari
+        }
+      } catch (e) {
+        console.warn("Fullscreen request failed:", e);
+      }
+    };
+  
+    const handleFullscreenExit = () => {
+      if (!document.fullscreenElement) {
+        setShowPlayer(false);
+        lenis.start();
+        document.body.classList.remove('lock-scroll');
+      }
+    };
+  
+    video.addEventListener('fullscreenchange', handleFullscreenExit);
+    video.addEventListener('webkitendfullscreen', handleFullscreenExit);
+  
+    video.play().catch(() => {});
+    tryFullscreen();
+  
+    return () => {
+      video.removeEventListener('fullscreenchange', handleFullscreenExit);
+      video.removeEventListener('webkitendfullscreen', handleFullscreenExit);
+    };
+  }, [showPlayer, isMobile]);
+  
+
+  useEffect(() => {
+    if (!showPlayer) return;
+    document.body.classList.add('lock-scroll');
+    lenis.stop();
+    gsap.set(`.${styles.wrapper}`, { opacity: 0 });
+    gsap.to(`.${styles.wrapper}`, { opacity: 1, duration: 0.3 });
+    const nav = document.querySelector(`.${navStyles.navWrapper}`);
+    if (nav) {
+      nav.style.opacity = '0';
+      nav.style.pointerEvents = 'none';
+    }
+  }, [showPlayer]);
 
   const closePlayer = () => {
     document.body.classList.remove('lock-scroll');
@@ -64,28 +105,11 @@ export default function VideoPlayer() {
   };
 
   useEffect(() => {
-    if (!showPlayer) return;
-    document.body.classList.add('lock-scroll');
-    lenis.stop();
-    gsap.set(`.${styles.wrapper}`, { opacity: 0 });
-    gsap.to(`.${styles.wrapper}`, {
-      opacity: 1,
-      duration: 0.3,
-    });
-    const nav = document.querySelector(`.${navStyles.navWrapper}`);
-    if (nav) {
-      nav.style.opacity = '0';
-      nav.style.pointerEvents = 'none';
-    }
-  }, [showPlayer]);
+    if (!player) return;
+    player.play()
+  }, [player]);
 
   if (!showPlayer) return null;
-
-  const handleUnmute = () => {
-    player?.setVolume(1).then(() => {
-      setShowUnmute(false);
-    });
-  };
 
   return (
     <div className={styles.wrapper}>
@@ -98,11 +122,26 @@ export default function VideoPlayer() {
           onClick={closePlayer}
         />
         <div className={styles.playerOverlay}></div>
-        <div ref={iframeRef} className={styles.player}></div>
+
+        {/* Desktop: Vimeo iframe */}
+        {!isMobile && <div ref={iframeRef} className={styles.player}></div>}
+
+        {/* Mobile: Native full-screen video */}
+        {isMobile && (
+          <video
+            ref={videoRef}
+            src="/trailer.mp4"
+            className={styles.player}
+            autoPlay
+            controls
+          />
+        )}
       </div>
 
-      {showUnmute && (
-        <button className={styles.play} onClick={handleUnmute}>
+      {showUnmute && !isMobile && (
+        <button className={styles.play} onClick={() => {
+          player?.setVolume(1).then(() => setShowUnmute(false));
+        }}>
           Unmute
         </button>
       )}

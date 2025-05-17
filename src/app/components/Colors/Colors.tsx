@@ -147,7 +147,7 @@ export default function Colors() {
             end: 'top+=3000 top',
             pin: true,
         })
-    },[width])
+    },[])
 
     useGSAP(() => {
         if (!spanRef.current) return;

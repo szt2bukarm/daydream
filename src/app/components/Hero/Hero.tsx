@@ -5,18 +5,19 @@ import Aurora from "./Aurora";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
 import { CustomEase } from "gsap/dist/CustomEase";
+import { useStore } from "@/useStore";
 gsap.registerPlugin(CustomEase);
 const letters = ['D', 'A', 'Y', 'D', 'R', 'E', 'A', 'M'];
 const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
 
 export default function Hero() {
-
     CustomEase.create("customease", "M0,0 C0.075,0.82 0.165,1 1,1");
 
     const [imageIndex, setImageIndex] = useState(1);
     const totalFrames = 27;
     const intervalRef = useRef(null);
     const textRef = useRef(null);
+    const [width, setWidth] = useState(window.innerWidth);
 
 
     useEffect(() => {
@@ -71,13 +72,7 @@ export default function Hero() {
     }, []);
 
     useGSAP(() => {
-        gsap.to(`.${styles.wrapper}`, {
-            // backgroundSize: "100% 100%",
-            duration: 2,
-            backgroundPosition: "0% 100%",    
-            // delay: 1.5,
-        })
-
+        if (width <= 724) return;
         gsap.to(`.${styles.overlay}`, {
             borderRadius: 100,
             boxShadow: "inset 0 0 0 30px #080808,0 0 0 100px #080808",
@@ -96,7 +91,7 @@ export default function Hero() {
             {/* <div className="aurora" style={{opacity: 0}}> */}
             <div className={styles.imageWrapper}>
             <video autoPlay muted loop playsInline className={styles.image}>
-                <source src={`hero.mp4`} type="video/mp4" />
+                <source src={`herovideo.mp4`} type="video/mp4" />
             </video>
             </div>
             <div className={styles.fog1}></div>

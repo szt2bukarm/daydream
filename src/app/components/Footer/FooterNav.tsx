@@ -215,7 +215,7 @@ export default function FooterNav() {
 
             <div className={styles.creditsTextWrapper}>
                 <p>Daydream brand, product, user interface designed, teaser video created by <b>Bukvity Lorisz</b><br></br>Site development by <b>Bukvic Armin</b></p>
-                <p>Made as a Graphic Design Diploma project<br></br>@ Media and Design Instutite, Eger, Hungary, in 2024-25</p>
+                <p>Made as a Graphic Design Diploma project<br></br>@ Media and Design Institute, Eger, Hungary, in 2024-25</p>
             </div>
         </div>
     )

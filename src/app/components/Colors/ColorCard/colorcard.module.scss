@@ -32,6 +32,12 @@
     width: 100%;
     padding: 33px;
     justify-content: space-between;
+
+    @media (max-width: 724px) {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
 }
 
 .textWrapper{
@@ -60,7 +66,12 @@
 .colorWrapper{
     display: flex;
     align-items: center;
-    gap: 25px
+    gap: 25px;
+
+    @media screen and (max-width: 724px) {
+        flex-direction: row;
+        // gap: 0;
+    }
 }
 
 .colorText{

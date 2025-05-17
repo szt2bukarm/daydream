@@ -140,7 +140,7 @@ export default function Loader() {
         setIsMobile(checkIfMobile());
       }, []);
 
-    const videoPath = '/hero.mp4';
+    const videoPath = '/herovideo.mp4';
   
     const preloadVideo = () => {
       return new Promise((resolve) => {
@@ -249,7 +249,7 @@ export default function Loader() {
       <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
         <div className={styles.wrapper}>
           <video autoPlay muted playsInline loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
-            <source src={`hero.mp4`} type="video/mp4" />
+            <source src={`herovide.mp4`} type="video/mp4" />
           </video>
           <Aurora />
           <div className={styles.background}></div>

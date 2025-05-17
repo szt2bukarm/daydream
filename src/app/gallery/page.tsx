@@ -1,5 +1,5 @@
 'use client'
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useRef, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import navStyles from '../components/Nav/nav.module.scss'
@@ -9,9 +9,9 @@ const imageUrls = [
   '/Gallery/2.png',
   '/Gallery/3.png',
   '/Gallery/4.png',
+  '/Gallery/7.mp4',
   '/Gallery/5.png',
   '/Gallery/6.png',
-  '/Gallery/7.png',
   '/Gallery/8.png',
   '/Gallery/9.png',
 ]
@@ -35,14 +35,11 @@ function InfiniteScrollGallery() {
   const [isMobile, setIsMobile] = useState(false)
   const [mobileWidth, setMobileWidth] = useState(0)
 
-  const [viewportHeight, setViewportHeight] = useState('90vh')
-
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
       setIsMobile(width < 1000)
       setMobileWidth(width * 0.9)
-      setViewportHeight(width < 1000 ? '100vh' : '90vh')
     }
     handleResize()
     window.addEventListener('resize', handleResize)
@@ -50,7 +47,7 @@ function InfiniteScrollGallery() {
   }, [])
 
   const singleSetLength = useMemo(() => {
-    if (itemData.length < imageUrls.length) return 0
+    if (itemData.length < imageUrls.length || itemData.some(item => !item)) return 0
     return itemData
       .slice(0, imageUrls.length)
       .reduce((acc, item) => acc + item.length + item.spacing, 0)
@@ -67,11 +64,7 @@ function InfiniteScrollGallery() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
-      if (!isMobile) {
-        scrollTarget.current += e.deltaY * -0.02
-      } else {
-        scrollTarget.current += e.deltaY * 0.02
-      }
+      scrollTarget.current += (isMobile ? 1 : -1) * e.deltaY * 0.02
       snapping.current = false
       snapCooldown.current = 0.5
       resetIdleTimer()
@@ -90,13 +83,7 @@ function InfiniteScrollGallery() {
       const currentY = e.touches[0].clientY
       const deltaX = lastTouchX - currentX
       const deltaY = lastTouchY - currentY
-
-      if (isMobile) {
-        scrollTarget.current += deltaY * 0.05
-      } else {
-        scrollTarget.current += deltaX * -0.05
-      }
-
+      scrollTarget.current += (isMobile ? deltaY : -deltaX) * 0.05
       lastTouchX = currentX
       lastTouchY = currentY
       snapping.current = false
@@ -142,11 +129,13 @@ function InfiniteScrollGallery() {
         : mesh.position.x + groupRef.current!.position.x
 
       if (worldPos < -singleSetLength) {
-        if (isMobile) mesh.position.y += singleSetLength * 3
-        else mesh.position.x += singleSetLength * 3
+        isMobile
+          ? (mesh.position.y += singleSetLength * 3)
+          : (mesh.position.x += singleSetLength * 3)
       } else if (worldPos > singleSetLength * 2) {
-        if (isMobile) mesh.position.y -= singleSetLength * 3
-        else mesh.position.x -= singleSetLength * 3
+        isMobile
+          ? (mesh.position.y -= singleSetLength * 3)
+          : (mesh.position.x -= singleSetLength * 3)
       }
     })
 
@@ -240,34 +229,56 @@ function ImageCard({
   mobileWidth: number
 }) {
   const meshRef = useRef<THREE.Mesh>(null)
-  const texture = useLoader(THREE.TextureLoader, url)
-  const aspect = texture.image ? texture.image.height / texture.image.width : 1
+  const isVideo = url.endsWith('.mp4')
+  const [texture, setTexture] = useState<THREE.Texture | null>(null)
+  const [aspect, setAspect] = useState(1)
+
+  useEffect(() => {
+    if (isVideo) {
+      const video = document.createElement('video')
+      video.src = url
+      video.crossOrigin = 'anonymous'
+      video.loop = true
+      video.muted = true
+      video.play()
+
+      video.addEventListener('loadedmetadata', () => {
+        const tex = new THREE.VideoTexture(video)
+        setAspect(video.videoHeight / video.videoWidth)
+        setTexture(tex)
+      })
+    } else {
+      new THREE.TextureLoader().load(url, (tex) => {
+        setAspect(tex.image.height / tex.image.width)
+        setTexture(tex)
+      })
+    }
+  }, [url])
 
   const width = isMobile ? mobileWidth / 50 : fixedHeight * (1 / aspect)
   const height = isMobile ? (mobileWidth * aspect) / 50 : fixedHeight
-
   const length = isMobile ? height : width
 
   useEffect(() => {
-    if (
-      texture.image &&
-      (!itemData[index % imageUrls.length] || itemData[index % imageUrls.length].length !== length)
-    ) {
+    const originalIndex = index % imageUrls.length
+    if (texture && (!itemData[originalIndex] || itemData[originalIndex].length !== length)) {
       setItemData((prev) => {
         const newData = [...prev]
-        newData[index % imageUrls.length] = { length, spacing }
+        newData[originalIndex] = { length, spacing }
         return newData
       })
     }
-  }, [texture.image, length, index])
+  }, [texture, length, index, spacing, itemData])
 
   const position = useMemo(() => {
-    if (itemData.length < imageUrls.length) return [0, 0, 0]
+    const originalIndex = index % imageUrls.length
+    if (itemData.length < imageUrls.length || !itemData[originalIndex]) return [0, 0, 0]
 
     let pos = 0
-    const originalIndex = index % imageUrls.length
     for (let i = 0; i < originalIndex; i++) {
-      pos += itemData[i].length + itemData[i].spacing
+      const item = itemData[i]
+      if (!item) continue
+      pos += item.length + item.spacing
     }
 
     if (index >= imageUrls.length) {
@@ -278,12 +289,12 @@ function ImageCard({
     return isMobile ? [0, offset, 0] : [offset, 0, 0]
   }, [itemData, index, singleSetLength, isMobile])
 
-  return (
+  return texture ? (
     <mesh ref={meshRef} position={position}>
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial map={texture} toneMapped={false} transparent opacity={0.5} />
     </mesh>
-  )
+  ) : null
 }
 
 export default function GalleryPage() {
@@ -293,10 +304,10 @@ export default function GalleryPage() {
     const nav = document.querySelector(`.${navStyles.navWrapper}`)
     setTimeout(() => {
       if (nav) {
-        nav.style.opacity = '1';
-        nav.style.pointerEvents = 'all';
+        nav.style.opacity = '1'
+        nav.style.pointerEvents = 'all'
       }
-    }, 750);
+    }, 750)
     const handleResize = () => {
       const width = window.innerWidth
       setViewportHeight(width <= 1000 ? '100dvh' : '90vh')
@@ -307,13 +318,13 @@ export default function GalleryPage() {
   }, [])
 
   return (
-    <div 
-      style={{ 
-        height: viewportHeight, 
-        overflow: 'hidden', 
+    <div
+      style={{
+        height: viewportHeight,
+        overflow: 'hidden',
         width: '100%',
         touchAction: 'none',
-        overscrollBehavior: 'none'
+        overscrollBehavior: 'none',
       }}
     >
       <Canvas camera={{ position: [0, 0, 14], fov: 50 }}>
