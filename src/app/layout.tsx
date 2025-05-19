@@ -11,6 +11,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import Loader from "./components/Loader/Loader";
 import Alert from "./components/Alert/Alert";
+import ViewTransitionHandler from "./ViewTransitionHandler";
 
 export const metadata: Metadata = {
   title: "DAYDREAM",
