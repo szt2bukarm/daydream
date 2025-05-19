@@ -8,12 +8,13 @@ import { useEffect, useState } from 'react';
 import { useStore } from '@/useStore';
 import Footer from '../components/Footer/Footer';
 import navStyles from '../components/Nav/nav.module.scss'
+import { Lenis, useLenis } from '@studio-freight/react-lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
-    const {setScrollPos} = useStore();
     const [mounted,setMounted] = useState(false);
+    const lenis = useLenis();
 
     useEffect(() => {
         setMounted(true);
@@ -25,6 +26,15 @@ export default function About() {
           }
         }, 750);
     },[])
+
+    useEffect(() => {
+      if (!lenis) return;
+      lenis.stop();
+      window.scrollTo(0,0);
+      setTimeout(() => {
+        lenis.start();
+      },0)
+    },[lenis])
 
     useEffect(() => {
         return () => {

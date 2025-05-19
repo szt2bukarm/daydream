@@ -18,6 +18,7 @@ import navStyles from './components/Nav/nav.module.scss'
 import Logo3D from "./components/Logo3D/Logo3D";
 import Text3D from "./components/Text3D/Text3D";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
+import { useLenis } from "@studio-freight/react-lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,16 @@ export default function Home() {
   const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
   const lastHeight = useRef(typeof window !== 'undefined' ? window.innerHeight : 0);
   const {isMobile} = useStore();
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (!lenis) return;
+    lenis.stop();
+    window.scrollTo(0,0);
+    setTimeout(() => {
+      lenis.start();
+    },0)
+  },[lenis])
 
   useEffect(() => {
     const handleResize = () => {

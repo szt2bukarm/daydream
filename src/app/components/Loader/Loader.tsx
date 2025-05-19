@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react'; // Import useState and useEffect
+import { use, useEffect, useRef, useState } from 'react'; // Import useState and useEffect
 import gsap from 'gsap';
 import styles from './loader.module.scss';
 import {useStore} from '@/useStore';
@@ -12,8 +12,8 @@ const logoPaths = letters.map(letter => `LogoSVG/${letter}.svg`);
 
 const assets = [
     "About/logostroke.webp",
-    "About/poster1.png",
-    "About/poster2.png",
+    "About/poster1.webp",
+    "About/poster2.webp",
     "Colors/1.webp",
     "Colors/2.webp",
     "Colors/3.webp",
@@ -123,6 +123,7 @@ const assets = [
 export default function Loader() {
     const { setLoaded, loaded } = useStore();
     const [progress, setProgress] = useState(0);
+    const progressRef = useRef(0);
     const [hideLoader, setHideLoader] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [domReady, setDomReady] = useState(false);
@@ -156,6 +157,22 @@ export default function Loader() {
   
     useEffect(() => {
       useGLTF.preload("/model.glb");
+      useGLTF.preload('/Gallery/1.webp');
+      useGLTF.preload('/Gallery/2.webp');
+      useGLTF.preload('/Gallery/3.webp');
+      useGLTF.preload('/Gallery/4.webp');
+      useGLTF.preload('/Gallery/5.webp');
+      useGLTF.preload('/Gallery/6.webp');
+      useGLTF.preload('/Gallery/7.mp4');
+      useGLTF.preload('/Gallery/8.webp');
+      useGLTF.preload('/Gallery/9.webp');
+      useGLTF.preload('/Gallery/10.webp');
+      useGLTF.preload('/Gallery/11.webp');
+      useGLTF.preload('/Gallery/12.webp');
+      useGLTF.preload('/Gallery/13.webp');
+      useGLTF.preload('/Gallery/14.webp');
+      useGLTF.preload('/Gallery/15.webp');
+    
   
       const onDOMContentLoaded = () => setDomReady(true);
       if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -186,7 +203,14 @@ export default function Loader() {
             window[asset] = img;
             loadedAssets++;
             const progress = (loadedAssets / totalAssets) * 100;
-            setProgress(progress);
+            const step = 12;
+            const numLetters = 8;
+        
+            for (let i = 0; i < numLetters; i++) {
+              if (progress > step * (i + 1)) {
+                revealLetter(i);
+              }
+            }
             checkAllLoaded();
           };
           img.src = asset;
@@ -210,24 +234,23 @@ export default function Loader() {
   
       loadAllAssets();
     }, []);
-  
+
     const revealLetter = (index) => {
       gsap.set(`.${styles.logoLetter}[data-index="${index}"]`, { opacity: 1 });
       gsap.to(`.${styles.logoLetter}[data-index="${index}"]`, { y: 0 });
     };
   
-    useGSAP(() => {
+    useEffect(() => {
       gsap.set(`.${styles.logoLetter}`, { y: 50 });
+      // const step = 12;
+      // const numLetters = 8;
   
-      const step = 12;
-      const numLetters = 8;
-  
-      for (let i = 0; i < numLetters; i++) {
-        if (progress > step * (i + 1)) {
-          revealLetter(i);
-        }
-      }
-    }, [progress]);
+      // for (let i = 0; i < numLetters; i++) {
+      //   if (progress > step * (i + 1)) {
+      //     revealLetter(i);
+      //   }
+      // }
+    }, []);
   
     useEffect(() => {
       if (loaded && videoLoaded && domReady) {
@@ -249,7 +272,7 @@ export default function Loader() {
       <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 10 }}>
         <div className={styles.wrapper}>
           <video autoPlay muted playsInline loop style={{ opacity: 0, position: "absolute", zIndex: "-1" }}>
-            <source src={`herovide.mp4`} type="video/mp4" />
+            <source src={`herovideo.mp4`} type="video/mp4" />
           </video>
           <Aurora />
           <div className={styles.background}></div>

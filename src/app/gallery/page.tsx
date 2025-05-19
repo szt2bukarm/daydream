@@ -5,15 +5,21 @@ import * as THREE from 'three'
 import navStyles from '../components/Nav/nav.module.scss'
 
 const imageUrls = [
-  '/Gallery/1.png',
-  '/Gallery/2.png',
-  '/Gallery/3.png',
-  '/Gallery/4.png',
+  '/Gallery/1.webp',
+  '/Gallery/2.webp',
+  '/Gallery/3.webp',
+  '/Gallery/4.webp',
+  '/Gallery/5.webp',
+  '/Gallery/6.webp',
+  '/Gallery/8.webp',
   '/Gallery/7.mp4',
-  '/Gallery/5.png',
-  '/Gallery/6.png',
-  '/Gallery/8.png',
-  '/Gallery/9.png',
+  '/Gallery/9.webp',
+  '/Gallery/10.webp',
+  '/Gallery/11.webp',
+  '/Gallery/12.webp',
+  '/Gallery/13.webp',
+  '/Gallery/14.webp',
+  '/Gallery/15.webp',
 ]
 
 function InfiniteScrollGallery() {
@@ -38,8 +44,8 @@ function InfiniteScrollGallery() {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
-      setIsMobile(width < 1000)
-      setMobileWidth(width * 0.9)
+      setIsMobile(width < 900)
+      setMobileWidth(width > 450 ? width * 0.55 : width * 0.65)
     }
     handleResize()
     window.addEventListener('resize', handleResize)
@@ -240,6 +246,10 @@ function ImageCard({
       video.crossOrigin = 'anonymous'
       video.loop = true
       video.muted = true
+      video.playsInline = true
+      video.setAttribute('playsinline', '') // ✅ Fallback
+      video.setAttribute('webkit-playsinline', '') // ✅ WebKit iOS-specific
+      video.autoplay = true // ✅ Attempt autoplay (muted required)
       video.play()
 
       video.addEventListener('loadedmetadata', () => {
@@ -310,12 +320,39 @@ export default function GalleryPage() {
     }, 750)
     const handleResize = () => {
       const width = window.innerWidth
-      setViewportHeight(width <= 1000 ? '100dvh' : '90vh')
+      setViewportHeight(width <= 900 ? '100dvh' : '90vh')
     }
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  const lastWidth = useRef(typeof window !== 'undefined' ? window.innerWidth : 0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+  
+      const crossedWidthThreshold =
+        (lastWidth.current <= 900 && currentWidth > 900) ||
+        (lastWidth.current > 900 && currentWidth <= 900);
+  
+      
+      if (crossedWidthThreshold) {
+        window.location.reload();
+      }
+  
+      lastWidth.current = currentWidth;
+    };
+  
+    window.addEventListener('resize', handleResize);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
 
   return (
     <div
