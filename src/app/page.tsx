@@ -32,10 +32,10 @@ export default function Home() {
   useEffect(() => {
     if (!lenis) return;
     lenis.stop();
-    window.scrollTo(0,0);
     setTimeout(() => {
+      window.scrollTo(0,0);
       lenis.start();
-    },0)
+    },1)
   },[lenis])
 
   useEffect(() => {
