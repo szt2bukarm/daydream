@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "DAYDREAM",
     description: "A music player built for the now. Seamless, social, and made to move with you.",
-    url: "https://daydream-lilac.vercel.app/",
+    url: "https://www.daydreamplayer.com/",
     siteName: "DAYDREAM",
     images: [
       {
