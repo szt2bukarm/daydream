@@ -4,9 +4,17 @@ import styles from './alert.module.scss'
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useLenis } from '@studio-freight/react-lenis';
+import { useEffect, useState } from 'react';
 export default function Alert() {
     const {showAlert,setShowAlert} = useStore();
+    const [width, setWidth] = useState(window.innerWidth);
     const lenis = useLenis();
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useGSAP(() => {
         gsap.set(`.${styles.wrapper}`,{opacity: 0})
@@ -57,9 +65,14 @@ export default function Alert() {
         <div className={styles.wrapper}>
             <div className={styles.overlay} onClick={closeAlert}></div>
             <div className={styles.alert}>
+                {width > 500 && 
                 <p className={styles.title}>
                 Thank you for your interest,<br></br>but Daydream is only a concept.
-                </p>
+                </p>}
+                {width <= 500 && 
+                <p className={styles.title}>
+                Thank you for your interest, but Daydream is only a concept.
+                </p>}
                 <p className={styles.subtext}>Need a website?<br></br>Take a look at our portfolios:</p>
             <div className={styles.contactWrapper}>
                 <div className={styles.col}>

@@ -1,17 +1,12 @@
 // "use client"
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import TransitionLink from "./components/TransitionLink3D";
-import Render from './components/Logo3D/Logo3D'
-import FadeLayer from "./components/FadeLayer";
 import Nav from "./components/Nav/Nav";
 import SmoothScroll from "./components/SmoothScroll";
 import { ViewTransitions } from "next-view-transitions";
-import { usePathname } from "next/navigation";
 import Loader from "./components/Loader/Loader";
 import Alert from "./components/Alert/Alert";
-import ViewTransitionHandler from "./ViewTransitionHandler";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "DAYDREAM",
@@ -67,22 +62,15 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        
         </head>
-
       <body>
         <Loader />
         <SmoothScroll>
           {children}
           <Alert />
         </SmoothScroll>
-        {/* <div style={{color:"white",position: "absolute",top:"1%",left:"50%",transform:"translate(-50%,-50%)",zIndex:10}}>
-            <TransitionLink href="/oldal">oldal</TransitionLink>
-            <TransitionLink href="/">fing</TransitionLink>
-        </div> */}
         <Nav />
-        {/* <FadeLayer /> */}
-        {/* <Render /> */}
+        <Analytics />
       </body>
     </html>
     </ViewTransitions>

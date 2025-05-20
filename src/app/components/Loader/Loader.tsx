@@ -170,8 +170,6 @@ export default function Loader() {
       useGLTF.preload('/Gallery/11.webp');
       useGLTF.preload('/Gallery/12.webp');
       useGLTF.preload('/Gallery/13.webp');
-      useGLTF.preload('/Gallery/14.webp');
-      useGLTF.preload('/Gallery/15.webp');
     
   
       const onDOMContentLoaded = () => setDomReady(true);

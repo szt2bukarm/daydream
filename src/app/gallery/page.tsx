@@ -18,8 +18,6 @@ const imageUrls = [
   '/Gallery/11.webp',
   '/Gallery/12.webp',
   '/Gallery/13.webp',
-  '/Gallery/14.webp',
-  '/Gallery/15.webp',
 ]
 
 function InfiniteScrollGallery() {
