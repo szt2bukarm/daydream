@@ -43,16 +43,16 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="MonaSansExpanded-SemiBold.otf"
+          href="Archivo_SemiExpanded-SemiBold.ttf"
           as="font"
-          type="font/otf"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="MonaSansExpanded-Regular.otf"
+          href="Archivo_SemiExpanded-Regular.ttf"
           as="font"
-          type="font/otf"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         {/* <link
