@@ -16,14 +16,14 @@
     flex-direction: column;
     gap: 50px;
     margin-bottom: 85px;
-    // overflow: hidden;
 
-    // @media (max-width: 900px) {
-        // width: 521px;
-    // }
+    @media (max-width: 1324px) {
+        width: 750px;
+    }
 
-    @media (max-width: 920px) {
-        width: 90%;
+    @media (max-width: 800px) {
+        width: 100%;
+        padding-inline: 30px;
     }
 }
 
@@ -38,9 +38,10 @@
     line-height: normal;
     letter-spacing: -0.5px;
     margin-right: 10px;
+    width: 100%;
 
     @media (max-width: 1324px) {
-        font-size: 40px;
+        font-size: 41px;
         letter-spacing: -0.44px;
     }
 
