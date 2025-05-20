@@ -30,14 +30,14 @@
 }
 
 .imageWrapperRight{
-    transform: translateX(100px);
+    // transform: translateX(50px);
     margin-bottom: 100px;
     @media (min-width: 1800px) {
         transform: translateX(-70px);
     }
 
-    @media (max-width: 1550px) {
-        transform: translateX(50px);
+    @media (max-width: 1700px) {
+        transform: translateX(100px);
     }
 
     @media (max-width: 1450px) {
@@ -52,13 +52,13 @@
 }
 
 .imageWrapperLeft{
-    transform: translateX(-100px);
+    // transform: translateX(-30px);
     @media (min-width: 1800px) {
         transform: translateX(70px);
     }
     
-    @media (max-width: 1550px) {
-        transform: translateX(-50px);
+    @media (max-width: 1700px) {
+        transform: translateX(-100px);
     }
 
     @media (max-width: 1450px) {

@@ -27,7 +27,7 @@ export default function AboutTextRight({ orientation }: { orientation: string })
         textElements.forEach(text => {
             if (text) {
                 text.style.fontSize = '49px';
-                text.style.width = '917px';
+                text.style.width = '889px';
             }
         });
 
@@ -77,47 +77,22 @@ export default function AboutTextRight({ orientation }: { orientation: string })
         return trigger;
     };
 
-    // useGSAP(() => {
-    //     if (typeof window === 'undefined') return;
-    //     gsap.set([`.${posterStyles.imageLeft}`, `.${posterStyles.backgroundLeft}`], {
-    //         x: '150vw',
-    //         rotate: 0
-    //     });
-
-    //     ScrollTrigger.create({
-    //         trigger: `.${orientation === "right" ? styles.wrapperRightText : styles.wrapperLeftText}`,
-    //         start: 'top 30%',
-    //         end: 'top 30%',
-    //         onEnter: () => {
-    //             gsap.to([`.${posterStyles.backgroundLeft}`, `.${posterStyles.imageLeft}`], {
-    //                 x: 0,
-    //                 stagger: 0.15,
-    //                 duration: 1.5,
-    //                 ease: 'power4.out'
-    //             });
-                
-    //             gsap.to(`.${posterStyles.backgroundLeft}`, {
-    //                 rotate: 11,
-    //                 delay: 0.1
-    //             });
-                
-    //             gsap.to(`.${posterStyles.imageLeft}`, {
-    //                 rotate: 21,
-    //                 delay: 0.15
-    //             });                
-    //         }})
-    // },[mounted])
-
     useGSAP(() => {
         if (typeof window === 'undefined') return;
+        if (!mounted) return;
         // Initial setup
         const splitTextInstance = splitAndStyleText();
         if (!splitTextInstance) return;
 
         splitInstanceRef.current = splitTextInstance;
         scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
-
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            const currentWidth = window.innerWidth;
+
+            if (currentWidth == lastWidth) return;
+            lastWidth = currentWidth;
+            
             clearTimeout(resizeTimeout!);
 
             // Fade out text during resize

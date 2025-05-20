@@ -101,7 +101,7 @@ export default function FooterNav() {
         })
         const trigger = ScrollTrigger.create({
             trigger: `.${wheelStyles.wrapper}`,
-            start: '0% top',
+            start: '-10% top',
             end: '80% top',
             scrub: true,
             animation: tl,

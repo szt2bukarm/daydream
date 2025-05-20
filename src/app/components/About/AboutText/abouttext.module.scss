@@ -24,7 +24,7 @@
     letter-spacing: -0.49px;
 
     @media (max-width: 1550px) {
-        font-size: 40px;
+        font-size: 39px;
         letter-spacing: -0.44px;
         width: 740px;
     }
@@ -37,7 +37,7 @@
     }
 
     @media (max-width: 970px) {
-        padding-inline: 50px;
+        padding-inline: 40px;
     }
 
     @media (max-width: 724px) {
@@ -51,6 +51,7 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+    width: 100%;
 }
 
 .textLeft{

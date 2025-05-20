@@ -17,7 +17,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vimeo/player": "^2.26.0",
     "framer-motion": "^12.4.7",
-    "gsap": "^3.12.7",
+    "gsap": "^3.13.0",
     "leva": "^0.10.0",
     "next": "14.2.22",
     "next-view-transitions": "^0.3.4",

@@ -79,6 +79,7 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
 
     useGSAP(() => {
         if (typeof window === 'undefined') return;
+        if (!mounted) return;
         const splitTextInstance = splitAndStyleText();
         if (!splitTextInstance) return;
 
@@ -112,8 +113,12 @@ export default function AboutTextLeft({ orientation }: { orientation: string }) 
 
         splitInstanceRef.current = splitTextInstance;
         scrollTriggerInstance.current = setupScrollTrigger(splitTextInstance);
-
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            const currentWidth = window.innerWidth;
+
+            if (currentWidth == lastWidth) return;
+            lastWidth = currentWidth;
             clearTimeout(resizeTimeout!);
 
             // Fade out text during resize

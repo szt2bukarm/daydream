@@ -71,10 +71,10 @@ export default function FloatingCards() {
   const setupCardPositions = () => {
     const cardPositions = smallerScreenRef.current
       ? [
-          { y: '110vh',x:"10%", rotate: 20 },
-          { y: '110vh',x:"10%", rotate: -20 },
-          { y: '110vh',x:"10%", rotate: 10 },
-          { y: '110vh',x:"10%", rotate: -10 }
+          { y: '150vh',x:"10%", rotate: 20 },
+          { y: '150vh',x:"10%", rotate: -20 },
+          { y: '150vh',x:"10%", rotate: 10 },
+          { y: '150vh',x:"10%", rotate: -10 }
         ]
       : [
           { x: "150vw", y: 110, rotate: 15 },

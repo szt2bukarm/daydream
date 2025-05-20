@@ -73,12 +73,11 @@ export default function AboutTextMobile({ texts }: { texts: string[] }) {
         const handleResize = () => {
             const currentWidth = window.innerWidth;
     
-            if (currentWidth !== lastWidth) {
+            if (currentWidth == lastWidth) return;
                 lastWidth = currentWidth;
     
                 clearTimeout(resizeTimeout!);
     
-                // Fade out text during resize
                 textRef.current.forEach(text => {
                     if (text && text.style.opacity !== '0') {
                         gsap.to(text, { opacity: 0, duration: 0.2 });
@@ -86,38 +85,31 @@ export default function AboutTextMobile({ texts }: { texts: string[] }) {
                 });
     
                 resizeTimeout = setTimeout(() => {
-                    // Revert previous split
                     if (splitInstanceRef.current) {
                         splitInstanceRef.current.revert();
                         splitInstanceRef.current = null;
                     }
     
-                    // Kill existing scroll trigger
                     if (scrollTriggerInstance.current) {
                         scrollTriggerInstance.current.kill();
                         scrollTriggerInstance.current = null;
                     }
     
-                    // Re-split text
                     const newSplit = splitAndStyleText();
                     if (!newSplit) return;
                     splitInstanceRef.current = newSplit;
     
-                    // Create new scroll trigger
                     const newTrigger = setupScrollTrigger(newSplit);
                     scrollTriggerInstance.current = newTrigger;
     
-                    // Refresh ScrollTrigger calculations
                     ScrollTrigger.refresh();
     
-                    // Restore text opacity
                     textRef.current.forEach(text => {
                         if (text) {
                             gsap.to(text, { opacity: 1, duration: 0.2 });
                         }
                     });
                 }, 200);
-            }
         };
     
         window.addEventListener('resize', handleResize);
