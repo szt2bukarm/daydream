@@ -29,6 +29,12 @@ body{
   background-color: #080808;
 }
 
+img {
+  user-drag: none;     
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
+
 body.lock-scroll {
   overflow: hidden !important;
   /* position: fixed;
