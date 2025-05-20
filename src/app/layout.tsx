@@ -43,25 +43,25 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="acumin-pro-wide-medium.otf"
+          href="MonaSansExpanded-SemiBold.otf"
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="acumin-pro-wide-bold.otf"
+          href="MonaSansExpanded-Regular.otf"
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
         />
-        <link
+        {/* <link
           rel="preload"
           href="acumin-pro-wide.otf"
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
-        />
+        /> */}
         </head>
       <body>
         <Loader />

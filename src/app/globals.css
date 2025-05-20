@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @font-face {
   font-family: 'Acumin Pro Wide';
-  src: url('/acumin-pro-wide.otf');
+  src: url('/MonaSansExpanded-Regular.otf');
 }
 
 @font-face {
   font-family: 'Acumin Pro Bold';
-  src: url('/acumin-pro-wide-bold.otf');
+  src: url('/MonaSansExpanded-SemiBold.otf');
 }
 
 ::-webkit-scrollbar{
