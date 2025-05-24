@@ -32,9 +32,13 @@ export default function About() {
       lenis.stop();
       setTimeout(() => {
         window.scrollTo(0,0);
-        lenis.start();
       },1)
+      setTimeout(() => {
+        lenis.start();
+        lenis.scrollTo(0);
+      }, 100);
     },[lenis])
+  
 
     useEffect(() => {
         return () => {

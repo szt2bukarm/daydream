@@ -57,6 +57,11 @@ export default function VideoPlayer() {
         setShowPlayer(false);
         lenis.start();
         document.body.classList.remove('lock-scroll');
+        const nav = document.querySelector(`.${navStyles.navWrapper}`);
+        if (nav) {
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'all';
+        }
       }
     };
   
