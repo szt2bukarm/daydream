@@ -37,10 +37,9 @@ export default function Home() {
     },1)
     setTimeout(() => {
       lenis.start();
-      lenis.scrollTo(0);
-    }, 100);
+    }, 10);
   },[lenis])
-
+  
   useEffect(() => {
     const handleResize = () => {
       if (isMobile) return;

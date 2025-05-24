@@ -35,10 +35,8 @@ export default function About() {
       },1)
       setTimeout(() => {
         lenis.start();
-        lenis.scrollTo(0);
-      }, 100);
+      }, 10);
     },[lenis])
-  
 
     useEffect(() => {
         return () => {
