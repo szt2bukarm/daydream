@@ -55,13 +55,6 @@ export default function RootLayout({
           type="font/ttf"
           crossOrigin="anonymous"
         />
-        {/* <link
-          rel="preload"
-          href="acumin-pro-wide.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        /> */}
         </head>
       <body>
         <Loader />

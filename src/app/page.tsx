@@ -34,12 +34,10 @@ export default function Home() {
     lenis.stop();
     setTimeout(() => {
       window.scrollTo(0,0);
-    },1)
-    setTimeout(() => {
       lenis.start();
-    }, 10);
+    },1)
   },[lenis])
-  
+
   useEffect(() => {
     const handleResize = () => {
       if (isMobile) return;

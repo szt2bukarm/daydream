@@ -287,6 +287,8 @@ export default function Loader() {
             ))}
           </div>
           <div className={styles.fog}></div>
+          <p style={{fontFamily: "Archivo Regular",opacity: 0}}>regular</p>
+          <p style={{fontFamily: "Archivo SemiBold",opacity: 0}}>bold</p>
         </div>
       </div>
     );
