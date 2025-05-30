@@ -1,0 +1,20 @@
+.wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #161616;
+    overflow: hidden;
+    z-index: 1000;
+    font-size: 32px;
+    color: #fff;
+    font-family: Manrope;
+
+    @media (min-height: 500px) {
+        display: none;
+    }
+}

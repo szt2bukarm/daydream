@@ -1,0 +1,26 @@
+.wrapper{
+    position: relative;
+    background-color: #161616;
+    min-width: 100vw;
+    height: 3000px;
+    overflow-x: hidden;
+}
+
+.fixed{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.overlay{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0;
+    pointer-events: none;
+}

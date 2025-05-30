@@ -1,0 +1,63 @@
+.wrapper{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #EE4137;
+}
+
+.logos{
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo{
+    position: absolute;
+    left: 0;
+    bottom: 70px;
+    // width: 100%;
+    // height: 100vh;
+    // height: 0%;
+    display: flex;
+    z-index: 2;
+
+    @media (max-width: 724px) {
+        bottom: 100px;
+    }
+}
+
+.logoLetter{
+    height: 9.57vw; /* Scales dynamically with viewport height */
+    fill: #fff;
+    margin-right: 1vw;
+    opacity: 0;
+}
+
+.logoLetter:nth-child(2) {
+    margin-left: -1vw;
+}
+
+.logoLetter:nth-child(3) {
+    margin-left: -2.5vw;
+}
+
+
+.fog{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, #EE4137 25%, transparent);
+    z-index: 3;
+}

@@ -1,0 +1,129 @@
+.wrapper{
+    position: relative;
+    width: 100%;
+    // overflow-x: hidden;
+    // overflow-y: visible;
+}
+
+.gradient{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 6;
+    // transform: translateY(200px);
+
+    @media (max-width: 724px) {
+        bottom: -60px;
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: flex-end;
+    width: 100%;
+    height: 100vh;
+    z-index: 10 !important;
+    background-color: #e0e0e0 !important;
+    overflow: hidden;
+    // z-index: 60;
+
+    @media (max-width: 724px) {
+        height: 50vh;
+    }
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #e0e0e0;
+}
+
+.image {
+    width: 100%;
+    height: 120%;
+    object-fit: contain;
+    object-position: bottom;
+    z-index: 5;
+
+    @media (max-width: 1324px) {
+        object-fit: cover;
+    }
+}
+
+.variants {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #BFBFBF;
+    overflow: hidden;
+    z-index: 10;
+
+    @media (max-width: 724px) {
+        height: 100%;
+    }
+}
+
+.text{
+    display: flex;
+    gap: 7px;
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    color: #2D2D2D;
+    text-align: center;
+    font-family: "Archivo Regular";
+    font-size: 49px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 85%; /* 41.65px */
+
+    @media (max-width: 1324px) {
+        font-size: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 30px;
+        padding-inline: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+    }
+}
+
+.cards{
+    position: absolute;
+    left: 600px;
+    top: 50px;
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: 1324px) {
+        left: 32px;
+        top: 120px;
+    }
+
+    // @media (max-width: 724px) {
+    //     left: 32px;
+    //     top: 20%;
+    //     // transform: translateY(-50%);
+    // }
+}
+
+.cardsMobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    gap: 20px;
+}

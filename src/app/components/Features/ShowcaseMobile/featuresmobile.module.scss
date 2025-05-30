@@ -1,0 +1,15 @@
+.wrapper{
+    position: relative;
+    width: 100%;
+    // height: 200vh;
+    background-color: #161616;
+    overflow-x: hidden;
+}
+
+.show{
+    display: block !important;
+}
+
+.hide{
+    display: none !important;
+}

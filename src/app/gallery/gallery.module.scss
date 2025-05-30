@@ -1,0 +1,19 @@
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    margin-bottom: 1px;
+    background-color: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.images{
+    // margin-top: calc(100vh - 90vh);
+    display: flex;
+    min-width: 100%;
+    gap: 16px;
+}
+
+.images > img {
+    height: 80vh;
+}

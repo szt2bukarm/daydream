@@ -1,0 +1,41 @@
+.wrapper{
+    position: relative;
+    width: 100%;
+    background-color: #161616;
+    margin-bottom: 150px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.albums{
+    width: max-content;
+    display: flex;
+    gap: 8px;
+    margin-block: 25px;
+    animation: scroll 30s linear infinite;
+
+
+    @media (max-width: 1324px) {
+        animation: scrollMobile 30s linear infinite;
+    }
+
+    @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc((-192px * 9)));
+        }
+      }
+
+      @keyframes scrollMobile {
+        0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc((-155px * 9)));
+          }
+      }
+}

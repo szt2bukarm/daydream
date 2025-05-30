@@ -1,0 +1,25 @@
+<svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon / smiley" filter="url(#filter0_dd_20_485)">
+<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M9.77194 6.58892C9.42569 6.58892 9.14328 6.30715 9.14328 5.96026C9.14199 5.79584 9.20711 5.63658 9.32575 5.5173C9.44439 5.39737 9.60236 5.3316 9.77129 5.3316C10.1182 5.3316 10.4012 5.61337 10.4012 5.96026C10.4012 6.30715 10.1188 6.58892 9.77194 6.58892ZM7.69318 11.4718C6.26435 11.4718 5.10117 10.2326 5.10117 8.70895C5.10117 8.53099 5.24495 8.38656 5.42356 8.38656H9.96279C10.1408 8.38656 10.2852 8.53099 10.2852 8.70895C10.2852 10.2326 9.12265 11.4718 7.69318 11.4718ZM5.1347 5.5173C5.25333 5.39737 5.41131 5.3316 5.58024 5.3316C5.92713 5.3316 6.21019 5.61337 6.21019 5.96026C6.21019 6.30715 5.92777 6.58892 5.58088 6.58892C5.23464 6.58892 4.95222 6.30715 4.95222 5.96026C4.95093 5.79584 5.01606 5.63658 5.1347 5.5173ZM7.69253 1.75244C4.31518 1.75244 1.56714 4.50049 1.56714 7.87783C1.56714 11.2552 4.31518 14.0032 7.69253 14.0032C11.0705 14.0032 13.8179 11.2552 13.8179 7.87783C13.8179 4.50049 11.0705 1.75244 7.69253 1.75244Z" fill="#FDD868"/>
+</g>
+<defs>
+<filter id="filter0_dd_20_485" x="-1.03642" y="0.529297" width="17.4574" height="18.8358" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="1.37821" operator="erode" in="SourceAlpha" result="effect1_dropShadow_20_485"/>
+<feOffset dy="2.75643"/>
+<feGaussianBlur stdDeviation="1.37821"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_485"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="0.459404" operator="erode" in="SourceAlpha" result="effect2_dropShadow_20_485"/>
+<feOffset dy="0.918809"/>
+<feGaussianBlur stdDeviation="0.459404"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow_20_485" result="effect2_dropShadow_20_485"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_20_485" result="shape"/>
+</filter>
+</defs>
+</svg>

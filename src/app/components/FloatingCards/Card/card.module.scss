@@ -1,0 +1,119 @@
+.wrapper{
+    position: relative;
+    width: 34vw;
+    height: 70vh;
+    padding-top: 33px;
+    padding-left: 30px;
+    padding-right: 61px;
+    padding-bottom: 52px;
+    border-radius: 20px;
+    overflow: hidden;
+    will-change: transform;
+
+    @media (max-width: 1324px) {
+        width: 39vw;
+    }
+
+    @media (max-width: 1024px) {
+        width: 83vw;
+    }
+}
+
+.dark{
+    background: linear-gradient(180deg, #070707 0%, #181818 100%);
+    backdrop-filter: blur(0px);
+}
+
+.light{
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(30px);
+}
+
+.wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px; 
+    padding: 5px; 
+    background:linear-gradient(45deg,rgba(255, 255, 255, 0.5), transparent, rgba(255, 255, 255, 0.5)); 
+    mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    mask-composite: exclude; 
+    z-index: -1;
+}
+
+
+.note{
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    // width: 25vw;
+    height: 60vh;
+}
+
+.inner{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.textWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    // width: 495px;
+    z-index: 1;
+}
+
+.header{
+    color: #FFF;
+    font-family: "Archivo Regular";
+    font-size: 39px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 129%;
+    letter-spacing: -0.39px;
+
+    @media (max-width: 1324px) {
+        font-size: 32px;
+        letter-spacing: -0.32px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 24px;
+        letter-spacing: -0.24px;
+    }
+}
+
+.text{
+    color: #FFF;
+    font-family: Manrope;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 129%; 
+    letter-spacing: -0.25px;
+
+    @media (max-width: 1324px) {
+        font-size: 20px;
+        letter-spacing: -0.2px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 16px;
+        letter-spacing: -0.16px;
+    }
+}
+
+.icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background-color: #282828;
+    font-size: 36px;
+}

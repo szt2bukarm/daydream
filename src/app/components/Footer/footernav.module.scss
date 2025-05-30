@@ -1,0 +1,269 @@
+.wrapper{
+    position: relative;
+    height: 720px;
+    width: 100%;
+    // overflow: hidden;
+    background-color: #161616;
+}
+
+.footer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #EE4137;
+}
+
+.navWrapper{
+    position: absolute;
+    top: 100px;
+    left: 2.5vw;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 724px) {
+        top: 60px;
+        left: 30px;
+    }
+
+    @media (max-height: 650px) {
+        top: 150px;
+    }
+
+    @media (max-height: 570px) {
+        top: 250px;
+    }
+
+    @media (max-width: 499px) {
+        top: 100px
+    }
+
+}
+
+.navText{
+    color: #161616;
+    font-family: "Archivo SemiBold";
+    font-size: 24px;
+    font-style: normal;
+    // font-weight: 600;
+    line-height: 100%; /* 24px */
+    margin-bottom: 18px;
+}
+
+.navItem{
+    position: relative;
+    color: #161616;
+    font-family: "Archivo Regular";
+    font-size: 24px;
+    font-style: normal;
+    // font-weight: 400;
+    line-height: 100%; /* 24px */
+    text-decoration: none;
+    height: 25px;
+    width: 150px;
+    overflow: hidden;
+
+    &:hover .navItemTextInline{
+        top: -25px;
+    }
+
+    &:hover .navItemTextSlideup{
+        top: 0px;
+    }
+
+    @media (max-width: 724px) {
+        margin-bottom: 10px;
+    }
+
+    &TextInline{
+        position: absolute;
+        top: 0px;
+        left: 0;
+        transition: 250ms;
+    }
+    &TextSlideup{
+        position: absolute;
+        top: 27px;
+        left: 0;
+        transition: 250ms;
+        font-weight: 600;
+    }
+}
+
+.disclamerWrapper{
+    position: absolute;
+    bottom: 40px;
+    right: 2.5vw;
+    display: flex;
+    gap: 15px;
+    z-index: 1;
+
+    @media (max-width: 1000px) {
+        bottom: 50px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+}
+
+.disclamer{
+    color: #161616;
+    font-family: "Archivo Regular";
+    font-size: 24px;
+    font-style: normal;
+    // font-weight: 400;
+    line-height: 100%; /* 24px */
+    text-align: right;
+
+
+    @media (max-width: 1324px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 1000px) {
+        font-size: 16px;
+    }
+}
+
+.credits{
+    position: relative;
+    color: #161616;
+    text-align: center;
+    font-family: "Archivo SemiBold";
+    font-size: 20px;
+    font-style: normal;
+    // font-weight: 600;
+    line-height: 85%; /* 17px */
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+
+    @media (max-width: 724px) {
+        font-size: 16px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #161616;
+        transition: 250ms;
+    }
+    &:hover::after {
+        width: 100%;
+    }
+}
+
+
+.logo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 0;
+    bottom: 30px;  
+    padding-inline: 2.3vw;
+    gap: 1vw;
+    z-index: 1;
+
+    @media (max-width: 1000px) {
+        bottom: 75px;
+    }
+
+    @media (max-width: 724px) {
+        bottom: 95px
+    }
+}
+
+.logoSVG {
+    height: 15vw; 
+    fill: #171717;
+    margin-right: 1vw;
+}
+
+.letter {
+    height: 7.4vw;
+}
+
+.letter:nth-child(3) {
+    margin-left: -1vw;
+}
+
+.letter:nth-child(4) {
+    margin-left: -2.5vw;
+}   
+
+.backgroundLogo{
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    width: 700px;
+    height: 700px;
+    fill: #EE4137 !important;
+    stroke: #161616;
+    z-index: 0;
+
+    @media (max-width: 724px) {
+        width: 400px;
+        height: 400px;
+        bottom: 0;
+        top: auto;
+        // right: 300px;
+    }
+}
+
+.svg .path {
+    stroke-dasharray: 2000;  
+    stroke-dashoffset: 2000; 
+    animation: drawPath 2s ease-in-out forwards; 
+  }
+  
+  @keyframes drawPath {
+    0% {
+      stroke-dashoffset: 2000;
+    }
+    100% {
+      stroke-dashoffset: 0; 
+    }
+  }
+
+.creditsTextWrapper{
+    position: absolute;
+    bottom: 30px;
+    // left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    color: #EE4137;
+    font-family: "Archivo Regular";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    width: 100%;
+    padding-inline: 40px;
+    line-height: 100%; /* 20px */
+
+    @media (max-width: 1324px) {
+        bottom: 30px;
+    }
+
+    @media (max-width: 1000px) {
+        font-size: 16px;
+        bottom: 40px;
+    }
+
+    @media (max-width: 724px) {
+    font-size: 14px;
+    }
+
+    @media (max-width: 500px) {
+        font-size: 12px;
+    }
+}
+
+
+
+  

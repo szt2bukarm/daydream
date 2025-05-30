@@ -1,0 +1,57 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 90px;
+    justify-content: center;
+    margin-bottom: 100px;
+
+    @media (max-width: 1324px) {
+        gap: 50px;
+        margin-bottom: 70px;
+    }
+
+    @media (max-width: 724px) {
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+}
+
+.text{
+    color: #DDD;
+    text-align: center;
+    font-family: "Archivo SemiBold";
+    font-size: 49px;
+    font-style: normal;
+    // font-weight: 600;
+    line-height: 100%; /* 61px */
+    letter-spacing: -0.61px;
+    width: 842px;
+
+    @media (max-width: 1324px) {
+        font-size: 39px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 25px;
+        width: 100%;
+        padding-inline: 20px;
+    }
+}
+
+.logo{
+    width: 95px;
+    height: 95px;
+
+    @media (max-width: 1324px) {
+        width: 75px;
+        height: 75px;
+    }
+
+    @media (max-width: 724px) {
+        width: 50px;
+        height: 50px;
+    }
+}

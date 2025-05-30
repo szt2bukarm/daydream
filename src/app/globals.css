@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@font-face {
+  font-family: 'Archivo Regular';
+  src: url('/Archivo_SemiExpanded-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Archivo SemiBold';
+  src: url('/Archivo_SemiExpanded-SemiBold.ttf');
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  overscroll-behavior: none;
+}
+
+body{
+  overflow-x: hidden;
+  background-color: #080808;
+}
+
+img {
+  user-drag: none;     
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
+
+body.lock-scroll {
+  overflow: hidden !important;
+  /* position: fixed;
+  width: 100%;
+  height: 100%; */
+  /* overscroll-behavior: none; */
+  touch-action: none;
+}
+
+.page{
+  position: relative;
+  width: 100vw !important;
+  min-height: 100vh !important; 
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+}
+
+.transition, .current {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  /* overflow-x: hidden; */
+  overflow-y: scroll;
+}
+
+.current{
+  z-index: 1;
+}
+
+
+.scrollText{
+  color: #222;
+  font-family: "Archivo SemiBold";
+  font-size: 100vh;
+  transform: translateY(-40px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 85%; /* 680px */
+}
+
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}
+
+::view-transition-group(root) {
+  z-index: auto !important;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+  will-change: transform, opacity;
+  z-index: -1;
+}
+
+::selection {
+  background-color: #ee4137; /* Change this to your desired color */
+  color: #000; /* Text color inside selection */
+}
+
+
+

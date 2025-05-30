@@ -1,0 +1,36 @@
+.header{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: "Archivo Regular";
+    font-size: 39px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 85%;
+    color: #FFF;
+    padding-block: 10px;
+    background: linear-gradient(174deg, #FFF -34.04%, #999 79.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 10;
+}
+
+.headerMobile{
+    text-align: center;
+    font-family: "Archivo Regular";
+    font-size: 25px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 85%;
+    color: #FFF;
+    padding-block: 10px;
+    background: linear-gradient(174deg, #FFF -34.04%, #999 79.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 80px;
+}

@@ -1,0 +1,65 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapperLeftText{
+    flex-direction: row;
+}
+
+.wrapperRightText{
+    flex-direction: row-reverse;
+}
+
+.text{
+    width: 889px;
+    color: #DDD;
+    font-family: "Archivo Regular";
+    font-size: 49px;
+    font-style: normal;
+    // font-weight: 400;
+    line-height: 100%; /* 49px */
+    letter-spacing: -0.49px;
+
+    @media (max-width: 1550px) {
+        font-size: 39px;
+        letter-spacing: -0.44px;
+        width: 740px;
+    }
+
+    @media (max-width: 1324px) {
+        padding-inline: 200px;
+        font-size: 31px;
+        letter-spacing: -0.31px;
+        width: 100%;
+    }
+
+    @media (max-width: 970px) {
+        padding-inline: 40px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 20px;
+        letter-spacing: -0.2px;
+        padding-inline: 20px;
+    }
+}
+
+.textWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
+.textLeft{
+    padding-left: 45px;
+    margin-right: auto;
+}
+
+.textRight{
+    padding-right: 45px;
+    margin-left: auto;
+}

@@ -1,0 +1,223 @@
+.wrapper{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-block: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #000;
+}
+
+.header{
+    color: #FFF;
+    text-align: center;
+    font-family: "Archivo Regular";
+    font-size: 61px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 85%; /* 51.85px */
+    margin-bottom: 100px;
+    z-index: 1;
+}
+
+.specWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    z-index: 1;
+}
+
+.line {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: hidden;
+    padding-block: 20px;
+    padding-inline: 20vw;
+
+    @media (max-width: 1600px) {
+        padding-inline: 15vw;
+    }
+
+    @media (max-width: 1324px) {
+        padding-inline: 10vw;
+    }
+
+    @media (max-width: 724px) {
+        padding-inline: 5vw;
+        padding-block: 15px;
+    }
+}
+
+.background {
+    position: absolute;
+    left: 0;
+    top: 100%; /* Start below the element */
+    width: 100vw;
+    height: 100%;
+    background-color: #fff;
+    transition: none; /* Disable the transition */
+}
+
+.spec {
+    color: #FFF;
+    font-family: "Archivo Regular";
+    font-size: 31px;
+    font-style: normal;
+    // font-weight: 500;
+    line-height: 115%;
+    mix-blend-mode: difference;
+
+    @media (max-width: 1324px) {
+        font-size: 25px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 16px;
+    }
+}
+
+.value {
+    color: #FFF;
+    font-family: Manrope;
+    font-size: 31px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 115%; /* 26.35px */
+    text-align: right;
+    mix-blend-mode: difference;
+
+    @media (max-width: 1324px) {
+        font-size: 25px;
+    }
+
+    @media (max-width: 724px) {
+        font-size: 16px;
+    }
+}
+
+
+.backgroundWrapper{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    overflow: hidden;
+
+    @media (max-width: 724px) {
+        top: 140px;
+    }
+}
+
+.backgroundImage{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 110%;
+    z-index: 2;
+    overflow: hidden;
+
+    @media (max-width: 724px) {
+        height: 100%;
+    }
+}
+
+.backgroundOutline{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 1289px;
+    height: 1289px;
+    z-index: 1;
+    background-color: #000;
+    overflow: hidden;
+
+    @media (max-width: 1324px) {
+        width: 1215px;
+        height: 1215px;
+    }
+}
+
+.backgroundInner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.blob{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) rotate(35deg);
+    -moz-transform: translate(-50%, -50%) rotate(35deg);
+    -ms-transform: translate(-50%, -50%) rotate(35deg);
+    -o-transform: translate(-50%, -50%) rotate(35deg);
+    transform: translate(-50%, -50%) rotate(35deg);
+    width: 200%;
+    height: 30%;
+    border-radius: 10%;
+    -webkit-filter: blur(100px);
+    -moz-filter: blur(100px);
+    -ms-filter: blur(100px);
+    -o-filter: blur(100px);
+    filter: blur(100px);
+    background-color: #fff;
+    opacity: 0.2;
+    z-index: 1;
+    -webkit-animation: move 5s linear infinite;
+    -moz-animation: move 5s linear infinite;
+    -ms-animation: move 5s linear infinite;
+    -o-animation: move 5s linear infinite;
+    animation: move 5s linear infinite;
+    overflow: hidden;
+
+    @supports (-webkit-touch-callout: none) {
+        filter: blur(5px);
+    }
+}
+
+@-webkit-keyframes move {
+    0% { left: 0; top: 100%; }
+    100% { left: 100%; top: -50px; }
+}
+
+@-moz-keyframes move {
+    0% { left: 0; top: 100%; }
+    100% { left: 100%; top: -50px; }
+}
+
+@-ms-keyframes move {
+    0% { left: 0; top: 100%; }
+    100% { left: 100%; top: -50px; }
+}
+
+@-o-keyframes move {
+    0% { left: 0; top: 100%; }
+    100% { left: 100%; top: -50px; }
+}
+
+@keyframes move {
+    0% { left: 0; top: 100%; }
+    100% { left: 100%; top: -50px; }
+}
