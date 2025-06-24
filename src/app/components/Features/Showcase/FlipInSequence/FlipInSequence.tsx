@@ -8,7 +8,7 @@ import featuresStyles from '../../features.module.scss'
 gsap.registerPlugin(ScrollTrigger);
 
 export default function FlipInSequence() {
-    const [image, setImage] = useState(0);
+    const [image, setImage] = useState(1);
     const totalFrames = 61;
     const frameDuration = 15;
 

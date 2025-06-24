@@ -52,14 +52,12 @@ function Model({ url }: { url: string }) {
       y: 0.8,
       z: 0.8,
       duration: 1,
-      force3D: true,
     }, 1.2)
 
     // Second animation: rotate (25%-75% of scroll)
     tl.to(meshRef.rotation, {
       y: '+=12',
       duration: 4,
-      force3D: true,
     }, 1.7) 
 
     return trigger;
